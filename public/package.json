@@ -11,7 +11,6 @@
     "build": "./scripts/build.sh",
     "dev": "NODE_ENV=dev nodemon --debug ./server.js",
     "start": "node server.js",
-    "publish:cozy": "./scripts/publish-cozy.sh",
     "test": "mocha tests/tests.js"
   },
   "config": {

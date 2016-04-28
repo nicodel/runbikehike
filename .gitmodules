@@ -1,0 +1,3 @@
+[submodule "publish/cozy"]
+	path = publish/cozy
+	url = git@gitlab.com:nicodel/runbikehike-cozy.git

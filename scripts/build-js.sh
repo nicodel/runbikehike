@@ -1,8 +1,8 @@
 #! /bin/bash
 #./node_modules/uglify-js/bin/uglifyjs ./sources/js/**/**/* -o ./public/app.js
 
-mkdir -p public/lib
-rsync -a --delete ./sources/js/lib/ .public/lib/
+#mkdir -p public/lib
+#rsync -a --delete ./sources/js/lib/ .public/lib/
 sed -i 's/src="js\/app.js/src="app.js/g' ./public/index.html
 sed -i '/src="js\/utils/d' ./public/index.html
 sed -i '/src="js\/factories/d' ./public/index.html

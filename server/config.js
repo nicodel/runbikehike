@@ -2,7 +2,7 @@
 'use strict';
 var americano = require('americano');
 
-var server_dir = __dirname + '/../www';
+var server_dir = __dirname + '/../public';
 if (process.env.NODE_ENV === 'dev') {
   server_dir = __dirname + '/../client';
 }
