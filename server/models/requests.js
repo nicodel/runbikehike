@@ -6,8 +6,7 @@ module.exports = {
   preferences: {
     all: cozydb.defaultRequests.all
   },
-  docs: {
+  messages: {
     all: cozydb.defaultRequests.all
   }
 };
-

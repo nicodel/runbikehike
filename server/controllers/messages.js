@@ -1,10 +1,10 @@
 /* jshint strict: true, node: true */
 'use strict';
 
-var Docs = require('../models/docs');
+var Messages = require('../models/messages');
 
 module.exports.getAll = function(req, res, next) {
-  Docs.all(function(err, docs) {
+  Messages.all(function(err, docs) {
     if (err !== null) {
       next(null);
     } else {
@@ -24,7 +24,7 @@ module.exports.getAll = function(req, res, next) {
 };
 module.exports.add = function(req, res, next) {
   // console.log('data to be added is', req.body.data);
-  Docs.add(req.body, function(err, doc) {
+  Messages.add(req.body, function(err, doc) {
     if (err !== null) {
       res.status(500).send({error: 'An error occured - ' + err + doc});
       next(null);
@@ -35,7 +35,7 @@ module.exports.add = function(req, res, next) {
 };
 module.exports.getOne = function(req, res, next) {
   console.log('getting one', req.params.id);
-  Docs.find(req.params.id, function(err, complete) {
+  Messages.find(req.params.id, function(err, complete) {
   if (err !== null) {
       next(null);
     } else {

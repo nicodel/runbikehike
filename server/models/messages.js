@@ -1,7 +1,7 @@
 /* jshint strict: true, node: true */
 'use strict';
 var cozydb = require('cozydb');
-var Docs = cozydb.getModel('docs', {
+var Messages = cozydb.getModel('messages', {
   'id'        : String,
   'name'      : String,
   'duration'  : String,
@@ -21,8 +21,8 @@ var Docs = cozydb.getModel('docs', {
   'data'      : cozydb.NoSchema,
   'value'     : String
 });
-Docs.all = function(callback) {
-  Docs.request("all", {}, function(err, docs) {
+Messages.all = function(callback) {
+  Messages.request("all", {}, function(err, docs) {
     if (err) {
       callback(err);
     } else {
@@ -30,15 +30,15 @@ Docs.all = function(callback) {
     }
   });
 };
-Docs.add = function(data, callback) {
+Messages.add = function(data, callback) {
   console.log('data to add through model is', data);
-  Docs.create(data, function(err, docs) {
+  Messages.create(data, function(err, res) {
     if (err) {
       callback(err);
     } else {
-      console.log('docs after add are', docs);
-      callback(null, docs);
+      console.log('messages after add are', res);
+      callback(null, res);
     }
   });
 };
-module.exports = Docs;
+module.exports = Messages;

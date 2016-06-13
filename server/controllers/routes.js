@@ -1,17 +1,17 @@
 /* jshint strict: true, node: true */
 'use strict';
 
-var docs = require('./docs');
+var messages = require('./messages');
 var preferences = require('./preferences');
 
 module.exports = {
-  'docs': {
-    get: docs.getAll,
-    post: docs.add,
+  'messages': {
+    get: messages.getAll,
+    post: messages.add,
   },
-  'docs/:id': {
-    get: docs.getOne,
-    put: docs.add
+  'messages/:id': {
+    get: messages.getOne,
+    put: messages.add
   },
   'preferences': {
     get: preferences.getAll,
