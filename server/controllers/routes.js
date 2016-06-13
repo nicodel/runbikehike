@@ -15,11 +15,6 @@ module.exports = {
   },
   'preferences': {
     get: preferences.getAll,
-    post: preferences.update,
-    put: preferences.update
-  },
-  'preferences/:id': {
-    get: preferences.getAll,
     put: preferences.update
   }
 };
