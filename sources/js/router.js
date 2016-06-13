@@ -1,4 +1,4 @@
-/* globals Backbone, MainView */
+/* globals Backbone, Dashboard, Messages, IndicatorsView, DashboardView */
 /* exported Router */
 'use strict';
 
@@ -7,11 +7,14 @@ var Router = Backbone.Router.extend({
     // console.log('starting router');
   },
   routes: {
-    ''  : 'main'
+    ''  : 'start'
   },
 
-  main: function() {
-    // console.log('starting MainView');
-    new MainView({});
+  start: function() {
+    Dashboard.fetch();
+    Messages.fetch();
+
+    new IndicatorsView();
+    new DashboardView();
   }
 });

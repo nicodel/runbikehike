@@ -1,8 +1,11 @@
 /* jshint strict: true, node: true */
 'use strict';
 
-module.exports.getAll = function () {
+var Messages = require('./messages');
+
+module.exports.getAll = function (req, res, next) {
   console.log('dashboard.getAll');
+  Messages.getAll(req, res, next);
 };
 module.exports.add = function () {
   console.log('dashboard.add');

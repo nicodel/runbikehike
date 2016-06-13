@@ -87,6 +87,7 @@ var DashboardView = Backbone.NativeView.extend({
   },
 
   render: function() {
+    console.log('dashboard view render', this.collection);
     if (this.el.innerHTML !== '') {
       this.viewsList.forEach(function(view) {
         view.remove();
