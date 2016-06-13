@@ -1,13 +1,9 @@
 /* globals Backbone */
-/* exported Doc */
+/* exported Message */
 'use strict';
 
-var Doc = Backbone.Model.extend({
+var Message = Backbone.Model.extend({
   idAttribute: '_id',
-
-  defaults: {
-    data: []
-  },
 
   initialize: function() {
     // console.log('DocModel initialize', this);

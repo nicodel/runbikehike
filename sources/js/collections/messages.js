@@ -1,9 +1,9 @@
-/* globals _, Backbone, Doc, Factory */
-/* exported Docs */
+/* globals _, Backbone, Message, Factory */
+/* exported Messages */
 'use strict';
 
-var DocsCollection = Backbone.Collection.extend({
-  model: Doc,
+var MessagesCollection = Backbone.Collection.extend({
+  model: Message,
 
   url: '/messages',
 
@@ -34,4 +34,4 @@ var DocsCollection = Backbone.Collection.extend({
     console.log('Something on DocsCollection', ev, res);
   }
 });
-var Docs = new DocsCollection();
+var Messages = new MessagesCollection();

@@ -1,5 +1,5 @@
 /* jshint browser: true */
-/* globals Backbone, microtemplate, Docs, Preferences, utils */
+/* globals Backbone, microtemplate, Dashboard, Preferences, utils */
 /* exported IndicatorsView */
 'use strict';
 
@@ -12,7 +12,7 @@ var IndicatorsView = Backbone.NativeView.extend({
 /*    this.model = app.IndicatorsModel;
     this.model.fetch();
     console.log('IndicatorsView is initalize', this);*/
-    this.collection = Docs;
+    this.collection = Dashboard ;
     this.render();
 
     this.listenTo(this.collection, 'change', this.render);

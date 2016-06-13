@@ -1,7 +1,7 @@
 /* jshint browser: true */
 /* globals
  Backbone, Factory, IndicatorsView, DashboardView, PreferencesView,
- Tracking, SessionsView, ReportsView, NewSession, Preferences, Doc, Docs
+ Tracking, SessionsView, ReportsView, NewSession, Preferences, Dashboard
 */
 /* exported MainView */
 'use strict';
@@ -53,17 +53,17 @@ var MainView = Backbone.NativeView.extend({
     // this.listenTo(PreferencesModel, 'all', this.somethingOnPreferences);
     // this.listenTo(SessionsCollection, 'all', this.somethingOnSessions);
 
-    Docs.fetch();
+    Dashboard.fetch();
 
     new IndicatorsView();
     new DashboardView();
-    new SessionsView();
-    new ReportsView();
+    // new SessionsView();
+    // new ReportsView();
 
-    this.listenTo(Docs, 'dashboard-entry-selected', this.showEntry);
-    this.listenTo(Docs, 'sessions-entry-selected', this.showSession);
-    this.listenTo(Docs, 'add-new', this.showSession);
-    this.listenTo(Docs, 'switch-to-gps', this.showTracking);
+    // this.listenTo(Docs, 'dashboard-entry-selected', this.showEntry);
+    // this.listenTo(Docs, 'sessions-entry-selected', this.showSession);
+    // this.listenTo(Docs, 'add-new', this.showSession);
+    // this.listenTo(Docs, 'switch-to-gps', this.showTracking);
   },
   somethingOnPreferences: function(ev, res) {
     console.log('got something on Preferences', ev, res);
@@ -74,19 +74,19 @@ var MainView = Backbone.NativeView.extend({
 
   showNewSession: function() {
     // var model = app.SessionsCollection.create({});
-    // console.log('showNewSession');
-    new NewSession({
-      model: new Doc()
-    });
-    this._viewSection(this.dom.new_session_view, this.dom.new_session_btn);
+    console.log('showNewSession');
+    // new NewSession({
+    //   model: new Doc()
+    // });
+    // this._viewSection(this.dom.new_session_view, this.dom.new_session_btn);
   },
 
   showTracking: function() {
     console.log('Tracking will start soon');
-    new Tracking({
-      model: new Doc()
-    });
-    this._viewSection(this.dom.tracking_view, this.dom.tracking_btn);
+    // new Tracking({
+    //   model: new Doc()
+    // });
+    // this._viewSection(this.dom.tracking_view, this.dom.tracking_btn);
   },
 
   showDashboard: function() {

@@ -1,5 +1,5 @@
 /* jshint browser: true */
-/* globals Backbone, Factory, Docs */
+/* globals Backbone, Factory, Dashboard */
 /* exported DashboardView */
 'use strict';
 
@@ -16,7 +16,7 @@ var DashboardView = Backbone.NativeView.extend({
 
   initialize: function() {
     // console.log('DASHBOARD VIEW - initialize');
-    this.collection = Docs;
+    this.collection = Dashboard;
     this.sortCollection();
 
     this.listenTo(this.collection, 'sync', this.render);
