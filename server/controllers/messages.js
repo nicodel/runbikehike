@@ -8,30 +8,27 @@ module.exports.getAll = function(req, res, next) {
     if (err !== null) {
       next(null);
     } else {
-      var partial = [];
-      if (docs.length !== 0) {
-        for (var i = 0; i < docs.length; i++) {
-          // console.log('data to be deleted is', docs[i].data);
-          // delete docs[i].data;
-          docs[i].data = [];
-          partial.push(docs[i]);
-        }
-      }
-      console.log('partial', partial);
-      res.send(partial);
+      res.send(docs);
     }
   });
 };
 module.exports.add = function(req, res, next) {
-  // console.log('data to be added is', req.body.data);
-  Messages.add(req.body, function(err, doc) {
-    if (err !== null) {
-      res.status(500).send({error: 'An error occured - ' + err + doc});
-      next(null);
+  console.log('Message to be added is', req.body);
+  Messages.create(req.body, function (err, message) {
+    if (err) {
+      next(err);
     } else {
-      res.send();
+      res.status(201).send(message);
     }
   });
+  // Messages.add(req.body, function(err, doc) {
+  //   if (err !== null) {
+  //     res.status(500).send({error: 'An error occured - ' + err + doc});
+  //     next(null);
+  //   } else {
+  //     res.send();
+  //   }
+  // });
 };
 module.exports.getOne = function(req, res, next) {
   console.log('getting one', req.params.id);

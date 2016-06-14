@@ -23,15 +23,22 @@ module.exports.getAll = function(req, res, next) {
   });
 };
 module.exports.add = function(req, res, next) {
-  // console.log('data to be added is', req.body.data);
-  Sessions.add(req.body, function(err, doc) {
-    if (err !== null) {
-      res.status(500).send({error: 'An error occured - ' + err + doc});
-      next(null);
+  Sessions.create(req.body, function (err, session) {
+    if (err) {
+      next(err);
     } else {
-      res.send();
+      res.status(201).send(session);
     }
   });
+  // console.log('data to be added is', req.body.data);
+  // Sessions.add(req.body, function(err, doc) {
+  //   if (err !== null) {
+  //     res.status(500).send({error: 'An error occured - ' + err + doc});
+  //     next(null);
+  //   } else {
+  //     res.send();
+  //   }
+  // });
 };
 module.exports.getOne = function(req, res, next) {
   console.log('getting one', req.params.id);

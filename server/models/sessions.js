@@ -3,6 +3,7 @@
 var cozydb = require('cozydb');
 var Sessions = cozydb.getModel('messages', {
   'id'        : String,
+  'type'      : String,
   'name'      : String,
   'duration'  : String,
   'distance'  : String,
@@ -15,7 +16,6 @@ var Sessions = cozydb.getModel('messages', {
   'climb_neg' : String,
   'map'       : Boolean,
   'activity'  : String,
-  'type'      : String,
   'text'      : String,
   'family'    : String,
   'data'      : cozydb.NoSchema,
@@ -30,15 +30,15 @@ Sessions.all = function(callback) {
     }
   });
 };
-Sessions.add = function(data, callback) {
-  console.log('data to add through model is', data);
-  Sessions.create(data, function(err, res) {
-    if (err) {
-      callback(err);
-    } else {
-      console.log('messages after add are', res);
-      callback(null, res);
-    }
-  });
-};
+// Sessions.add = function(data, callback) {
+//   console.log('data to add through model is', data);
+//   Sessions.create(data, function(err, res) {
+//     if (err) {
+//       callback(err);
+//     } else {
+//       console.log('messages after add are', res);
+//       callback(null, res);
+//     }
+//   });
+// };
 module.exports = Sessions;

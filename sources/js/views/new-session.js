@@ -1,5 +1,5 @@
 /* jshint browser: true */
-/* globals Backbone, Doc, Docs, Factory, Tracking */
+/* globals Backbone, Sessions, Factory, Tracking */
 /* exported NewSessionView */
 'use strict';
 
@@ -22,7 +22,7 @@ var NewSession = Backbone.NativeView.extend({
 
   swicthToGps: function() {
     console.log('switch to gps');
-    Docs.trigger('switch-to-gps');
+    Sessions.trigger('switch-to-gps');
   },
 
   activitySelected: function(element) {
@@ -80,10 +80,10 @@ var NewSession = Backbone.NativeView.extend({
       }
     }
     // console.log('addNewSession - this.model', this.model);
-    var s = Docs.add(this.model);
+    var s = Sessions.add(this.model);
     // console.log('new session to save', s);
     s.save();
-    Docs.trigger('add-new', s);
+    Sessions.trigger('add-new', s);
     // Cleaning Views
     this.subview.remove();
   },
