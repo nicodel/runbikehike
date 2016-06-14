@@ -1,4 +1,5 @@
-/* globals Backbone, Dashboard, Messages, IndicatorsView, DashboardView */
+/* globals Backbone, Dashboard, Messages, IndicatorsView, DashboardView,
+NavigationView */
 /* exported Router */
 'use strict';
 
