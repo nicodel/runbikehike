@@ -17,10 +17,12 @@ var DashboardView = Backbone.NativeView.extend({
   initialize: function() {
     // console.log('DASHBOARD VIEW - initialize');
     this.collection = Dashboard;
-    this.sortCollection();
+    // this.collection.reset();
 
     this.listenTo(this.collection, 'sync', this.render);
     this.listenTo(this.collection, 'reset', this.render);
+    this.listenTo(this.collection, 'dashboard-entry-selected', this.showEntry);
+    this.listenTo(this.collection, 'sessions-entry-selected', this.showSession);
     // this.listenTo(this.collection, 'sort-it');
     // this.listenTo(this.collection, 'all', function(a, b) {console.log('DASHBOARD - this.collection', a, b);});
     var that = this;
@@ -32,7 +34,8 @@ var DashboardView = Backbone.NativeView.extend({
       that.sortAscending = ev.target.value;
       that.sortCollection();
     });
-
+    this.collection.fetch();
+    this.sortCollection();
   },
 
   sortCollection: function() {
@@ -108,5 +111,18 @@ var DashboardView = Backbone.NativeView.extend({
         this.collection.trigger('dashboard-entry-selected', view.model);
       }
     }, this);
-  }
+  },
+
+  showEntry: function(model) {
+    console.log('dashboard entry selected', model);
+    var type = model.get('type');
+    if (type === 'session') {
+      this.showSession(model);
+    } else if(type === 'body'){
+      this.detailled_view = Factory.getDetailledView(model);
+      this._viewSection(this.dom.session_view, this.dom.session_btn);
+    } else {
+      console.log('other types of dashboard entries are not managed');
+    }
+  },
 });

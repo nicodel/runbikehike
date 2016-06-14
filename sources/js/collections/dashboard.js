@@ -7,12 +7,12 @@ var DashboardCollection = Backbone.Collection.extend({
   url: '/dashboard',
 
   initialize: function () {
-    this.listenTo(this, 'all', function(ev, res) {console.log('DashboardCollection', ev, res);});
+    // this.listenTo(this, 'all', function(ev, res) {console.log('DashboardCollection', ev, res);});
     this.listenTo(Messages, 'add', this.newMessage);
   },
 
   newMessage: function (message) {
-    console.log('DashboardCollection.newMessage', message);
+    // console.log('DashboardCollection.newMessage', message);
     this.add(message);
   }
 });
