@@ -1,7 +1,7 @@
 /* jshint strict: true, node: true */
 'use strict';
 var cozydb = require('cozydb');
-var Sessions = cozydb.getModel('messages', {
+var Sessions = cozydb.getModel('sessions', {
   'id'        : String,
   'type'      : String,
   'name'      : String,

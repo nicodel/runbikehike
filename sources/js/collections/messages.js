@@ -4,12 +4,11 @@
 
 var MessagesCollection = Backbone.Collection.extend({
   model: Message,
-
   url: '/messages',
 
   initialize: function() {
     // console.log('DocsCollection initialize');
-    this.listenTo(this, 'all', function(ev, res) {console.log('MESSAGES Collection', ev, res);});
+    // this.listenTo(this, 'all', function(ev, res) {console.log('MESSAGES Collection', ev, res);});
     this.listenTo(this, 'sync', this.synced);
   },
 

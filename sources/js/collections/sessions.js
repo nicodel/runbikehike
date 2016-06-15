@@ -4,6 +4,9 @@
 
 var SessionsCollection = Backbone.Collection.extend({
   model: Session,
-  url: '/sessions'
+  url: '/sessions',
+  initialize: function() {
+    this.listenTo(this, 'all', function(ev, res) {console.log('SESSIONS Collection', ev, res);});
+  },
 });
 var Sessions = new SessionsCollection();

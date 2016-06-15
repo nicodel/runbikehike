@@ -23,6 +23,7 @@ module.exports.getAll = function(req, res, next) {
   });
 };
 module.exports.add = function(req, res, next) {
+  // console.log('Session to be added is', req.body);
   Sessions.create(req.body, function (err, session) {
     if (err) {
       next(err);

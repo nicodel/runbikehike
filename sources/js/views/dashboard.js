@@ -20,7 +20,7 @@ var DashboardView = Backbone.NativeView.extend({
     // this.collection.reset();
 
     this.listenTo(Messages, 'sync', this.resync);
-    // this.listenTo(Sessions, 'sync', this.resync);
+    this.listenTo(Sessions, 'sync', this.resync);
     // this.listenTo(Body, 'sync', this.resync);
 
     this.listenTo(this.collection, 'sync', this.render);

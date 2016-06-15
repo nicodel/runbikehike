@@ -81,7 +81,7 @@ var NewSession = Backbone.NativeView.extend({
     }
     // console.log('addNewSession - this.model', this.model);
     var s = Sessions.add(this.model);
-    // console.log('new session to save', s);
+    console.log('new session to save', s);
     s.save();
     Sessions.trigger('add-new', s);
     // Cleaning Views

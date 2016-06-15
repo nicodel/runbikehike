@@ -8,5 +8,8 @@ module.exports = {
   },
   messages: {
     all: cozydb.defaultRequests.all
+  },
+  sessions: {
+    all: cozydb.defaultRequests.all
   }
 };

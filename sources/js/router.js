@@ -1,5 +1,5 @@
-/* globals Backbone, Dashboard, Messages, IndicatorsView, DashboardView,
-NavigationView */
+/* globals Backbone, Preferences, Messages, Sessions,
+IndicatorsView, DashboardView, NavigationView */
 /* exported Router */
 'use strict';
 
@@ -12,7 +12,9 @@ var Router = Backbone.Router.extend({
   },
 
   start: function() {
+    Preferences.fetch();
     Messages.fetch();
+    Sessions.fetch();
 
     new IndicatorsView();
     new NavigationView();
