@@ -43,8 +43,13 @@ var DashboardView = Backbone.NativeView.extend({
   },
 
   resync: function (ev, res) {
-    console.log('DASHBOARD View resync', res);
-    this.collection.set(res);
+    this.collection.reset();
+    Messages.forEach(function (item) {
+      this.collection.add(item);
+    }, this);
+    Sessions.forEach(function (item) {
+      this.collection.add(item);
+    }, this);
     this.render();
   },
 
