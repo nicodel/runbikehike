@@ -4,8 +4,8 @@
 
 var Factory = (function() {
   var getModel = function(activity, options) {
-    // console.log('FACTORY - get model for', activity);
     var Model = activities[activity].model;
+    console.log('FACTORY - get model', Model, options);
     return Model ? new Model(options) : null;
   };
   var getNewView = function(model) {

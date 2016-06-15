@@ -7,10 +7,6 @@ var Message = Backbone.Model.extend({
 
   initialize: function() {
     // console.log('DocModel initialize', this);
-    // this.listenTo(this, 'all', this.something);
-  },
-
-  something: function(ev, res) {
-    console.log('Something on DocModel', ev, res);
+    // this.listenTo(this, 'all', function(ev, res) {console.log('Message Model', ev, res);});
   }
 });

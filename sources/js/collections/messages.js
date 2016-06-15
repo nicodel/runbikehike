@@ -9,7 +9,7 @@ var MessagesCollection = Backbone.Collection.extend({
 
   initialize: function() {
     // console.log('DocsCollection initialize');
-    // this.listenTo(this, 'all', function(ev, res) {console.log('MessagesCollection', ev, res);});
+    this.listenTo(this, 'all', function(ev, res) {console.log('MESSAGES Collection', ev, res);});
     this.listenTo(this, 'sync', this.synced);
   },
 

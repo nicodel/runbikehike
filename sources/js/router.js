@@ -12,7 +12,6 @@ var Router = Backbone.Router.extend({
   },
 
   start: function() {
-    Dashboard.fetch();
     Messages.fetch();
 
     new IndicatorsView();

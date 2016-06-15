@@ -1,5 +1,5 @@
 /* jshint browser: true */
-/* globals Backbone, Factory, Dashboard */
+/* globals Backbone, Factory, Dashboard, Messages, Sessions, Body */
 /* exported DashboardView */
 'use strict';
 
@@ -19,6 +19,10 @@ var DashboardView = Backbone.NativeView.extend({
     this.collection = Dashboard;
     // this.collection.reset();
 
+    this.listenTo(Messages, 'sync', this.resync);
+    // this.listenTo(Sessions, 'sync', this.resync);
+    // this.listenTo(Body, 'sync', this.resync);
+
     this.listenTo(this.collection, 'sync', this.render);
     this.listenTo(this.collection, 'reset', this.render);
     this.listenTo(this.collection, 'dashboard-entry-selected', this.showEntry);
@@ -34,8 +38,14 @@ var DashboardView = Backbone.NativeView.extend({
       that.sortAscending = ev.target.value;
       that.sortCollection();
     });
-    this.collection.fetch();
+    // this.collection.fetch();
     this.sortCollection();
+  },
+
+  resync: function (ev, res) {
+    console.log('DASHBOARD View resync', res);
+    this.collection.set(res);
+    this.render();
   },
 
   sortCollection: function() {

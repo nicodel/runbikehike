@@ -18,7 +18,7 @@ module.exports.add = function(req, res, next) {
     if (err) {
       next(err);
     } else {
-      res.status(201).send(message);
+      res.status(200).send(message);
     }
   });
   // Messages.add(req.body, function(err, doc) {

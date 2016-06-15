@@ -1,14 +1,14 @@
 /* jshint strict: true, node: true */
 'use strict';
 
-var dashboard = require('./dashboard');
+// var dashboard = require('./dashboard');
 var messages = require('./messages');
 var sessions = require('./sessions');
 var preferences = require('./preferences');
 
 module.exports = {
   'dashboard': {
-    get: dashboard.getAll
+    get: function () { return null; }
   },
   'messages': {
     get: messages.getAll,
