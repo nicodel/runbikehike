@@ -25,8 +25,6 @@ var DashboardView = Backbone.NativeView.extend({
 
     this.listenTo(this.collection, 'sync', this.render);
     this.listenTo(this.collection, 'reset', this.render);
-    this.listenTo(this.collection, 'dashboard-entry-selected', this.showEntry);
-    this.listenTo(this.collection, 'sessions-entry-selected', this.showSession);
     // this.listenTo(this.collection, 'sort-it');
     // this.listenTo(this.collection, 'all', function(a, b) {console.log('DASHBOARD - this.collection', a, b);});
     var that = this;
@@ -105,7 +103,7 @@ var DashboardView = Backbone.NativeView.extend({
   },
 
   render: function() {
-    console.log('dashboard view render', this.collection);
+    // console.log('dashboard view render', this.collection);
     if (this.el.innerHTML !== '') {
       this.viewsList.forEach(function(view) {
         view.remove();
@@ -119,25 +117,13 @@ var DashboardView = Backbone.NativeView.extend({
 
   itemSelected: function(item) {
     var entry_cid = item.target.getAttribute('session_id');
-    // console.log('click dashboard', item.target);
+    console.log('click dashboard', item.target);
     this.viewsList.forEach(function(view) {
         console.log('clicked', view.model.cid);
       if (view.model.cid === entry_cid) {
+        console.log('entry triggered');
         this.collection.trigger('dashboard-entry-selected', view.model);
       }
     }, this);
-  },
-
-  showEntry: function(model) {
-    console.log('dashboard entry selected', model);
-    var type = model.get('type');
-    if (type === 'session') {
-      this.showSession(model);
-    } else if(type === 'body'){
-      this.detailled_view = Factory.getDetailledView(model);
-      this._viewSection(this.dom.session_view, this.dom.session_btn);
-    } else {
-      console.log('other types of dashboard entries are not managed');
-    }
-  },
+  }
 });

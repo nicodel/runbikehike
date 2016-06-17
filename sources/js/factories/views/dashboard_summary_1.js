@@ -18,7 +18,7 @@ views.dashboard_summary_1 = Backbone.NativeView.extend({
   extend: Backbone.Events,
 
   render: function() {
-    // console.log('DASHBOARD SUMMARY - this.model', this.model);
+    console.log('DASHBOARD SUMMARY - this.model', this.model);
     var dist = utils.Helpers.distanceMeterToChoice(
         Preferences.get('unit'),
         this.model.get('distance'), false);
@@ -27,7 +27,7 @@ views.dashboard_summary_1 = Backbone.NativeView.extend({
         this.model.get('avg_speed'));
     var duration = utils.Helpers.formatDuration(this.model.get('duration'));
     this.el.innerHTML = this.template({
-      'session_cid' : this.model.get('session_cid'),
+      'session_cid' : this.model.cid,
       'collection'  : this.model.get('collection'),
       'date'        : utils.Helpers.formatDate(this.model.get('date')),
       'calories'    : this.model.get('calories'),

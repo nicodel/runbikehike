@@ -64,7 +64,7 @@ views.detailled_1 = Backbone.NativeView.extend({
         dataWorker.port.onmessage = function(e) {
           console.log('data have been computed', e.data);
           that.renderGraphs(e.data[0], e.data[1]);
-          // that.renderMap();
+          that.renderMap();
         };
         console.log('dataWorker.port', dataWorker.port);
       }
@@ -72,6 +72,7 @@ views.detailled_1 = Backbone.NativeView.extend({
   },
 
   renderMap: function() {
+    console.log('rendering map');
     var map = this.model.get('map');
     var data = this.model.get('data');
     if (map !== false) {
@@ -81,6 +82,7 @@ views.detailled_1 = Backbone.NativeView.extend({
   },
 
   renderGraphs: function(complete_data, summary_data) {
+    console.log('rendering graphs');
     var user_unit = Preferences.get('unit');
     var scale;
     if (user_unit === 'metric') {
@@ -100,15 +102,21 @@ views.detailled_1 = Backbone.NativeView.extend({
     var speed_table = dc.dataTable('#speed_table');
 
     var complete_ndx    = crossfilter(complete_data),
-        distDim         = complete_ndx.dimension(function(d) {return d.cumulDistance / scale;}),
+        distDim         = complete_ndx.dimension(function(d) {
+          return d.cumulDistance / scale;
+        }),
         distMin         = 0,
         distMax         = this.model.get('distance') / scale,
-        altGroup        = distDim.group().reduceSum(function(d) {return d.altitude;}),
+        altGroup        = distDim.group().reduceSum(function(d) {
+          return d.altitude;
+        }),
         speedGroup      = distDim.group().reduceSum(function(d) {
           return utils.Helpers.speedMsToChoice(user_unit, d.speed).value;
         });
     var summary_ndx     = crossfilter(summary_data),
-        summary_distDim = summary_ndx.dimension(function(d) {return d.distance;});
+        summary_distDim = summary_ndx.dimension(function(d) {
+          return d.distance;
+        });
 
     geo_table
       // .width(960)
@@ -213,4 +221,3 @@ views.detailled_1 = Backbone.NativeView.extend({
     return this;
   }
 });
-
