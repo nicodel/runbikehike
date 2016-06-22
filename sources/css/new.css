@@ -30,6 +30,10 @@
 .new-session-view form.body-form {
   height: 4rem;
 }
+.new-session-view div.map {
+  margin: 0;
+  width: 100%
+}
 /*.new-session-view label {
   margin: 0.5rem;
 }*/
