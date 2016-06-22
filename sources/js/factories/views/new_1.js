@@ -139,10 +139,11 @@ views.new_1 = Backbone.NativeView.extend({
 
   renderMap: function() {
     var map = this.model.get('map');
+    var data = this.model.get('data');
     if (map !== false) {
       // console.log('rendering map', this.model.attributes);
       utils.Map.initialize('new-map');
-      utils.Map.getMap(this.model.get('data'));
+      utils.Map.getMap(data);
       document.getElementById('new-map-container').className = 'new-line';
     }
   },
