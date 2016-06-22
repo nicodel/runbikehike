@@ -11,5 +11,8 @@ module.exports = {
   },
   sessions: {
     all: cozydb.defaultRequests.all
+  },
+  bodies: {
+    all: cozydb.defaultRequests.all
   }
 };
