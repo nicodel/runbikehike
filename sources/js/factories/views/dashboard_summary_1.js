@@ -18,7 +18,7 @@ views.dashboard_summary_1 = Backbone.NativeView.extend({
   extend: Backbone.Events,
 
   render: function() {
-    console.log('DASHBOARD SUMMARY - this.model', this.model);
+    // console.log('DASHBOARD SUMMARY - this.model', this.model);
     var dist = utils.Helpers.distanceMeterToChoice(
         Preferences.get('unit'),
         this.model.get('distance'), false);

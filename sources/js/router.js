@@ -17,8 +17,8 @@ var Router = Backbone.Router.extend({
     Sessions.fetch();
     // Bodies.fetch();
 
-    new IndicatorsView();
     new NavigationView();
     new DashboardView();
+    new IndicatorsView();
   }
 });
