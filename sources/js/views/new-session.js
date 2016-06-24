@@ -1,5 +1,5 @@
 /* jshint browser: true */
-/* globals Backbone, Sessions, Factory, Tracking */
+/* globals Backbone, microtemplate, Sessions, Factory, Tracking */
 /* exported NewSessionView */
 'use strict';
 
@@ -9,7 +9,7 @@ var NewSession = Backbone.NativeView.extend({
   subview: '',
 
   events: {
-    'click #switch-to-gps'    : 'swicthToGps',
+    // 'click #switch-to-gps'    : 'swicthToGps',
     'click #select-activity'  : 'activitySelected',
     'click #confirm-add-btn'  : 'addNewSession'
   },
@@ -18,12 +18,35 @@ var NewSession = Backbone.NativeView.extend({
     activity    : document.getElementById('new-activity-details'),
   },
 
-  template : '',
+  template : microtemplate(document.getElementById('new-session-activity').innerHTML),
 
-  swicthToGps: function() {
-    console.log('switch to gps');
-    Sessions.trigger('switch-to-gps');
+  initialize: function () {
+    var activities = Factory.getActivitiesList();
+    for (var i = 0; i < activities.length; i++) {
+      this.renderIcon(activities[i]);
+    }
   },
+
+  renderIcon: function (activity) {
+    var label = document.createElement('label');
+    label.setAttribute('for', activity.activity);
+    var input = document.createElement('input');
+    input.setAttribute('type', 'radio');
+    input.setAttribute('name', 'select-activity');
+    input.setAttribute('value', activity.activity);
+    input.setAttribute('id', activity.activity);
+    var img = document.createElement('img');
+    img.setAttribute('src', 'img/session/' + activity.family + '/' + activity.activity + '.png');
+    img.setAttribute('alt', activity.activity);
+    label.appendChild(input);
+    label.appendChild(img);
+    document.getElementById('select-activity').appendChild(label);
+  },
+
+  // swicthToGps: function() {
+  //   console.log('switch to gps');
+  //   Sessions.trigger('switch-to-gps');
+  // },
 
   activitySelected: function(element) {
     // cleaning previous view (if any)

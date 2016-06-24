@@ -37,11 +37,16 @@ var Factory = (function() {
       model: model
     });
   };
+  var getActivitiesList = function () {
+    console.log('activities', activities);
+    return activities.list;
+  };
   return {
     getModel                : getModel,
     getNewView              : getNewView,
     getDashboardSummaryView : getDashboardSummaryView,
     getSessionsSummaryView  : getSessionsSummaryView,
-    getDetailledView        : getDetailledView
+    getDetailledView        : getDetailledView,
+    getActivitiesList       : getActivitiesList
   };
 })();

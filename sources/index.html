@@ -63,12 +63,12 @@
   <section id="new-session-view" disabled="true" class="new-session-view">
 <div>
   <h1 data-l10n-id="add-new-session">
-  <button data-l10n-id="or-record-gps" id="switch-to-gps">Or record it with your GPS</button></h1>
+  <!-- <button data-l10n-id="or-record-gps" id="switch-to-gps">Or record it with your GPS</button></h1> -->
   <button data-l10n-id="add" id="confirm-add-btn" class="positive"></button>
   <h2 data-l10n-id="select-activity"></h2>
   <form id="select-activity">
 
-    <label for="walking">
+    <!-- <label for="walking">
       <input type="radio" name="select-activity" value="walking" id="walking" />
       <img src="img/activities/walking.svg" alt="walking" />
     </label>
@@ -126,7 +126,7 @@
     <label for="weight_act">
       <input type="radio" name="select-activity" value="weight_act" id="weight_act" />
       <img src="img/activities/weight_act.svg" alt="weight" />
-    </label>
+    </label> -->
 
   </form>
   <!-- <form id="import-form" class="hidden behind">
@@ -408,6 +408,13 @@
     <button data-l10n-id="save" id="save-preferences-btn" class="positive"></button>
   </section>
 
+  <script type="text/template" id="new-session-activity">
+  <label for="<%= activity %>">
+    <input type="radio" name="select-activity" value="<%= activity %>" id="<%= activity %>" />
+    <img src="<%= icon_path %>" alt="<%= activity %>" />
+  </label>
+</script>
+
   <script type="text/template" id="new-session-template-1">
     <h2><%= lb_import_file %></h2>
     <div class="form input">
@@ -497,7 +504,8 @@
   <script type="text/template" id="session-summary-template-1">
     <a href="#" class="session-summary-click" session_id="<%= session_cid %>">
       <div class="summary-container" session_id="<%= session_cid %>">
-        <img src="img/activities/<%= activity %>.svg" alt="<%= activity %>" class="activity" session_id="<%= session_cid %>">
+        <!-- <img src="img/activities/<%= activity %>.svg" alt="<%= activity %>" class="activity" session_id="<%= session_cid %>"> -->
+        <img src="<%= icon_path %>" alt="<%= activity %>" class="activity" session_id="<%= session_cid %>">
         <div class="distance information" session_id="<%= session_cid %>">
           <span class="fa fa-road fa-2x" session_id="<%= session_cid %>"></span>
           <span class="text-big" session_id="<%= session_cid %>"><%= distance %></span>
@@ -518,7 +526,8 @@
   <script type="text/template" id="session-summary-template-2">
     <a href="#" class="session-summary-click" session_id="<%= session_cid %>">
       <div class="summary-container" session_id="<%= session_cid %>">
-        <img src="img/activities/<%= activity %>.svg" alt="<%= activity %>" class="activity" session_id="<%= session_cid %>">
+        <!-- <img src="img/activities/<%= activity %>.svg" alt="<%= activity %>" class="activity" session_id="<%= session_cid %>"> -->
+        <img src="icon_path" alt="<%= activity %>" class="activity" session_id="<%= session_cid %>">
         <div class="body measure information text-big" session_id="<%= session_cid %>"><%= value %></div>
         <div class="time information text-small" session_id="<%= session_cid %>"><%= date %></div>
       </div>

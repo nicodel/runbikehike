@@ -26,6 +26,7 @@ views.dashboard_summary_1 = Backbone.NativeView.extend({
         Preferences.get('unit'),
         this.model.get('avg_speed'));
     var duration = utils.Helpers.formatDuration(this.model.get('duration'));
+    var activity = this.model.get('activity');
     this.el.innerHTML = this.template({
       'session_cid' : this.model.cid,
       'collection'  : this.model.get('collection'),
@@ -34,7 +35,8 @@ views.dashboard_summary_1 = Backbone.NativeView.extend({
       'distance'    : dist.value + ' ' + dist.unit,
       'duration'    : duration.hour + ':' + duration.min + ':' + duration.sec,
       'avg_speed'   : speed.value + ' ' + speed.unit,
-      'activity'    : this.model.get('activity')
+      'activity'    : activity,
+      'icon_path'   : 'img/' + this.model.get('type') + '/' + this.model.get('family') + '/' + activity + '.png'
     });
     return this;
   }

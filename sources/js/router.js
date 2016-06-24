@@ -15,7 +15,7 @@ var Router = Backbone.Router.extend({
     Preferences.fetch();
     Messages.fetch();
     Sessions.fetch();
-    Bodies.fetch();
+    // Bodies.fetch();
 
     new IndicatorsView();
     new NavigationView();
