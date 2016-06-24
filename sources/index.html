@@ -501,6 +501,29 @@
     </div>
   </script>
 
+  <script type="text/template" id="new-session-template-4">
+    <div class="form">
+      <div class="width-half text-small align-left"><%= lb_date %>
+        <input id="new-session-date" class="align-right" type="date" value="<%= date %>" />
+      </div>
+      <div class="width-half text-small align-left"><%= lb_time %>
+        <input id="new-session-time" class="align-right" type="time" value="<%= time %>" />
+      </div>
+      <div class="width-half text-small align-left"><%= lb_duration %>
+        <div class="align-right">
+          <input id="new-session-duration-hour" class="duration" type="number" value="<%= durationH %>" />
+          <span>:</span>
+          <input id="new-session-duration-min" class="duration" type="number" value="<%= durationM %>" />
+          <span>:</span>
+          <input id="new-session-duration-sec" class="duration" type="number" value="<%= durationS %>" />
+        </div>
+      </div>
+      <div class="width-half text-small align-left"><%= lb_calories %>
+        <input id="new-session-calories" class="align-right" type="number" disabled value="<%= calories %>" />
+      </div>
+    </div>
+  </script>
+
   <script type="text/template" id="session-summary-template-1">
     <a href="#" class="session-summary-click" session_id="<%= session_cid %>">
       <div class="summary-container" session_id="<%= session_cid %>">
@@ -529,6 +552,19 @@
         <!-- <img src="img/activities/<%= activity %>.svg" alt="<%= activity %>" class="activity" session_id="<%= session_cid %>"> -->
         <img src="icon_path" alt="<%= activity %>" class="activity" session_id="<%= session_cid %>">
         <div class="body measure information text-big" session_id="<%= session_cid %>"><%= value %></div>
+        <div class="time information text-small" session_id="<%= session_cid %>"><%= date %></div>
+      </div>
+    </a>
+  </script>
+
+  <script type="text/template" id="session-summary-template-3">
+    <a href="#" class="session-summary-click" session_id="<%= session_cid %>">
+      <div class="summary-container" session_id="<%= session_cid %>">
+        <img src="<%= icon_path %>" alt="<%= activity %>" class="activity" session_id="<%= session_cid %>">
+        <div class="duration information" session_id="<%= session_cid %>">
+          <span class="fa fa-clock-o fa-2x" session_id="<%= session_cid %>"></span>
+          <span class="text-big" session_id="<%= session_cid %>"><%= duration %></span>
+        </div>
         <div class="time information text-small" session_id="<%= session_cid %>"><%= date %></div>
       </div>
     </a>
@@ -645,34 +681,47 @@
     </div>
   </script>
 
-
   <script type="text/template" id="session-details-template-2">
   <div class="session-totals-container">
-  <div data-l10n-id="date" class="width-half text-1-4 align-left">
-    <span id="session-date" class="align-right"><%= date %></span>
-  </div>
-
-  <div data-l10n-id="start-time" class="width-half text-1-4 align-left">
-    <span id="session-date" class="align-right"><%= time %></span>
-  </div>
-  <div data-l10n-id="distance" class="width-half text-1-4 align-left">
-    <span id="session-date" class="align-right"><%= distance %></span>
-  </div>
-
-  <div data-l10n-id="duration" class="width-half text-1-4 align-left">
-    <span id="session-date" class="align-right"><%= duration %></span>
-  </div>
-
-  <div data-l10n-id="average-speed" class="width-half text-1-4 align-left">
-    <span id="session-date" class="align-right"><%= avg_speed %></span>
-  </div>
-
-  <div data-l10n-id="calories" class="width-half text-1-4 align-left">
-    <span id="session-date" class="align-right"><%= calories %></span>
-  </div>
-
+    <div data-l10n-id="date" class="width-half text-1-4 align-left">
+      <span id="session-date" class="align-right"><%= date %></span>
+    </div>
+    <div data-l10n-id="start-time" class="width-half text-1-4 align-left">
+      <span id="session-date" class="align-right"><%= time %></span>
+    </div>
+    <div data-l10n-id="distance" class="width-half text-1-4 align-left">
+      <span id="session-date" class="align-right"><%= distance %></span>
+    </div>
+    <div data-l10n-id="duration" class="width-half text-1-4 align-left">
+      <span id="session-date" class="align-right"><%= duration %></span>
+    </div>
+    <div data-l10n-id="average-speed" class="width-half text-1-4 align-left">
+      <span id="session-date" class="align-right"><%= avg_speed %></span>
+    </div>
+    <div data-l10n-id="calories" class="width-half text-1-4 align-left">
+      <span id="session-date" class="align-right"><%= calories %></span>
+    </div>
   </div>
   </script>
+
+  <script type="text/template" id="session-details-template-3">
+  <div class="session-totals-container">
+    <div data-l10n-id="date" class="width-half text-1-4 align-left">
+      <span id="session-date" class="align-right"><%= date %></span>
+    </div>
+    <div data-l10n-id="start-time" class="width-half text-1-4 align-left">
+      <span id="session-date" class="align-right"><%= time %></span>
+    </div>
+
+    <div data-l10n-id="duration" class="width-half text-1-4 align-left">
+      <span id="session-date" class="align-right"><%= duration %></span>
+    </div>
+    <div data-l10n-id="calories" class="width-half text-1-4 align-left">
+      <span id="session-date" class="align-right"><%= calories %></span>
+    </div>
+  </div>
+  </script>
+
   <script type="text/javascript" src="js/lib/l10n.js"></script>
   <script type="text/javascript" src="js/lib/microtemplates.js"></script>
   <script type="text/javascript" src="js/lib/exoskeleton.js"></script>
@@ -687,38 +736,61 @@
   <script type="text/javascript" src="js/utils/chrono.js"></script>
   <script type="text/javascript" src="js/utils/map.js"></script>
   <script type="text/javascript" src="js/utils/helpers.js"></script>
-  <script type="text/javascript" src="js/factories/models/message.js"></script>
   <script type="text/javascript" src="js/factories/models/athletics.js"></script>
   <script type="text/javascript" src="js/factories/models/body.js"></script>
   <script type="text/javascript" src="js/factories/models/cycling.js"></script>
+  <script type="text/javascript" src="js/factories/models/fighting.js"></script>
+  <script type="text/javascript" src="js/factories/models/message.js"></script>
   <script type="text/javascript" src="js/factories/models/mountaineering.js"></script>
+  <script type="text/javascript" src="js/factories/models/net.js"></script>
   <script type="text/javascript" src="js/factories/models/sliding.js"></script>
   <script type="text/javascript" src="js/factories/models/swimming.js"></script>
+  <script type="text/javascript" src="js/factories/models/team.js"></script>
   <script type="text/javascript" src="js/factories/models/watersport.js"></script>
   <script type="text/javascript" src="js/factories/views/dashboard_message.js"></script>
   <script type="text/javascript" src="js/factories/views/dashboard_summary_1.js"></script>
   <script type="text/javascript" src="js/factories/views/dashboard_summary_2.js"></script>
+  <script type="text/javascript" src="js/factories/views/dashboard_summary_3.js"></script>
   <script type="text/javascript" src="js/factories/views/detailled_1.js"></script>
   <script type="text/javascript" src="js/factories/views/detailled_2.js"></script>
   <script type="text/javascript" src="js/factories/views/detailled_3.js"></script>
   <script type="text/javascript" src="js/factories/views/new_1.js"></script>
   <script type="text/javascript" src="js/factories/views/new_2.js"></script>
   <script type="text/javascript" src="js/factories/views/new_3.js"></script>
+  <script type="text/javascript" src="js/factories/views/new_4.js"></script>
   <script type="text/javascript" src="js/factories/views/sessions_summary_1.js"></script>
   <script type="text/javascript" src="js/factories/views/sessions_summary_2.js"></script>
-  <script type="text/javascript" src="js/factories/activities/message.js"></script>
+  <script type="text/javascript" src="js/factories/views/sessions_summary_3.js"></script>
+  <script type="text/javascript" src="js/factories/activities/bmx.js"></script>
   <script type="text/javascript" src="js/factories/activities/climbing.js"></script>
+  <script type="text/javascript" src="js/factories/activities/football.js"></script>
+  <script type="text/javascript" src="js/factories/activities/frisbee.js"></script>
+  <script type="text/javascript" src="js/factories/activities/handball.js"></script>
+  <script type="text/javascript" src="js/factories/activities/in_sea.js"></script>
+  <script type="text/javascript" src="js/factories/activities/kicking.js"></script>
+  <script type="text/javascript" src="js/factories/activities/kitesurfing.js"></script>
+  <script type="text/javascript" src="js/factories/activities/message.js"></script>
   <script type="text/javascript" src="js/factories/activities/mountain_biking.js"></script>
   <script type="text/javascript" src="js/factories/activities/paddling.js"></script>
+  <script type="text/javascript" src="js/factories/activities/ping_pong.js"></script>
+  <script type="text/javascript" src="js/factories/activities/punching.js"></script>
   <script type="text/javascript" src="js/factories/activities/racing.js"></script>
   <script type="text/javascript" src="js/factories/activities/regular_biking.js"></script>
+  <script type="text/javascript" src="js/factories/activities/roller_skating.js"></script>
   <script type="text/javascript" src="js/factories/activities/running.js"></script>
+  <script type="text/javascript" src="js/factories/activities/skateboarding.js"></script>
   <script type="text/javascript" src="js/factories/activities/skiing.js"></script>
+  <script type="text/javascript" src="js/factories/activities/sparring.js"></script>
+  <script type="text/javascript" src="js/factories/activities/stick_fighting.js"></script>
+  <script type="text/javascript" src="js/factories/activities/sup.js"></script>
+  <script type="text/javascript" src="js/factories/activities/surfing.js"></script>
   <script type="text/javascript" src="js/factories/activities/swimming.js"></script>
+  <script type="text/javascript" src="js/factories/activities/tennis.js"></script>
   <script type="text/javascript" src="js/factories/activities/time_trial_biking.js"></script>
   <script type="text/javascript" src="js/factories/activities/trekking.js"></script>
   <script type="text/javascript" src="js/factories/activities/walking.js"></script>
   <script type="text/javascript" src="js/factories/activities/weight_act.js"></script>
+  <script type="text/javascript" src="js/factories/activities/wrestling.js"></script>
   <script type="text/javascript" src="js/factories/factory.js"></script>
   <script type="text/javascript" src="js/models/message.js"></script>
   <script type="text/javascript" src="js/models/session.js"></script>
@@ -732,7 +804,6 @@
   <script type="text/javascript" src="js/views/new-session.js"></script>
   <script type="text/javascript" src="js/views/tracking.js"></script>
   <script type="text/javascript" src="js/views/preferences.js"></script>
-  <!-- <script type="text/javascript" src="js/views/reports.js"></script> -->
   <script type="text/javascript" src="js/views/sessions.js"></script>
   <script type="text/javascript" src="js/views/navigation.js"></script>
   <script type="text/javascript" src="js/router.js"></script>

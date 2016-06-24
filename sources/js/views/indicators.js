@@ -19,7 +19,7 @@ var IndicatorsView = Backbone.NativeView.extend({
   },
 
   render: function() {
-    console.log('indicators view is rendered', this);
+    // console.log('indicators view is rendered', this);
     var totals = {
       'sessions'  : 0,
       'calories'  : 0,
