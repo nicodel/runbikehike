@@ -9,7 +9,7 @@ var IndicatorsView = Backbone.NativeView.extend({
   template: microtemplate(document.getElementById('indicators-template').innerHTML),
 
   initialize: function() {
-    this.collection = Dashboard ;
+    this.collection = Dashboard;
 
     this.listenTo(this.collection, 'add', this.render);
     this.listenTo(this.collection, 'sync', this.render);

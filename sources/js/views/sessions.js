@@ -1,5 +1,5 @@
 /* jshint browser: true */
-/* global Backbone, Factory, Docs */
+/* global Backbone, Factory, Sessions */
 /* exported SessionsView */
 'use strict';
 
@@ -16,9 +16,10 @@ var SessionsView = Backbone.NativeView.extend({
   sortAttribute: 'date',
 
   initialize: function() {
-    this.collection = Docs;
+    this.collection = Sessions;
     this.listenTo(this.collection, 'sync', this.render);
     this.listenTo(this.collection, 'reset', this.render);
+    this.render();
 
     var that = this;
     document.getElementById('sessions-sort-attribute').addEventListener('change', function(ev) {
@@ -33,9 +34,9 @@ var SessionsView = Backbone.NativeView.extend({
 
   sortCollection: function() {
     var that = this;
-    this.collection.comparator = function(doc) {
-      var activity = doc.get('activity');
-      var timestamp = doc.get('date');
+    this.collection.comparator = function(session) {
+      var activity = session.get('activity');
+      var timestamp = session.get('date');
 
       if (!that.sortAscending) {
         if (that.sortAttribute === 'date') {

@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* globals Backbone, Factory, Session, Preferences, Sessions, Dashboard,
-   PreferencesView, NewSession, */
+   PreferencesView, NewSession */
 /* exported NavigationView */
 'use strict';
 
