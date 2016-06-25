@@ -21,6 +21,7 @@ var NewSession = Backbone.NativeView.extend({
   template : microtemplate(document.getElementById('new-session-activity').innerHTML),
 
   initialize: function () {
+    document.getElementById('select-activity').innerHTML = '';
     var activities = Factory.getActivitiesList();
     for (var i = 0; i < activities.length; i++) {
       this.renderIcon(activities[i]);
