@@ -16,7 +16,7 @@ section {
   bottom: 100%;
   z-index: 1;
   padding-top: 1rem;
-  height: calc(100% - 3rem);
+  height: calc(100% - 1rem);
   overflow-y: auto;
   width: 80%;
   left: 20%;
