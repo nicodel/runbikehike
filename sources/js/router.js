@@ -1,5 +1,5 @@
 /* globals Backbone, Preferences, Messages, Sessions, Bodies,
-IndicatorsView, DashboardView, NavigationView, SessionsView */
+IndicatorsView, DashboardView, NavigationView, SessionsView, ReportsView */
 /* exported Router */
 'use strict';
 
@@ -21,5 +21,6 @@ var Router = Backbone.Router.extend({
     new DashboardView();
     new IndicatorsView();
     new SessionsView();
+    new ReportsView();
   }
 });

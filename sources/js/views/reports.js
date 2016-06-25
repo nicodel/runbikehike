@@ -1,7 +1,5 @@
 /* jshint browser: true */
-/* globals
- Backbone, d3, crossfilter, dc, Preferences, Docs, utils
-*/
+/* globals Backbone, d3, crossfilter, dc, Preferences, Dashboard, utils */
 /* exported ReportsView */
 'use strict';
 
@@ -16,7 +14,7 @@ var ReportsView = Backbone.NativeView.extend({
 
 
   initialize: function() {
-    this.collection = Docs;
+    this.collection = Dashboard;
 
     this.listenTo(this.collection, 'sync', this.render);
     this.listenTo(this.collection, 'reset', this.render);
@@ -25,7 +23,7 @@ var ReportsView = Backbone.NativeView.extend({
     document.getElementById('reports-select-date').addEventListener('change', function(el) {
       console.log('select changed', el.target.value);
       var today = new Date();
-      console.log('today', today);
+      // console.log('today', today);
       var first = new Date();
       first.setDate(1);
       // as default it is set to the first day of next month.
@@ -44,8 +42,12 @@ var ReportsView = Backbone.NativeView.extend({
       } else if (el.target.value === 'current-month') {
         first.setMonth(today.getMonth() - 1);
       } else if (el.target.value === 'current-week') {
-        first.setDate(today.getDate() - today.getDay());
-        last.setDate(today.getDate() + 6 - today.getDay());
+        first = new Date();
+        last = new Date();
+        first.setDate(today.getDate() - today.getDay() + 1);
+        first.setHours(0);
+        last.setDate(today.getDate() + 7 - today.getDay());
+        last.setHours(23);
       }
       console.log('first - last', first, last);
       that.weightChart.focus([first, last]);
