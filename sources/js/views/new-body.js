@@ -44,7 +44,7 @@ var NewBody = Backbone.NativeView.extend({
   },
 
   bodySelected: function(element) {
-    console.log('bodySelected', element);
+    // console.log('bodySelected', element);
     // cleaning previous view (if any)
     if (this.subview) {
       this.subview.remove();
@@ -67,7 +67,7 @@ var NewBody = Backbone.NativeView.extend({
 
   enableAdd: function() {
     var btn = document.getElementById('confirm-add-session-btn');
-    console.log('enable-add', btn.getAttribute('disabled'));
+    // console.log('enable-add', btn.getAttribute('disabled'));
     if (btn.getAttribute('disabled') === 'disabled') {
       btn.removeAttribute('disabled');
     }
@@ -75,7 +75,7 @@ var NewBody = Backbone.NativeView.extend({
 
   disableAdd: function() {
     var btn = document.getElementById('confirm-add-session-btn');
-    console.log('disable-add', btn.getAttribute('disabled'));
+    // console.log('disable-add', btn.getAttribute('disabled'));
     if (btn.getAttribute('disabled') === null) {
       btn.setAttribute('disabled', 'disabled');
     }
@@ -92,7 +92,7 @@ var NewBody = Backbone.NativeView.extend({
     }
     // console.log('addNewSession - this.model', this.model);
     var b = Bodies.add(this.model);
-    console.log('new session to save', b);
+    // console.log('new body to save', b);
     b.save();
     Bodies.trigger('add-new', b);
     // Cleaning Views
