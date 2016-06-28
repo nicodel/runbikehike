@@ -46,6 +46,9 @@
       <li id="new-session-btn">
         <div><span class="fa fa-plus-square fa-2x"></span><span data-l10n-id="new-session"></span></div>
       </li>
+      <li id="new-body-btn">
+        <div><span class="fa fa-plus-square fa-2x"></span><span data-l10n-id="new-body">New body mesure</span></div>
+      </li>
       <li id="dashboard-btn" class="active">
         <div><span class="fa fa-home fa-2x"></span><span data-l10n-id="dashboard"></span></div>
       </li>
@@ -61,80 +64,20 @@
     </ul>
   </nav>
   <section id="new-session-view" disabled="true" class="new-session-view">
-<div>
-  <h1 data-l10n-id="add-new-session">
-  <!-- <button data-l10n-id="or-record-gps" id="switch-to-gps">Or record it with your GPS</button></h1> -->
-  <button data-l10n-id="add" id="confirm-add-btn" class="positive"></button>
-  <h2 data-l10n-id="select-activity"></h2>
-  <form id="select-activity">
-
-    <!-- <label for="walking">
-      <input type="radio" name="select-activity" value="walking" id="walking" />
-      <img src="img/activities/walking.svg" alt="walking" />
-    </label>
-
-    <label for="running">
-      <input type="radio" name="select-activity" value="running" id="running" />
-      <img src="img/activities/running.svg" alt="running" />
-    </label>
-
-    <label for="racing">
-      <input type="radio" name="select-activity" value="racing" id="racing" />
-      <img src="img/activities/racing.svg" alt="racing" />
-    </label>
-
-    <label for="swimming">
-      <input type="radio" name="select-activity" value="swimming" id="swimming" />
-      <img src="img/activities/swimming.svg" alt="swimming" />
-    </label>
-
-    <label for="regular_biking">
-      <input type="radio" name="select-activity" value="regular_biking" id="regular_biking" />
-      <img src="img/activities/regular_biking.svg" alt="regular_biking" />
-    </label>
-
-    <label for="mountain_biking">
-      <input type="radio" name="select-activity" value="mountain_biking" id="mountain_biking" />
-      <img src="img/activities/mountain_biking.svg" alt="mountain_biking" />
-    </label>
-
-    <label for="time_trial_biking">
-      <input type="radio" name="select-activity" value="time_trial_biking" id="time_trial_biking" />
-      <img src="img/activities/time_trial_biking.svg" alt="time_trial_biking" />
-    </label>
-
-    <label for="trekking">
-      <input type="radio" name="select-activity" value="trekking" id="trekking" />
-      <img src="img/activities/trekking.svg" alt="hiking" />
-    </label>
-
-    <label for="skiing">
-      <input type="radio" name="select-activity" value="skiing" id="skiing" />
-      <img src="img/activities/skiing.svg" alt="skiing" />
-    </label>
-
-    <label for="paddling">
-      <input type="radio" name="select-activity" value="paddling" id="paddling" />
-      <img src="img/activities/paddling.svg" alt="paddling" />
-    </label>
-
-    <label for="climbing">
-      <input type="radio" name="select-activity" value="climbing" id="climbing" />
-      <img src="img/activities/climbing.svg" alt="climbing" />
-    </label>
-
-    <label for="weight_act">
-      <input type="radio" name="select-activity" value="weight_act" id="weight_act" />
-      <img src="img/activities/weight_act.svg" alt="weight" />
-    </label> -->
-
-  </form>
-  <!-- <form id="import-form" class="hidden behind">
-    <input id="import-file" type="file"></input>
-    <button id="import-btn" disabled='disabled'>Importer</button>
-    </form> -->
-
-  </div>
+    <div>
+      <h1 data-l10n-id="add-new-session"></h1>
+      <button data-l10n-id="add" id="confirm-add-session-btn" class="positive"></button>
+      <h2 data-l10n-id="select-activity"></h2>
+      <form id="select-activity"></form>
+    </div>
+  </section>
+  <section id="new-body-view" disabled="true" class="new-body-view">
+    <div>
+      <h1 data-l10n-id="add-new-body"></h1>
+      <button data-l10n-id="add" id="confirm-add-body-btn" class="positive"></button>
+      <h2 data-l10n-id="select-body"></h2>
+      <form id="select-body"></form>
+    </div>
   </section>
   <section id="tracking-view" disabled="true" class="tracking-view">
     <ul class="margin-left-5">
@@ -195,14 +138,14 @@
       </li>
       <li class="align-left">
         <select id="dashboard-sort-attribute">
-          <option data-l10n-id="date" value='date'></option>
-          <option data-l10n-id="activity" value='activity'></option>
+          <option data-l10n-id="date" value="date"></option>
+          <option data-l10n-id="activity" value="activity"></option>
         </select>
       </li>
       <li class="align-left">
         <select id="dashboard-sort-ascending">
-          <option data-l10n-id="ascending" value='true'></option>
-          <option data-l10n-id="descending" value='false'></option>
+          <option data-l10n-id="ascending" value="true"></option>
+          <option data-l10n-id="descending" value="false"></option>
         </select>
       </li>
     </ul>
@@ -217,14 +160,14 @@
       </li>
       <li class="align-left">
         <select id="sessions-sort-attribute">
-          <option data-l10n-id="date" value='date'></option>
-          <option data-l10n-id="activity" value='activity'></option>
+          <option data-l10n-id="date" value="date"></option>
+          <option data-l10n-id="activity" value="activity"></option>
         </select>
       </li>
       <li class="align-left">
         <select id="sessions-sort-ascending">
-          <option data-l10n-id="ascending" value='true'></option>
-          <option data-l10n-id="descending" value='false'></option>
+          <option data-l10n-id="ascending" value="true"></option>
+          <option data-l10n-id="descending" value="false"></option>
         </select>
       </li>
     </ul>
@@ -240,18 +183,18 @@
   <section id="reports-view" disabled="true" class="reports-view">
     <h1 data-l10n-id="reports"></h1>
 
-    <select id='reports-select-date'>
-      <option data-l10n-id="current-year" value='current-year' selected></option>
-      <option data-l10n-id="last-12-months" value='last-12-months'></option>
-      <option data-l10n-id="last-6-months" value='last-6-months'></option>
-      <option data-l10n-id="last-3-months" value='last-3-months'></option>
-      <option data-l10n-id="current-month" value='current-month'></option>
-      <option data-l10n-id="current-week" value='current-week'></option>
+    <select id="reports-select-date">
+      <option data-l10n-id="current-year" value="current-year" selected></option>
+      <option data-l10n-id="last-12-months" value="last-12-months"></option>
+      <option data-l10n-id="last-6-months" value="last-6-months"></option>
+      <option data-l10n-id="last-3-months" value="last-3-months"></option>
+      <option data-l10n-id="current-month" value="current-month"></option>
+      <option data-l10n-id="current-week" value="current-week"></option>
     </select>
-    <div id='reports-weight-graph' class='graph'></div>
-    <div id='reports-calories-graph' class='graph new-line'></div>
-    <div id='reports-distance-graph' class='graph new-line'></div>
-    <div id='reports-duration-graph' class='graph new-line'></div>
+    <div id="reports-weight-graph" class="graph"></div>
+    <div id="reports-calories-graph" class="graph new-line"></div>
+    <div id="reports-distance-graph" class="graph new-line"></div>
+    <div id="reports-duration-graph" class="graph new-line"></div>
   </section>
 
   <section id="preferences-view" disabled="true" class="preferences-view">
@@ -456,7 +399,7 @@
     </div>
     <div id="new-map-container" class="new-line hidden behind">
       <h2><%= lb_map %></h2>
-      <div id='new-map' class="map"></div>
+      <div id="new-map" class="map"></div>
     </div>
   </script>
 
@@ -635,10 +578,10 @@
   </div>
 
   </div>
-  <div class='accordeon'>
+  <div class="accordeon">
     <section class="map">
       <h2 data-l10n-id="map">Map</h2>
-      <div id='session-map' class="map"></div>
+      <div id="session-map" class="map"></div>
       <input type="checkbox" id="geo" />
       <label data-l10n-id="geographical-detailled-values" for="geo">Geographical detailled values
         <span class="fa fa-chevron-right align-right"></span>
@@ -789,19 +732,22 @@
   <script type="text/javascript" src="js/factories/activities/time_trial_biking.js"></script>
   <script type="text/javascript" src="js/factories/activities/trekking.js"></script>
   <script type="text/javascript" src="js/factories/activities/walking.js"></script>
-  <script type="text/javascript" src="js/factories/activities/weight_act.js"></script>
   <script type="text/javascript" src="js/factories/activities/wrestling.js"></script>
+  <script type="text/javascript" src="js/factories/bodies/weight.js"></script>
   <script type="text/javascript" src="js/factories/factory.js"></script>
   <script type="text/javascript" src="js/models/message.js"></script>
   <script type="text/javascript" src="js/models/session.js"></script>
+  <script type="text/javascript" src="js/models/body.js"></script>
   <script type="text/javascript" src="js/models/item.js"></script>
   <script type="text/javascript" src="js/models/preferences.js"></script>
   <script type="text/javascript" src="js/collections/messages.js"></script>
   <script type="text/javascript" src="js/collections/sessions.js"></script>
+  <script type="text/javascript" src="js/collections/bodies.js"></script>
   <script type="text/javascript" src="js/collections/dashboard.js"></script>
   <script type="text/javascript" src="js/views/indicators.js"></script>
   <script type="text/javascript" src="js/views/dashboard.js"></script>
   <script type="text/javascript" src="js/views/new-session.js"></script>
+  <script type="text/javascript" src="js/views/new-body.js"></script>
   <script type="text/javascript" src="js/views/tracking.js"></script>
   <script type="text/javascript" src="js/views/preferences.js"></script>
   <script type="text/javascript" src="js/views/sessions.js"></script>

@@ -1,62 +1,78 @@
-.new-session-view h2 {
+.new-session-view h2,
+.new-body-view h2 {
   /* margin-bottom: 2rem; */
   margin-top: 2rem;
   margin-left: 5%;
 }
 
-#confirm-add-btn {
+#confirm-add-sesions-btn,
+#confirm-add-body-btn {
   float: right;
   margin-right: 3rem;
 }
 
 .new-session-view form,
-.new-session-view div {
+.new-session-view div,
+.new-body-view form,
+.new-body-view div {
   margin: 1rem;
 }
 .new-session-view form,
-.new-session-view div.form {
+.new-session-view div.form,
+.new-body-view form,
+.new-body-view div.form {
   margin-left: 5%;
   padding: 0.5rem;
   width: 90%;
   border: 1px solid #DDD;
   background-color: #F1F1F1;
 }
-.new-session-view div.form {
+.new-session-view div.form,
+.new-body-view div.form {
   height: 15em;
 }
-.new-session-view div.input {
+.new-session-view div.input,
+.new-body-view div.input {
   height: auto;
 }
-.new-session-view form.body-form {
+.new-session-view form.body-form,
+.new-body-view form.body-form {
   height: 4rem;
 }
-.new-session-view div.map {
+.new-session-view div.map,
+.new-body-view div.map {
   margin: 0;
   width: 100%
 }
 /*.new-session-view label {
   margin: 0.5rem;
 }*/
-.new-session-view label img {
+.new-session-view label img,
+.new-body-view label img {
   width: 56px;
 }
-.new-session-view label > input {
+.new-session-view label > input,
+.new-body-view label > input {
   visibility: hidden;
   position: absolute;
 }
-.new-session-view label > input + img {
+.new-session-view label > input + img,
+.new-body-view label > input + img {
   cursor: pointer;
   padding: 0.5rem;
 /*   border: 1px solid blue; */
 }
-.new-session-view label > input:checked + img {
+.new-session-view label > input:checked + img,
+.new-body-view label > input:checked + img {
   background-color: #DDD;
 }
-.new-session-view input {
+.new-session-view input,
+.new-body-view input {
   border: 1px solid #DDD;
 }
 
-.new-session-view input.duration {
+.new-session-view input.duration,
+.new-body-view input.duration {
   width: 2.5rem;
 }
 

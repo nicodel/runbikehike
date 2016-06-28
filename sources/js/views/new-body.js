@@ -1,67 +1,62 @@
 /* jshint browser: true */
-/* globals Backbone, microtemplate, Sessions, Factory, Tracking */
-/* exported NewSession */
+/* globals Backbone, microtemplate, Bodies, Factory, Tracking */
+/* exported NewBody */
 'use strict';
 
-var NewSession = Backbone.NativeView.extend({
-  el: '#new-session-view',
+var NewBody = Backbone.NativeView.extend({
+  el: '#new-body-view',
 
   subview: '',
 
   events: {
-    // 'click #switch-to-gps'    : 'swicthToGps',
-    'click #select-activity'  : 'activitySelected',
-    'click #confirm-add-session-btn'  : 'addNewSession'
+    'click #select-body'          : 'bodySelected',
+    'click #confirm-add-body-btn' : 'addNewBody'
   },
 
   dom: {
-    activity    : document.getElementById('new-activity-details'),
+    activity : document.getElementById('new-activity-details'),
   },
 
   template : microtemplate(document.getElementById('new-session-activity').innerHTML),
 
   initialize: function () {
-    document.getElementById('select-activity').innerHTML = '';
-    var activities = Factory.getActivitiesList();
-    for (var i = 0; i < activities.length; i++) {
-      this.renderIcon(activities[i]);
+    document.getElementById('select-body').innerHTML = '';
+    var bodies = Factory.getBodiesList();
+    for (var i = 0; i < bodies.length; i++) {
+      this.renderIcon(bodies[i]);
     }
   },
 
-  renderIcon: function (activity) {
+  renderIcon: function (body) {
     var label = document.createElement('label');
-    label.setAttribute('for', activity.activity);
+    label.setAttribute('for', body.activity);
     var input = document.createElement('input');
     input.setAttribute('type', 'radio');
-    input.setAttribute('name', 'select-activity');
-    input.setAttribute('value', activity.activity);
-    input.setAttribute('id', activity.activity);
+    input.setAttribute('name', 'select-body');
+    input.setAttribute('value', body.activity);
+    input.setAttribute('id', body.activity);
     var img = document.createElement('img');
-    img.setAttribute('src', 'img/session/' + activity.family + '/' + activity.activity + '.png');
-    img.setAttribute('alt', activity.activity);
+    img.setAttribute('src', 'img/body/' + body.activity + '.png');
+    img.setAttribute('alt', body.activity);
     label.appendChild(input);
     label.appendChild(img);
-    document.getElementById('select-activity').appendChild(label);
+    document.getElementById('select-body').appendChild(label);
   },
 
-  // swicthToGps: function() {
-  //   console.log('switch to gps');
-  //   Sessions.trigger('switch-to-gps');
-  // },
-
-  activitySelected: function(element) {
+  bodySelected: function(element) {
+    console.log('bodySelected', element);
     // cleaning previous view (if any)
     if (this.subview) {
       this.subview.remove();
     }
     if (element.target.nodeName === 'INPUT') {
-      var activity = element.target.value;
+      var body = element.target.value;
       var session = Factory.getModel(
-          'session',
-          activity,
-          {'activity' : activity});
+          'body',
+          body,
+          {'activity' : body});
       this.model.set(session);
-      this.subview = Factory.getNewView('session', this.model);
+      this.subview = Factory.getNewView('body', this.model);
       // console.log('view to be displayed is', this.subview);
       this.el.appendChild(document.createElement('div').innerHTML = this.subview.render().el);
       // add listener to subview to enable/disable the Add button
@@ -69,15 +64,6 @@ var NewSession = Backbone.NativeView.extend({
       this.listenTo(this.subview, 'disable-add', this.disableAdd);
     }
   },
-
-/*  enableImport: function() {
-    var file_list = this.dom.import_file.files;
-    if (file_list.length > 0) {
-      this.dom.import_btn.removeAttribute('disabled');
-    } else {
-      this.dom.import_btn.setAttribute('disabled', 'disabled');
-    }
-  },*/
 
   enableAdd: function() {
     var btn = document.getElementById('confirm-add-session-btn');
@@ -95,7 +81,7 @@ var NewSession = Backbone.NativeView.extend({
     }
  },
 
-  addNewSession: function() {
+  addNewBody: function() {
     for (var i = 0; i < this.subview.validated.length; i++) {
       var criteria = this.subview.validated[i];
       if (!criteria) {
@@ -105,12 +91,12 @@ var NewSession = Backbone.NativeView.extend({
       }
     }
     // console.log('addNewSession - this.model', this.model);
-    var s = Sessions.add(this.model);
-    console.log('new session to save', s);
-    s.save();
-    Sessions.trigger('add-new', s);
+    var b = Bodies.add(this.model);
+    console.log('new session to save', b);
+    b.save();
+    Bodies.trigger('add-new', b);
     // Cleaning Views
     this.subview.remove();
-  },
+  }
 
 });
