@@ -7,7 +7,7 @@ var Factory = (function() {
     var Model;
     if (type === 'session') {
       Model = activities[activity].model;
-      console.log('FACTORY - get model', Model, options);
+      // console.log('FACTORY - get model', Model, options);
     } else if (type === 'body') {
       Model = bodies[activity].model;
     } else if (type === 'message') {
@@ -16,7 +16,7 @@ var Factory = (function() {
     return Model ? new Model(options) : null;
   };
   var getNewView = function(type, model) {
-    console.log('FACTORY - display new session view for', model);
+    // console.log('FACTORY - display new session view for', model);
     var View;
     if (type === 'session') {
       View = activities[model.get('activity')].new_view;
@@ -30,7 +30,7 @@ var Factory = (function() {
     });
   };
   var getDashboardSummaryView = function(model) {
-    console.log('FACTORY - display dashboard summary view for', model);
+    // console.log('FACTORY - display dashboard summary view for', model);
     var View;
     var type = model.get('type');
     if (type === 'session') {
@@ -40,7 +40,7 @@ var Factory = (function() {
     } else if (type === 'message') {
       View = messages[model.get('activity')].summary_view_dashboard;
     }
-    console.log('View', View);
+    // console.log('View', View);
     return new View({
       model: model
     });

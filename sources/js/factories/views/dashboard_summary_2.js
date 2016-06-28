@@ -18,7 +18,7 @@ views.dashboard_summary_2 = Backbone.NativeView.extend({
   extend: Backbone.Events,
 
   render: function() {
-    console.log('MODEL', this.model);
+    // console.log('MODEL', this.model);
     var activity = this.model.get('activity');
     this.el.innerHTML = this.template({
       'session_cid' : this.model.cid,
