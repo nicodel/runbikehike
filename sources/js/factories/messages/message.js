@@ -1,8 +1,8 @@
 'use strict';
-var activities  = activities || {};
+var messages  = messages || {};
 var models      = models || {};
 var views       = views || {};
-activities.message = {
+messages.message = {
   model                   : models.message,
   summary_view_dashboard  : views.dashboard_message,
   detailled_view          : views.detailled_message

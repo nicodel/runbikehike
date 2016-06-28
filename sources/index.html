@@ -493,7 +493,7 @@
     <a href="#" class="session-summary-click" session_id="<%= session_cid %>">
       <div class="summary-container" session_id="<%= session_cid %>">
         <!-- <img src="img/activities/<%= activity %>.svg" alt="<%= activity %>" class="activity" session_id="<%= session_cid %>"> -->
-        <img src="icon_path" alt="<%= activity %>" class="activity" session_id="<%= session_cid %>">
+        <img src="<%= icon_path %>" alt="<%= activity %>" class="activity" session_id="<%= session_cid %>">
         <div class="body measure information text-big" session_id="<%= session_cid %>"><%= value %></div>
         <div class="time information text-small" session_id="<%= session_cid %>"><%= date %></div>
       </div>
@@ -712,7 +712,6 @@
   <script type="text/javascript" src="js/factories/activities/in_sea.js"></script>
   <script type="text/javascript" src="js/factories/activities/kicking.js"></script>
   <script type="text/javascript" src="js/factories/activities/kitesurfing.js"></script>
-  <script type="text/javascript" src="js/factories/activities/message.js"></script>
   <script type="text/javascript" src="js/factories/activities/mountain_biking.js"></script>
   <script type="text/javascript" src="js/factories/activities/paddling.js"></script>
   <script type="text/javascript" src="js/factories/activities/ping_pong.js"></script>
@@ -734,6 +733,7 @@
   <script type="text/javascript" src="js/factories/activities/walking.js"></script>
   <script type="text/javascript" src="js/factories/activities/wrestling.js"></script>
   <script type="text/javascript" src="js/factories/bodies/weight.js"></script>
+  <script type="text/javascript" src="js/factories/messages/message.js"></script>
   <script type="text/javascript" src="js/factories/factory.js"></script>
   <script type="text/javascript" src="js/models/message.js"></script>
   <script type="text/javascript" src="js/models/session.js"></script>

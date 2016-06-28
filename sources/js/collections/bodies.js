@@ -3,7 +3,7 @@
 'use strict';
 
 var BodiesCollection = Backbone.Collection.extend({
-  model: Bodies,
+  model: Body,
   url: '/bodies',
   initialize: function() {
     // this.listenTo(this, 'all', function(ev, res) {console.log('Bodies Collection', ev, res);});

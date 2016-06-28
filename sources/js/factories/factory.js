@@ -1,4 +1,4 @@
-/* globals activities, bodies */
+/* globals activities, bodies, messages */
 /* exported Factory */
 'use strict';
 
@@ -10,6 +10,8 @@ var Factory = (function() {
       console.log('FACTORY - get model', Model, options);
     } else if (type === 'body') {
       Model = bodies[activity].model;
+    } else if (type === 'message') {
+      Model = messages[activity].model;
     }
     return Model ? new Model(options) : null;
   };
@@ -20,14 +22,25 @@ var Factory = (function() {
       View = activities[model.get('activity')].new_view;
     } else if (type === 'body') {
       View = bodies[model.get('activity')].new_view;
+    } else if (type === 'message') {
+      View = messages[model.get('activity')].new_view;
     }
     return new View({
       model: model
     });
   };
   var getDashboardSummaryView = function(model) {
-    // console.log('FACTORY - display dashboard summary view for', model);
-    var View = activities[model.get('activity')].summary_view_dashboard;
+    console.log('FACTORY - display dashboard summary view for', model);
+    var View;
+    var type = model.get('type');
+    if (type === 'session') {
+      View = activities[model.get('activity')].summary_view_dashboard;
+    } else if (type === 'body') {
+      View = bodies[model.get('activity')].summary_view_dashboard;
+    } else if (type === 'message') {
+      View = messages[model.get('activity')].summary_view_dashboard;
+    }
+    console.log('View', View);
     return new View({
       model: model
     });
@@ -45,6 +58,8 @@ var Factory = (function() {
       View = activities[model.get('activity')].detailled_view;
     } else if (type === 'body'){
       View = bodies[model.get('activity')].detailled_view;
+    } else if (type === 'message'){
+      View = messages[model.get('activity')].detailled_view;
     }
     // var View = activities[model.activity].detailled_view;
     // console.log('FACTORY - display detailled view for', model);
