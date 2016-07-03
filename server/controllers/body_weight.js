@@ -1,10 +1,10 @@
 /* jshint strict: true, node: true */
 'use strict';
 
-var Bodies = require('../models/bodies');
+var BodyWeights = require('../models/body_weight');
 
 module.exports.getAll = function(req, res, next) {
-  Bodies.all(function(err, docs) {
+  BodyWeights.all(function(err, docs) {
     if (err !== null) {
       next(null);
     } else {
@@ -23,7 +23,7 @@ module.exports.getAll = function(req, res, next) {
   });
 };
 module.exports.getAll = function(req, res, next) {
-  Bodies.all(function(err, docs) {
+  BodyWeights.all(function(err, docs) {
     if (err !== null) {
       next(null);
     } else {
@@ -33,7 +33,7 @@ module.exports.getAll = function(req, res, next) {
 };
 module.exports.add = function(req, res, next) {
   console.log('Message to be added is', req.body);
-  Bodies.create(req.body, function (err, doc) {
+  BodyWeights.create(req.body, function (err, doc) {
     if (err) {
       next(err);
     } else {
@@ -43,7 +43,7 @@ module.exports.add = function(req, res, next) {
 };
 module.exports.getOne = function(req, res, next) {
   console.log('getting one', req.params.id);
-  Bodies.find(req.params.id, function(err, complete) {
+  BodyWeights.find(req.params.id, function(err, complete) {
   if (err !== null) {
       next(null);
     } else {

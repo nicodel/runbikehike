@@ -1,5 +1,5 @@
 /* jshint browser: true */
-/* globals Backbone, Factory, Session, Body, Preferences, Sessions, Bodies, Dashboard,
+/* globals Backbone, Factory, Session, BodyWeight, Preferences, Sessions, BodyWeights, Dashboard,
    PreferencesView, NewSession, NewBody */
 /* exported NavigationView */
 'use strict';
@@ -37,7 +37,7 @@ var NavigationView = Backbone.NativeView.extend({
     this.listenTo(Dashboard, 'dashboard-entry-selected', this.showEntry);
     this.listenTo(Dashboard, 'sessions-entry-selected', this.showSession);
     this.listenTo(Sessions, 'add-new', this.showSession);
-    this.listenTo(Bodies, 'add-new', this.showSession);
+    this.listenTo(BodyWeights, 'add-new', this.showSession);
   },
 
   showNewSession: function() {
@@ -49,8 +49,8 @@ var NavigationView = Backbone.NativeView.extend({
 
   showNewBody: function() {
     console.log('showNewBody');
-    new NewBody({
-      model: new Body()
+    new BodyWeight({
+      model: new BodyWeight()
     });
     this._viewSection(this.dom.new_body_view, this.dom.new_body_btn);
   },

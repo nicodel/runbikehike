@@ -1,15 +1,15 @@
 /* jshint strict: true, node: true */
 'use strict';
 var cozydb = require('cozydb');
-var Bodies = cozydb.getModel('bodies', {
+var Body_weight = cozydb.getModel('body_weight', {
   'id'        : String,
   'type'      : String,
   'activity'  : String,
   'date'      : String,
   'value'     : String,
 });
-Bodies.all = function(callback) {
-  Bodies.request("all", {}, function(err, docs) {
+Body_weight.all = function(callback) {
+  Body_weight.request("all", {}, function(err, docs) {
     if (err) {
       callback(err);
     } else {
@@ -17,4 +17,4 @@ Bodies.all = function(callback) {
     }
   });
 };
-module.exports = Bodies;
+module.exports = Body_weight;

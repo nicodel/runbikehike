@@ -1,5 +1,5 @@
 /* jshint browser: true */
-/* globals Backbone, d3, crossfilter, dc, Preferences, Dashboard, utils, Bodies */
+/* globals Backbone, d3, crossfilter, dc, Preferences, Dashboard, utils, BodyWeights */
 /* exported ReportsView */
 'use strict';
 
@@ -18,7 +18,7 @@ var ReportsView = Backbone.NativeView.extend({
     // this.listenTo(this.collection, 'sync', this.render);
     // this.listenTo(this.collection, 'reset', this.render);
 
-    this.listenTo(Bodies, 'sync', this.render);
+    this.listenTo(BodyWeights, 'sync', this.render);
 
     var that = this;
     document.getElementById('reports-select-date').addEventListener('change', function(el) {
@@ -70,7 +70,7 @@ var ReportsView = Backbone.NativeView.extend({
     var act_data = [];
     var weight_data = [];
     var item;
-    Bodies.forEach(function(model) {
+    BodyWeights.forEach(function(model) {
       item = model.attributes;
       item.formateddate = dateFormat.parse(item.date);
       item.month = d3.time.month(item.formateddate);

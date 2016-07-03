@@ -12,7 +12,7 @@ module.exports = {
   sessions: {
     all: cozydb.defaultRequests.all
   },
-  bodies: {
+  body_weight: {
     all: cozydb.defaultRequests.all
   }
 };

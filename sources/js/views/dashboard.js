@@ -1,5 +1,5 @@
 /* jshint browser: true */
-/* globals Backbone, Factory, Dashboard, Messages, Sessions, Bodies */
+/* globals Backbone, Factory, Dashboard, Messages, Sessions, BodyWeights */
 /* exported DashboardView */
 'use strict';
 
@@ -21,7 +21,7 @@ var DashboardView = Backbone.NativeView.extend({
 
     this.listenTo(Messages, 'sync', this.resync);
     this.listenTo(Sessions, 'sync', this.resync);
-    this.listenTo(Bodies, 'sync', this.resync);
+    this.listenTo(BodyWeights, 'sync', this.resync);
 
     this.listenTo(this.collection, 'sync', this.render);
     this.listenTo(this.collection, 'reset', this.render);
@@ -48,7 +48,7 @@ var DashboardView = Backbone.NativeView.extend({
     Sessions.forEach(function (item) {
       this.collection.add(item);
     }, this);
-    Bodies.forEach(function (item) {
+    BodyWeights.forEach(function (item) {
       this.collection.add(item);
     }, this);
     this.render();

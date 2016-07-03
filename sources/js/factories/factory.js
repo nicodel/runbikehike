@@ -1,4 +1,4 @@
-/* globals activities, bodies, messages */
+/* globals activities, body_weight, messages */
 /* exported Factory */
 'use strict';
 
@@ -9,7 +9,7 @@ var Factory = (function() {
       Model = activities[activity].model;
       // console.log('FACTORY - get model', Model, options);
     } else if (type === 'body') {
-      Model = bodies[activity].model;
+      Model = body_weight[activity].model;
     } else if (type === 'message') {
       Model = messages[activity].model;
     }
@@ -21,7 +21,7 @@ var Factory = (function() {
     if (type === 'session') {
       View = activities[model.get('activity')].new_view;
     } else if (type === 'body') {
-      View = bodies[model.get('activity')].new_view;
+      View = body_weight[model.get('activity')].new_view;
     } else if (type === 'message') {
       View = messages[model.get('activity')].new_view;
     }
@@ -36,7 +36,7 @@ var Factory = (function() {
     if (type === 'session') {
       View = activities[model.get('activity')].summary_view_dashboard;
     } else if (type === 'body') {
-      View = bodies[model.get('activity')].summary_view_dashboard;
+      View = body_weight[model.get('activity')].summary_view_dashboard;
     } else if (type === 'message') {
       View = messages[model.get('activity')].summary_view_dashboard;
     }
@@ -57,7 +57,7 @@ var Factory = (function() {
     if (type === 'session') {
       View = activities[model.get('activity')].detailled_view;
     } else if (type === 'body'){
-      View = bodies[model.get('activity')].detailled_view;
+      View = body_weight[model.get('activity')].detailled_view;
     } else if (type === 'message'){
       View = messages[model.get('activity')].detailled_view;
     }
@@ -72,8 +72,8 @@ var Factory = (function() {
     return activities.list;
   };
   var getBodiesList = function () {
-    console.log('bodies', bodies);
-    return bodies.list;
+    console.log('body_weight', body_weight);
+    return body_weight.list;
   };
   return {
     getModel                : getModel,

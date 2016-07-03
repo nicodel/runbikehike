@@ -1,5 +1,5 @@
 /* jshint browser: true */
-/* globals Backbone, microtemplate, Bodies, Factory, Tracking */
+/* globals Backbone, microtemplate, BodyWeights, Factory, Tracking */
 /* exported NewBody */
 'use strict';
 
@@ -91,10 +91,10 @@ var NewBody = Backbone.NativeView.extend({
       }
     }
     // console.log('addNewSession - this.model', this.model);
-    var b = Bodies.add(this.model);
+    var b = BodyWeights.add(this.model);
     // console.log('new body to save', b);
     b.save();
-    Bodies.trigger('add-new', b);
+    BodyWeights.trigger('add-new', b);
     // Cleaning Views
     this.subview.remove();
   }

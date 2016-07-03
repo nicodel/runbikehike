@@ -4,7 +4,7 @@
 // var dashboard = require('./dashboard');
 var messages = require('./messages');
 var sessions = require('./sessions');
-var bodies = require('./bodies');
+var body_weight = require('./body_weight');
 var preferences = require('./preferences');
 
 module.exports = {
@@ -28,14 +28,14 @@ module.exports = {
     put: sessions.update,
     delete: sessions.remove
   },
-  'bodies': {
-    get: bodies.getAll,
-    post: bodies.add
+  'body_weight': {
+    get: body_weight.getAll,
+    post: body_weight.add
   },
-  'bodies/:id': {
-    get: bodies.getOne,
-    put: bodies.update,
-    delete: bodies.remove
+  'body_weight/:id': {
+    get: body_weight.getOne,
+    put: body_weight.update,
+    delete: body_weight.remove
   },
   'preferences': {
     get: preferences.getAll,
