@@ -9,8 +9,8 @@ var NewBody = Backbone.NativeView.extend({
   subview: '',
 
   events: {
-    'click #select-body'          : 'bodySelected',
-    'click #confirm-add-body-btn' : 'addNewBody'
+    'click #select-body'                 : 'bodySelected',
+    'click #confirm-add-body-weight-btn' : 'addNewBody'
   },
 
   dom: {

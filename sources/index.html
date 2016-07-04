@@ -46,7 +46,7 @@
       <li id="new-session-btn">
         <div><span class="fa fa-plus-square fa-2x"></span><span data-l10n-id="new-session"></span></div>
       </li>
-      <li id="new-body-btn">
+      <li id="new-body-weight-btn">
         <div><span class="fa fa-plus-square fa-2x"></span><span data-l10n-id="new-body">New body mesure</span></div>
       </li>
       <li id="dashboard-btn" class="active">
@@ -71,13 +71,13 @@
       <form id="select-activity"></form>
     </div>
   </section>
-  <section id="new-body-view" disabled="true" class="new-body-view">
-    <div>
+  <section id="new-body-weight-view" disabled="true" class="new-body-view">
+    <!-- <div>
       <h1 data-l10n-id="add-new-body"></h1>
-      <button data-l10n-id="add" id="confirm-add-body-btn" class="positive"></button>
+      <button data-l10n-id="add" id="confirm-add-body-weight-btn" class="positive"></button>
       <h2 data-l10n-id="select-body"></h2>
       <form id="select-body"></form>
-    </div>
+    </div> -->
   </section>
   <section id="tracking-view" disabled="true" class="tracking-view">
     <ul class="margin-left-5">
@@ -404,6 +404,8 @@
   </script>
 
   <script type="text/template" id="new-session-template-2">
+    <h1 data-l10n-id="add-new-body"></h1>
+    <button data-l10n-id="add" id="confirm-add-body-weight-btn" class="positive">Add</button>
     <form id="body-form" class="body-form">
       <div class="width-half text-small align-left"><%= lb_date %>
         <input id="new-body-date" class="align-right" type="date" value="<%= date %>" />
@@ -680,7 +682,7 @@
   <script type="text/javascript" src="js/utils/map.js"></script>
   <script type="text/javascript" src="js/utils/helpers.js"></script>
   <script type="text/javascript" src="js/factories/models/athletics.js"></script>
-  <script type="text/javascript" src="js/factories/models/body_weight.js"></script>
+  <!-- <script type="text/javascript" src="js/factories/models/body_weight.js"></script> -->
   <script type="text/javascript" src="js/factories/models/cycling.js"></script>
   <script type="text/javascript" src="js/factories/models/fighting.js"></script>
   <script type="text/javascript" src="js/factories/models/message.js"></script>
@@ -695,14 +697,14 @@
   <script type="text/javascript" src="js/factories/views/dashboard_summary_2.js"></script>
   <script type="text/javascript" src="js/factories/views/dashboard_summary_3.js"></script>
   <script type="text/javascript" src="js/factories/views/detailled_1.js"></script>
-  <script type="text/javascript" src="js/factories/views/detailled_2.js"></script>
+  <!-- <script type="text/javascript" src="js/factories/views/detailled_2.js"></script> -->
   <script type="text/javascript" src="js/factories/views/detailled_3.js"></script>
   <script type="text/javascript" src="js/factories/views/new_1.js"></script>
-  <script type="text/javascript" src="js/factories/views/new_2.js"></script>
+  <!-- <script type="text/javascript" src="js/factories/views/new_2.js"></script> -->
   <script type="text/javascript" src="js/factories/views/new_3.js"></script>
   <script type="text/javascript" src="js/factories/views/new_4.js"></script>
   <script type="text/javascript" src="js/factories/views/sessions_summary_1.js"></script>
-  <script type="text/javascript" src="js/factories/views/sessions_summary_2.js"></script>
+  <!-- <script type="text/javascript" src="js/factories/views/sessions_summary_2.js"></script> -->
   <script type="text/javascript" src="js/factories/views/sessions_summary_3.js"></script>
   <script type="text/javascript" src="js/factories/activities/bmx.js"></script>
   <script type="text/javascript" src="js/factories/activities/climbing.js"></script>
@@ -732,7 +734,7 @@
   <script type="text/javascript" src="js/factories/activities/trekking.js"></script>
   <script type="text/javascript" src="js/factories/activities/walking.js"></script>
   <script type="text/javascript" src="js/factories/activities/wrestling.js"></script>
-  <script type="text/javascript" src="js/factories/body_weight/body_weight.js"></script>
+  <!-- <script type="text/javascript" src="js/factories/body_weight/body_weight.js"></script> -->
   <script type="text/javascript" src="js/factories/messages/message.js"></script>
   <script type="text/javascript" src="js/factories/factory.js"></script>
   <script type="text/javascript" src="js/models/message.js"></script>
@@ -747,7 +749,7 @@
   <script type="text/javascript" src="js/views/indicators.js"></script>
   <script type="text/javascript" src="js/views/dashboard.js"></script>
   <script type="text/javascript" src="js/views/new-session.js"></script>
-  <script type="text/javascript" src="js/views/new-body.js"></script>
+  <script type="text/javascript" src="js/views/new-body-weight.js"></script>
   <script type="text/javascript" src="js/views/tracking.js"></script>
   <script type="text/javascript" src="js/views/preferences.js"></script>
   <script type="text/javascript" src="js/views/sessions.js"></script>
