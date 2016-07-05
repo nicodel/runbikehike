@@ -35,8 +35,8 @@ var Factory = (function() {
     var type = model.get('type');
     if (type === 'session') {
       View = activities[model.get('activity')].summary_view_dashboard;
-    } else if (type === 'body') {
-      View = body_weight[model.get('activity')].summary_view_dashboard;
+    } else if (type === 'body_weight') {
+      View = body_weight.summary_view_dashboard;
     } else if (type === 'message') {
       View = messages[model.get('activity')].summary_view_dashboard;
     }

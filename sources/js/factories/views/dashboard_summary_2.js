@@ -25,7 +25,8 @@ views.dashboard_summary_2 = Backbone.NativeView.extend({
       'date'        : utils.Helpers.formatDate(this.model.get('date')),
       'value'       : this.model.get('value'),
       'activity'    : activity,
-      'icon_path'   : 'img/' + this.model.get('type') + '/' + activity + '.png'
+      // 'icon_path'   : 'img/' + this.model.get('type') + '/' + activity + '.png'
+      'icon_path'   : 'img/body_weight.png'
     });
     return this;
   }
