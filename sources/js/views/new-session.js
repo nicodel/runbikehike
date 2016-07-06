@@ -1,6 +1,6 @@
 /* jshint browser: true */
-/* globals Backbone, Sessions, Factory, Tracking */
-/* exported NewSessionView */
+/* globals Backbone, microtemplate, Sessions, Factory, Tracking */
+/* exported NewSession */
 'use strict';
 
 var NewSession = Backbone.NativeView.extend({
@@ -9,21 +9,45 @@ var NewSession = Backbone.NativeView.extend({
   subview: '',
 
   events: {
-    'click #switch-to-gps'    : 'swicthToGps',
+    // 'click #switch-to-gps'    : 'swicthToGps',
     'click #select-activity'  : 'activitySelected',
-    'click #confirm-add-btn'  : 'addNewSession'
+    'click #confirm-add-session-btn'  : 'addNewSession'
   },
 
   dom: {
     activity    : document.getElementById('new-activity-details'),
   },
 
-  template : '',
+  template : microtemplate(document.getElementById('new-session-activity').innerHTML),
 
-  swicthToGps: function() {
-    console.log('switch to gps');
-    Sessions.trigger('switch-to-gps');
+  initialize: function () {
+    document.getElementById('select-activity').innerHTML = '';
+    var activities = Factory.getActivitiesList();
+    for (var i = 0; i < activities.length; i++) {
+      this.renderIcon(activities[i]);
+    }
   },
+
+  renderIcon: function (activity) {
+    var label = document.createElement('label');
+    label.setAttribute('for', activity.activity);
+    var input = document.createElement('input');
+    input.setAttribute('type', 'radio');
+    input.setAttribute('name', 'select-activity');
+    input.setAttribute('value', activity.activity);
+    input.setAttribute('id', activity.activity);
+    var img = document.createElement('img');
+    img.setAttribute('src', 'img/session/' + activity.family + '/' + activity.activity + '.png');
+    img.setAttribute('alt', activity.activity);
+    label.appendChild(input);
+    label.appendChild(img);
+    document.getElementById('select-activity').appendChild(label);
+  },
+
+  // swicthToGps: function() {
+  //   console.log('switch to gps');
+  //   Sessions.trigger('switch-to-gps');
+  // },
 
   activitySelected: function(element) {
     // cleaning previous view (if any)
@@ -33,10 +57,11 @@ var NewSession = Backbone.NativeView.extend({
     if (element.target.nodeName === 'INPUT') {
       var activity = element.target.value;
       var session = Factory.getModel(
+          'session',
           activity,
           {'activity' : activity});
       this.model.set(session);
-      this.subview = Factory.getNewView(this.model);
+      this.subview = Factory.getNewView('session', this.model);
       // console.log('view to be displayed is', this.subview);
       this.el.appendChild(document.createElement('div').innerHTML = this.subview.render().el);
       // add listener to subview to enable/disable the Add button
@@ -55,7 +80,7 @@ var NewSession = Backbone.NativeView.extend({
   },*/
 
   enableAdd: function() {
-    var btn = document.getElementById('confirm-add-btn');
+    var btn = document.getElementById('confirm-add-session-btn');
     console.log('enable-add', btn.getAttribute('disabled'));
     if (btn.getAttribute('disabled') === 'disabled') {
       btn.removeAttribute('disabled');
@@ -63,7 +88,7 @@ var NewSession = Backbone.NativeView.extend({
   },
 
   disableAdd: function() {
-    var btn = document.getElementById('confirm-add-btn');
+    var btn = document.getElementById('confirm-add-session-btn');
     console.log('disable-add', btn.getAttribute('disabled'));
     if (btn.getAttribute('disabled') === null) {
       btn.setAttribute('disabled', 'disabled');

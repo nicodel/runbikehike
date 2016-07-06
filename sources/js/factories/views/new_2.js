@@ -19,7 +19,7 @@ views.new_2 = Backbone.NativeView.extend({
   },
 
   initialize: function() {
-    this.listenTo(this.model, 'all', function(a, b) {console.log('something on this.model', a, b);});
+    // this.listenTo(this.model, 'all', function(a, b) {console.log('something on this.model', a, b);});
   },
   render: function() {
     this.el.innerHTML = this.template({

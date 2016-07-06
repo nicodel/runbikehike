@@ -1,5 +1,6 @@
 'use strict';
 var activities  = activities || {};
+activities.list = activities.list || [];
 var models      = models || {};
 var views       = views || {};
 activities.climbing = {
@@ -9,3 +10,7 @@ activities.climbing = {
   summary_view_sessions   : views.sessions_summary_1,
   detailled_view          : views.detailled_1
 };
+activities.list.push({
+  activity: 'climbing',
+  family:   'mountaineering'
+});

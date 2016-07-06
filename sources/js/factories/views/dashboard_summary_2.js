@@ -18,12 +18,15 @@ views.dashboard_summary_2 = Backbone.NativeView.extend({
   extend: Backbone.Events,
 
   render: function() {
-    console.log('MODEL', this.model);
+    // console.log('MODEL', this.model);
+    var activity = this.model.get('activity');
     this.el.innerHTML = this.template({
       'session_cid' : this.model.cid,
       'date'        : utils.Helpers.formatDate(this.model.get('date')),
       'value'       : this.model.get('value'),
-      'activity'    : this.model.get('activity')
+      'activity'    : activity,
+      // 'icon_path'   : 'img/' + this.model.get('type') + '/' + activity + '.png'
+      'icon_path'   : 'img/body_weight.png'
     });
     return this;
   }

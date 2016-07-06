@@ -1,5 +1,5 @@
 /* jshint browser: true */
-/* globals Backbone, Factory, Dashboard, Messages, Sessions, Body */
+/* globals Backbone, Factory, Dashboard, Messages, Sessions, BodyWeights */
 /* exported DashboardView */
 'use strict';
 
@@ -21,7 +21,7 @@ var DashboardView = Backbone.NativeView.extend({
 
     this.listenTo(Messages, 'sync', this.resync);
     this.listenTo(Sessions, 'sync', this.resync);
-    // this.listenTo(Body, 'sync', this.resync);
+    this.listenTo(BodyWeights, 'sync', this.resync);
 
     this.listenTo(this.collection, 'sync', this.render);
     this.listenTo(this.collection, 'reset', this.render);
@@ -48,35 +48,40 @@ var DashboardView = Backbone.NativeView.extend({
     Sessions.forEach(function (item) {
       this.collection.add(item);
     }, this);
+    BodyWeights.forEach(function (item) {
+      this.collection.add(item);
+    }, this);
     this.render();
   },
 
   sortCollection: function() {
-    var that = this;
-    this.collection.comparator = function(doc) {
-      // console.log('sorting collection', doc);
-      var activity = doc.get('activity');
-      var timestamp = doc.get('date');
+    if (this.collection.length !== 0) {
+      var that = this;
+      this.collection.comparator = function(doc) {
+        // console.log('sorting collection', doc);
+        var activity = doc.get('activity');
+        var timestamp = doc.get('date');
 
-      if (!that.sortAscending) {
-        if (that.sortAttribute === 'date') {
-          return that.negateString(timestamp);
+        if (!that.sortAscending) {
+          if (that.sortAttribute === 'date') {
+            return that.negateString(timestamp);
+          }
+          if (that.sortAttribute === 'activity') {
+            return that.negateString(that.negateString(activity) + "-" + that.negateString(timestamp));
+          }
+        } else {
+          if (that.sortAttribute === 'date') {
+            return timestamp;
+          }
+          if (that.sortAttribute === 'activity') {
+            return that.negateString(activity) + "-" + timestamp;
+          }
         }
-        if (that.sortAttribute === 'activity') {
-          return that.negateString(that.negateString(activity) + "-" + that.negateString(timestamp));
-        }
-      } else {
-        if (that.sortAttribute === 'date') {
-          return timestamp;
-        }
-        if (that.sortAttribute === 'activity') {
-          return that.negateString(activity) + "-" + timestamp;
-        }
-      }
-    };
-    this.collection.sort();
-    // console.log('collection will be sorted');
-    this.render();
+      };
+      this.collection.sort();
+      // console.log('collection will be sorted');
+      this.render();
+    }
   },
 
   negateString: function(s) {
@@ -103,16 +108,18 @@ var DashboardView = Backbone.NativeView.extend({
   },
 
   render: function() {
-    // console.log('dashboard view render', this.collection);
-    if (this.el.innerHTML !== '') {
-      this.viewsList.forEach(function(view) {
-        view.remove();
-      });
-      this.viewsList = [];
+    if (this.collection.length !== 0) {
+      // console.log('dashboard view render', this.collection);
+      if (this.el.innerHTML !== '') {
+        this.viewsList.forEach(function(view) {
+          view.remove();
+        });
+        this.viewsList = [];
+      }
+      this.collection.forEach(function(item) {
+        this.renderItem(item);
+      }, this);
     }
-    this.collection.forEach(function(item) {
-      this.renderItem(item);
-    }, this);
   },
 
   itemSelected: function(item) {

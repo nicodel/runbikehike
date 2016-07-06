@@ -1,6 +1,6 @@
 /* jshint browser: true */
-/* globals Backbone, Factory, Session, Preferences, Sessions, Dashboard,
-   PreferencesView, NewSession, */
+/* globals Backbone, Factory, Session, BodyWeight, Preferences, Sessions, BodyWeights, Dashboard,
+   PreferencesView, NewSession, NewBodyWeightView */
 /* exported NavigationView */
 'use strict';
 
@@ -8,23 +8,26 @@ var NavigationView = Backbone.NativeView.extend({
   el: 'nav',
   events: {
     'click #new-session-btn'  : 'showNewSession',
+    'click #new-body-weight-btn'     : 'showNewBodyWeight',
     'click #dashboard-btn'    : 'showDashboard',
     'click #sessions-btn'     : 'showSessions',
     'click #reports-btn'      : 'showReports',
     'click #preferences-btn'  : 'showPreferences'
   },
   dom: {
-    dashboard_view    : document.getElementById('dashboard-view'),
-    session_view      : document.getElementById('session-view'),
-    new_session_view  : document.getElementById('new-session-view'),
-    sessions_view     : document.getElementById('sessions-view'),
-    reports_view      : document.getElementById('reports-view'),
-    preference_view   : document.getElementById('preferences-view'),
-    dashboard_btn     : document.getElementById('dashboard-btn'),
-    new_session_btn   : document.getElementById('new-session-btn'),
-    sessions_btn      : document.getElementById('sessions-btn'),
-    reports_btn       : document.getElementById('reports-btn'),
-    preference_btn    : document.getElementById('preferences-btn')
+    dashboard_view        : document.getElementById('dashboard-view'),
+    session_view          : document.getElementById('session-view'),
+    new_session_view      : document.getElementById('new-session-view'),
+    new_body_weight_view  : document.getElementById('new-body-weight-view'),
+    sessions_view         : document.getElementById('sessions-view'),
+    reports_view          : document.getElementById('reports-view'),
+    preference_view       : document.getElementById('preferences-view'),
+    dashboard_btn         : document.getElementById('dashboard-btn'),
+    new_session_btn       : document.getElementById('new-session-btn'),
+    new_body_weight_btn   : document.getElementById('new-body-weight-btn'),
+    sessions_btn          : document.getElementById('sessions-btn'),
+    reports_btn           : document.getElementById('reports-btn'),
+    preference_btn        : document.getElementById('preferences-btn')
   },
   detailled_view: '',
 
@@ -35,14 +38,27 @@ var NavigationView = Backbone.NativeView.extend({
     this.listenTo(Dashboard, 'dashboard-entry-selected', this.showEntry);
     this.listenTo(Dashboard, 'sessions-entry-selected', this.showSession);
     this.listenTo(Sessions, 'add-new', this.showSession);
+    this.listenTo(BodyWeights, 'add-new', this.showDashboard);
   },
 
   showNewSession: function() {
-    console.log('showNewSession');
     new NewSession({
       model: new Session()
     });
     this._viewSection(this.dom.new_session_view, this.dom.new_session_btn);
+  },
+
+  showNewBodyWeight: function() {
+    console.log('showNewBody');
+    new NewBodyWeightView({
+      model: new BodyWeight({
+        type: 'body_weight',
+        activity: '',
+        date: new Date().toISOString(),
+        value: 0
+      })
+    });
+    this._viewSection(this.dom.new_body_weight_view, this.dom.new_body_weight_btn);
   },
 
   showDashboard: function() {
@@ -69,11 +85,12 @@ var NavigationView = Backbone.NativeView.extend({
     var that = this;
     model.fetch({
       success : function(mod, res) {
-        console.log('that.detailled_view', that.detailled_view);
+        // console.log('that.detailled_view', that.detailled_view);
         if (that.detailled_view !== '') {
           that.detailled_view.remove();
         }
-        that.detailled_view = Factory.getDetailledView(mod);
+        var type = mod.get('type');
+        that.detailled_view = Factory.getDetailledView(type, mod);
         that._viewSection(that.dom.session_view, that.dom.session_btn);
       },
       error   : function(model, response) {
