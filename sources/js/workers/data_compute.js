@@ -69,4 +69,3 @@ onconnect = function(e) {
   };
   port.start();
 };
-
