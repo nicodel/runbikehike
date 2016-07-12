@@ -62,7 +62,7 @@ var ReportsView = Backbone.NativeView.extend({
     var user_unit = Preferences.get('unit');
 
     var red   = '#FF0000';
-    // var blue  = '#0000FF';
+    var blue  = '#0000FF';
     var green = '#008000';
 
     var dateFormat    = d3.time.format.iso;
@@ -73,7 +73,7 @@ var ReportsView = Backbone.NativeView.extend({
     BodyWeights.forEach(function(model) {
       item = model.attributes;
       item.formateddate = dateFormat.parse(item.date);
-      item.month = d3.time.month(item.formateddate);
+      item.day = d3.time.day(item.formateddate);
       weight_data.push(item);
     });
 
@@ -92,24 +92,22 @@ var ReportsView = Backbone.NativeView.extend({
     console.log('weight_data', weight_data);
     var ndx_weight      = crossfilter(weight_data);
     var date_weight_dim = ndx_weight.dimension(function(d) {
-      console.log('d.month', d.month);
-      return d.month;
+      return d.day;
     });
 
     var weightGroup     = date_weight_dim.group().reduceSum(function(d) {
-      console.log('d.value', d.value);
       return parseFloat(d.value, 10);
     });
 
-      this.weightChart/*.width(768).height(240)*/
-        .x(d3.time.scale().domain([new Date(new Date().getFullYear(), 0, 1), new Date(new Date().getFullYear(), 11, 31)]))
+      this.weightChart
+        .x(d3.time.scale().domain([new Date(new Date().getFullYear(), 0, 1), new  Date(new Date().getFullYear(), 11, 31)]))
         .dimension(date_weight_dim)
         .renderHorizontalGridLines(true)
         .renderVerticalGridLines(true)
         .brushOn(false)
         .mouseZoomable(false)
         .yAxisLabel('Weight (kg)')
-        .colors(red)
+        .colors(blue)
         .group(weightGroup, 'Weight');
 
     /*var ndx_act       = crossfilter(act_data);
