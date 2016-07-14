@@ -6,7 +6,7 @@
 .session-view div.dc-chart,
 .session-view div.map {
   margin: 0;
-  width: 100%
+  /*width: 100%*/
 }
 .session-totals-container,
 .accordeon section.map {
