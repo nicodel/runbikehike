@@ -38,6 +38,7 @@ var NavigationView = Backbone.NativeView.extend({
     this.listenTo(Dashboard, 'dashboard-entry-selected', this.showEntry);
     this.listenTo(Dashboard, 'sessions-entry-selected', this.showSession);
     this.listenTo(Sessions, 'add-new', this.showSession);
+    this.listenTo(Sessions, 'removed', this.showDashboard);
     this.listenTo(BodyWeights, 'add-new', this.showDashboard);
   },
 
