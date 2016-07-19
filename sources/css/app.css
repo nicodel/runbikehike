@@ -10,6 +10,10 @@ a {
   color: black;
 }
 
+i {
+  cursor: pointer;
+}
+
 section {
   position: fixed;
   top: 0;
