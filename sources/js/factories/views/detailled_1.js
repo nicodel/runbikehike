@@ -1,5 +1,5 @@
 /* jshint browser: true */
-/* globals Sessions,
+/* globals Sessions, ModalView,
  Backbone, microtemplate, Preferences, utils, d3, crossfilter, dc
 */
 'use strict';
@@ -18,12 +18,17 @@ views.detailled_1 = Backbone.NativeView.extend({
   template: microtemplate(document.getElementById('session-details-template').innerHTML),
 
   events: {
-    'click #session-1-delete' : 'deleteSession'
+    'click #session-1-delete' : 'showModal'
   },
 
   initialize: function() {
     // console.log('SessionView initialized', this);
     this.render();
+  },
+
+  showModal: function () {
+    console.log('showModal');
+    new ModalView({model: this.model});
   },
 
   deleteSession: function (el) {
