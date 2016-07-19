@@ -1,5 +1,5 @@
 /* jshint browser: true */
-/* globals Backbone, microtemplate, Preferences, utils
+/* globals Sessions, Backbone, microtemplate, Preferences, utils
 */
 'use strict';
 
@@ -11,6 +11,10 @@ views.detailled_4  = Backbone.NativeView.extend({
   session_id: '',
 
   template: microtemplate(document.getElementById('session-details-template-3').innerHTML),
+
+  events: {
+    'click #session-3-delete' : 'deleteSession'
+  },
 
   initialize: function() {
     // console.log('SessionView initialized', this);
@@ -29,4 +33,16 @@ views.detailled_4  = Backbone.NativeView.extend({
     });
   },
 
+  deleteSession: function (el) {
+    var session = el.target.getAttribute('session_id');
+    this.model.destroy({
+      success: function (model, response) {
+        console.log('deleteSession - success', model, response);
+        Sessions.trigger('removed');
+      },
+      error: function (model, error) {
+        console.log('deleteSession - error', model, error);
+      }
+    });
+  }
 });

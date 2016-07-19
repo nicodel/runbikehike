@@ -27,11 +27,13 @@
   <link rel="stylesheet" href="css/preferences.css">
   <link rel="stylesheet" href="css/reports.css">
   <link rel="stylesheet" href="css/sessions.css">
+  <link rel="stylesheet" href="css/modal.css">
   <link rel="stylesheet" href="css/app.css">
 
 </head>
 
 <body id="app">
+  <div class="modal hidden" id="modal" disabled="true"></div>
   <nav>
     <img src="img/logo_white_128.png" alt="Run, Bike, Hike... logo" class="align-left">
     <!-- <h2 id="new&#45;session&#45;btn" class=" new&#45;line align&#45;left">
@@ -496,6 +498,7 @@
   </script>
 
   <script type="text/template" id="session-details-template">
+  <i class="fa fa-2x fa-trash" aria-hidden="true" id="session-1-delete" session_id="<%= session_cid %>"></i>
   <div class="session-totals-container">
   <div data-l10n-id="date" class="width-half text-1-4 align-left">Date
     <span id="session-date" class="align-right"><%= date %></span>
@@ -576,6 +579,7 @@
   </script>
 
   <script type="text/template" id="session-details-template-2">
+      <i class="fa fa-2x fa-trash" aria-hidden="true" id="session-2-delete" session_id="<%= session_cid %>"></i>
   <div class="session-totals-container">
     <div data-l10n-id="date" class="width-half text-1-4 align-left">
       <span id="session-date" class="align-right"><%= date %></span>
@@ -599,6 +603,7 @@
   </script>
 
   <script type="text/template" id="session-details-template-3">
+      <i class="fa fa-2x fa-trash" aria-hidden="true" id="session-3-delete" session_id="<%= session_cid %>"></i>
   <div class="session-totals-container">
     <div data-l10n-id="date" class="width-half text-1-4 align-left">
       <span id="session-date" class="align-right"><%= date %></span>
@@ -614,6 +619,18 @@
       <span id="session-date" class="align-right"><%= calories %></span>
     </div>
   </div>
+  </script>
+
+  <script type="text/template" id="modal-delete-template">
+    <div session_id="<% session_cid %>">
+      <h1 data-l10n-id="confirmation">Confirmation</h1>
+      <p><% name %></p>
+      <p>
+        <span>Are you sure you want to delete it?</span>
+      </p>
+      <button id="btn-cancel-delete" class="cancel" data-l10n-id="cancel">Cancel</button>
+      <button id="btn-confirm-delete" role="button" class="danger" data-l10n-id="confirm">Confirm</button>
+    </div>
   </script>
 
   <script type="text/javascript" src="js/lib/l10n.js"></script>
@@ -697,6 +714,7 @@
   <script type="text/javascript" src="js/collections/body_weight.js"></script>
   <script type="text/javascript" src="js/collections/dashboard.js"></script>
   <script type="text/javascript" src="js/views/indicators.js"></script>
+  <script type="text/javascript" src="js/views/modal.js"></script>
   <script type="text/javascript" src="js/views/dashboard.js"></script>
   <script type="text/javascript" src="js/views/new-session.js"></script>
   <script type="text/javascript" src="js/views/new-body-weight.js"></script>
