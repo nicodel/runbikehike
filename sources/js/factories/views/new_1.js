@@ -27,7 +27,7 @@ views.new_1 = Backbone.NativeView.extend({
 
   initialize: function() {
     this.listenTo(this.model, 'import', this.renderImportedData);
-    this.listenTo(this.model, 'change:map', this.renderMap);
+    //this.listenTo(this.model, 'change:map', this.renderMap);
     // this.listenTo(this.model, 'all', function(a, b) {console.log('something on this.model', a, b);});
   },
 
@@ -126,6 +126,14 @@ views.new_1 = Backbone.NativeView.extend({
     document.getElementById('new-session-avg-speed').value = speed.value;
     // document.getElementById('new-session-speed-unit').innerHTML = speed.unit;
     document.getElementById('new-session-calories').value =  this.model.get('calories');
+
+    // var map = this.model.get('map');
+    // var data = this.model.get('data');
+    // if (map !== false) {
+    //   utils.Map.initialize('new-map');
+    //   utils.Map.getMap(data);
+    //   document.getElementById('new-map-container').className = 'new-line';
+    // }
   },
 
   enableImport: function() {
@@ -137,16 +145,16 @@ views.new_1 = Backbone.NativeView.extend({
     }
   },
 
-  renderMap: function() {
-    var map = this.model.get('map');
-    var data = this.model.get('data');
-    if (map !== false) {
-      // console.log('rendering map', this.model.attributes);
-      utils.Map.initialize('new-map');
-      utils.Map.getMap(data);
-      document.getElementById('new-map-container').className = 'new-line';
-    }
-  },
+  // renderMap: function() {
+  //   var map = this.model.get('map');
+  //   var data = this.model.get('data');
+  //   console.log('new data', data[0][100]);
+  //   if (map !== false) {
+  //     utils.Map.initialize('new-map');
+  //     utils.Map.getMap(data);
+  //     document.getElementById('new-map-container').className = 'new-line';
+  //   }
+  // },
 
   renderCalories: function() {
     var calories = utils.Helpers.calculateCalories(

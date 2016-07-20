@@ -155,6 +155,7 @@ views.detailled_1 = Backbone.NativeView.extend({
     console.log('rendering map');
     var map = this.model.get('map');
     var data = this.model.get('data');
+    console.log('detail data', data[0][100]);
     if (map !== false) {
       utils.Map.initialize('session-map');
       utils.Map.getMap(data);

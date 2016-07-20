@@ -39,14 +39,7 @@
 .new-body-view form.body-form {
   height: 4rem;
 }
-.new-session-view div.map,
-.new-body-view div.map {
-  margin: 0;
-  width: 100%
-}
-/*.new-session-view label {
-  margin: 0.5rem;
-}*/
+
 .new-session-view label img,
 .new-body-view label img {
   width: 56px;
