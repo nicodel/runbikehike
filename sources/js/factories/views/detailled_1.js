@@ -78,20 +78,18 @@ views.detailled_1 = Backbone.NativeView.extend({
 
     var data = this.model.get('data');
     if (data.length !== 0) {
-      // if (!!window.SharedWorker) {
-      //   var that = this;
-      //   var dataWorker = new SharedWorker('js/workers/data_compute.js');
-      //   console.log('dataWorker', dataWorker);
-      //   dataWorker.port.postMessage([data, user_unit]);
-      //   dataWorker.port.onmessage = function(e) {
-      //     console.log('data have been computed', e.data);
-      //     that.renderGraphs(e.data[0], e.data[1]);
-      //     that.renderMap();
-      //   };
-      //   console.log('dataWorker.port', dataWorker.port);
-      // }
-      // TODO: work on a SharedWorker in order to ease the user experience
-      this.dataCompute(data, user_unit);
+      if (!!window.SharedWorker) {
+        var that = this;
+        var dataWorker = new SharedWorker('js/workers/data_compute.js');
+        console.log('dataWorker', dataWorker);
+        dataWorker.port.postMessage([data, user_unit]);
+        dataWorker.port.onmessage = function(e) {
+          console.log('data have been computed', e.data);
+          that.renderGraphs(e.data[0], e.data[1]);
+          that.renderMap();
+        };
+        console.log('dataWorker.port', dataWorker.port);
+      }
     }
   },
 

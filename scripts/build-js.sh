@@ -1,8 +1,12 @@
 #! /bin/bash
 #./node_modules/uglify-js/bin/uglifyjs ./sources/js/**/**/* -o ./public/app.js
+#
+mkdir -p ./public/lib
+rsync -a --delete ./sources/js/lib/ ./public/lib/
 
-#mkdir -p public/lib
-#rsync -a --delete ./sources/js/lib/ .public/lib/
+mkdir -p ./public/js/workers
+rsync -a --delete ./sources/js/workers/ ./public/js/workers/
+
 sed -i 's/src="js\/app.js/src="app.js/g' ./public/index.html
 sed -i '/src="js\/utils/d' ./public/index.html
 sed -i '/src="js\/factories/d' ./public/index.html
@@ -12,6 +16,7 @@ sed -i '/src="js\/views/d' ./public/index.html
 sed -i '/src="js\/app/d' ./public/index.html
 sed -i '/src="js\/router/d' ./public/index.html
 sed -i 's/js\/lib/lib/g' ./public/index.html
+
 ./node_modules/uglify-js/bin/uglifyjs \
 ./sources/js/utils/gpx.js \
 ./sources/js/utils/tracks.js \

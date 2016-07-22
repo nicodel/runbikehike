@@ -8,8 +8,6 @@ mkdir -p ./public/styles/fonts
 rsync -a --delete ./sources/css/fonts/ ./public/styles/fonts
 mkdir -p ./public/locales
 rsync -a --delete ./sources/locales/ ./public/locales/
-mkdir -p ./public/lib
-rsync -a --delete ./sources/js/lib/ ./public/lib/
 
 #cp package.json ./public/
 cp ./sources/index.html ./public/
