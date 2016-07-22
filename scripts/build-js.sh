@@ -84,11 +84,11 @@ sed -i 's/js\/lib/lib/g' ./public/index.html
 ./sources/js/collections/sessions.js \
 ./sources/js/collections/body_weight.js \
 ./sources/js/collections/dashboard.js \
-./sources/js/views/indicators.js \
 ./sources/js/views/dashboard.js \
+./sources/js/views/indicators.js \
+./sources/js/views/modal.js \
 ./sources/js/views/new-session.js \
 ./sources/js/views/new-body-weight.js \
-./sources/js/views/tracking.js \
 ./sources/js/views/preferences.js \
 ./sources/js/views/sessions.js \
 ./sources/js/views/reports.js \
