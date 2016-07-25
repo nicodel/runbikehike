@@ -4,7 +4,7 @@
 
 var MessagesCollection = Backbone.Collection.extend({
   model: Message,
-  url: '/messages',
+  url: 'messages',
 
   initialize: function() {
     // console.log('DocsCollection initialize');
