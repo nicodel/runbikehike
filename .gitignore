@@ -30,4 +30,4 @@ node_modules
 db*
 
 # Published versions
-# publish/*
+publish/*
