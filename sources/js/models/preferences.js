@@ -4,7 +4,7 @@
 
 var preferencesmodel = Backbone.Model.extend({
 
-  urlRoot: '/preferences',
+  urlRoot: 'preferences',
 
   idAttribute: '_id',
 
