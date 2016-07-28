@@ -1,16 +1,17 @@
 /* jshint browser: true */
-/* globals Backbone, microtemplate, Sessions, Factory, Tracking */
+/* globals Backbone, microtemplate, Sessions, Factory, Session */
 /* exported NewSession */
 'use strict';
 
 var NewSession = Backbone.NativeView.extend({
   el: '#new-session-view',
 
+  model: new Session(),
+
   subview: '',
 
   events: {
-    // 'click #switch-to-gps'    : 'swicthToGps',
-    'click #select-activity'  : 'activitySelected',
+    'click #select-activity'          : 'activitySelected',
     'click #confirm-add-session-btn'  : 'addNewSession'
   },
 
@@ -43,11 +44,6 @@ var NewSession = Backbone.NativeView.extend({
     label.appendChild(img);
     document.getElementById('select-activity').appendChild(label);
   },
-
-  // swicthToGps: function() {
-  //   console.log('switch to gps');
-  //   Sessions.trigger('switch-to-gps');
-  // },
 
   activitySelected: function(element) {
     // cleaning previous view (if any)

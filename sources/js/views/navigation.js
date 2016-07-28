@@ -43,9 +43,9 @@ var NavigationView = Backbone.NativeView.extend({
   },
 
   showNewSession: function() {
-    new NewSession({
-      model: new Session()
-    });
+    // new NewSession({
+    //   model: new Session()
+    // });
     this._viewSection(this.dom.new_session_view, this.dom.new_session_btn);
   },
 
