@@ -7,7 +7,7 @@ var ReportsView = Backbone.NativeView.extend({
   el: '#reports-view',
 
   weightChart : dc.lineChart('#reports-weight-graph'),
-  // caloriesChart : dc.barChart('#reports-calories-graph'),
+  caloriesChart : dc.barChart('#reports-calories-graph'),
   // distanceChart : dc.barChart('#reports-distance-graph'),
   // durationChart : dc.barChart('#reports-duration-graph'),
 
@@ -52,7 +52,7 @@ var ReportsView = Backbone.NativeView.extend({
       }
       console.log('first - last', first, last);
       that.weightChart.focus([first, last]);
-      //that.caloriesChart.focus([first, last]);
+      that.caloriesChart.focus([first, last]);
       //that.distanceChart.focus([first, last]);
       //that.durationChart.focus([first, last]);
     });
@@ -110,7 +110,7 @@ var ReportsView = Backbone.NativeView.extend({
         .colors(blue)
         .group(weightGroup, 'Weight');
 
-    /*var ndx_act       = crossfilter(act_data);
+    var ndx_act       = crossfilter(act_data);
     var date_act_dim  = ndx_act.dimension(function(d) {
       return d.month;
     });
@@ -130,7 +130,7 @@ var ReportsView = Backbone.NativeView.extend({
       .dimension(date_act_dim)
       .group(caloriesGroup);
 
-    var dst = utils.Helpers.distanceMeterToChoice(user_unit, 10, false);
+    /*var dst = utils.Helpers.distanceMeterToChoice(user_unit, 10, false);
     var distanceGroup = date_act_dim.group().reduceSum(function(d) {
       return utils.Helpers.distanceMeterToChoice(
         user_unit,
