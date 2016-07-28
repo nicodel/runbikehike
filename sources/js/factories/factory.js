@@ -68,11 +68,11 @@ var Factory = (function() {
     });
   };
   var getActivitiesList = function () {
-    console.log('activities', activities);
+    // console.log('activities', activities);
     return activities.list;
   };
   var getBodiesList = function () {
-    console.log('body_weight', body_weight);
+    // console.log('body_weight', body_weight);
     return body_weight.list;
   };
   return {
