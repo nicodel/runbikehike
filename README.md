@@ -92,6 +92,7 @@ hardware where no one profiles you.
 * Migrating from a FirefoxOS client application, to a client/server application that can be hosted on any server and lanched from any device and browser.
 
 ### v0.2.0 - xx/xx/xxxx
+* Fix issue #24: Sorting dashboard entries.
 
 ### v0.1.18 - 29/06/2015
 * Fix issue #97: Exporting tracks to file regression bug was fixed.
