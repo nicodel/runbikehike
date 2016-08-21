@@ -93,6 +93,7 @@ hardware where no one profiles you.
 
 ### v0.2.0 - xx/xx/xxxx
 * Fix issue #24: Sorting dashboard entries.
+* Fix issue #22: Definig one and for all how Weiht will be declared and used.
 
 ### v0.1.18 - 29/06/2015
 * Fix issue #97: Exporting tracks to file regression bug was fixed.
