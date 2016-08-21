@@ -26,7 +26,7 @@ views.new_2 = Backbone.NativeView.extend({
       'lb_date'   : _('date-format'),
       'date'      : utils.Helpers.formatDate(this.model.get('date')),
       'lb_weight' : _('weight'),
-      'value'     : this.model.get('value'),
+      'value'     : this.model.get('weight'),
     });
     // console.log('new view rendered');
     return this;
@@ -38,7 +38,7 @@ views.new_2 = Backbone.NativeView.extend({
       this.validated.date = true;
       this.trigger('enable-add');
       var d = date[1];
-      this.model.set('date', new Date(d[2], d[1] - 1, d[0]).toISOString());
+      this.model.set('date', new Date(d[2], d[1] - 1, d[0]));
       // this.model.set('date', date[1]);
     } else {
       this.validated.date = false;
@@ -55,7 +55,7 @@ views.new_2 = Backbone.NativeView.extend({
     } else {
       this.validated.value = true;
       this.trigger('enable-add');
-      this.model.set('value', v);
+      this.model.set('weight', v);
     }
   }
 });

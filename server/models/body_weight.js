@@ -1,12 +1,10 @@
 /* jshint strict: true, node: true */
 'use strict';
 var cozydb = require('cozydb');
-var Body_weight = cozydb.getModel('body_weight', {
-  'id'        : String,
-  'type'      : String,
-  'activity'  : String,
-  'date'      : String,
-  'value'     : String,
+var Body_weight = cozydb.getModel('Weight', {
+    'date'    : Date,
+    'weight'  : Number,
+    'vendor'  : {type: String, default: 'RunBikeHike'}
 });
 Body_weight.all = function(callback) {
   Body_weight.request("all", {}, function(err, docs) {

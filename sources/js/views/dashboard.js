@@ -67,7 +67,7 @@ var DashboardView = Backbone.NativeView.extend({
     // console.log('sorting collection', this.collection);
     if (this.collection.length !== 0) {
       var that = this;
-      console.log('sorting collection by', this.sortAttribute, this.sortAscending);
+      // console.log('sorting collection by', this.sortAttribute, this.sortAscending);
       this.collection.comparator = function(doc) {
         var activity = doc.get('activity');
         var timestamp = doc.get('date');
@@ -87,7 +87,7 @@ var DashboardView = Backbone.NativeView.extend({
         }
       };
       this.collection.sort();
-      console.log('collection has been sorted', this.collection);
+      // console.log('collection has been sorted', this.collection);
       this.render();
     }
   },

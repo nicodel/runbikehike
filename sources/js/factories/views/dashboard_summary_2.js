@@ -23,7 +23,7 @@ views.dashboard_summary_2 = Backbone.NativeView.extend({
     this.el.innerHTML = this.template({
       'session_cid' : this.model.cid,
       'date'        : utils.Helpers.formatDate(this.model.get('date')),
-      'value'       : this.model.get('value'),
+      'value'       : this.model.get('weight'),
       'activity'    : activity,
       // 'icon_path'   : 'img/' + this.model.get('type') + '/' + activity + '.png'
       'icon_path'   : 'img/body_weight.png'
