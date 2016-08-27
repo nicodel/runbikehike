@@ -32,13 +32,17 @@ var Factory = (function() {
   var getDashboardSummaryView = function(model) {
     // console.log('FACTORY - display dashboard summary view for', model);
     var View;
-    var type = model.get('type');
-    if (type === 'session') {
-      View = activities[model.get('activity')].summary_view_dashboard;
-    } else if (type === 'body_weight') {
+    if (model.get('weight')) {
       View = body_weight.summary_view_dashboard;
-    } else if (type === 'message') {
-      View = messages[model.get('activity')].summary_view_dashboard;
+    } else {
+      var type = model.get('type');
+      if (type === 'session') {
+        View = activities[model.get('activity')].summary_view_dashboard;
+      } else if (type === 'body_weight') {
+        View = body_weight.summary_view_dashboard;
+      } else if (type === 'message') {
+        View = messages[model.get('activity')].summary_view_dashboard;
+      }
     }
     // console.log('View', View);
     return new View({
@@ -52,17 +56,20 @@ var Factory = (function() {
       model: model
     });
   };
+  var getWeightView = function(model) {
+    var View = body_weight.detailled_view;
+    console.log('body_weight', body_weight);
+    return new View ({
+      model:  model
+    });
+  };
   var getDetailledView = function(type, model) {
     var View;
     if (type === 'session') {
       View = activities[model.get('activity')].detailled_view;
-    } else if (type === 'body'){
-      View = body_weight[model.get('activity')].detailled_view;
     } else if (type === 'message'){
       View = messages[model.get('activity')].detailled_view;
     }
-    // var View = activities[model.activity].detailled_view;
-    // console.log('FACTORY - display detailled view for', model);
     return new View({
       model: model
     });
@@ -80,6 +87,7 @@ var Factory = (function() {
     getNewView              : getNewView,
     getDashboardSummaryView : getDashboardSummaryView,
     getSessionsSummaryView  : getSessionsSummaryView,
+    getWeightView           : getWeightView,
     getDetailledView        : getDetailledView,
     getActivitiesList       : getActivitiesList,
     getBodiesList           : getBodiesList

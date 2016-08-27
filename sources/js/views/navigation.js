@@ -53,10 +53,8 @@ var NavigationView = Backbone.NativeView.extend({
     console.log('showNewBody');
     new NewBodyWeightView({
       model: new BodyWeight({
-        type: 'body_weight',
-        activity: '',
-        date: new Date().toISOString(),
-        value: 0
+        date: new Date(),
+        weight: 0
       })
     });
     this._viewSection(this.dom.new_body_weight_view, this.dom.new_body_weight_btn);
@@ -102,14 +100,11 @@ var NavigationView = Backbone.NativeView.extend({
 
   showEntry: function(model) {
     console.log('dashboard entry selected', model);
-    var type = model.get('type');
-    if (type === 'session') {
-      this.showSession(model);
-    } else if(type === 'body'){
-      this.detailled_view = Factory.getDetailledView(model);
+    if (model.get('weight')) {
+      this.detailled_view = Factory.getWeightView(model);
       this._viewSection(this.dom.session_view, this.dom.session_btn);
-    } else {
-      console.log('other types of dashboard entries are not managed');
+    } else if (model.get('type') === 'session') {
+        this.showSession(model);
     }
   },
 

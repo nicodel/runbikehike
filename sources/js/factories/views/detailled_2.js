@@ -40,10 +40,9 @@ views.detailled_2 = Backbone.NativeView.extend({
 
   render: function() {
     this.el.innerHTML = this.template({
-      'session_cid' : this.model.get('session_cid'),
+      'session_cid' : this.model.cid,
       'date'        : utils.Helpers.formatDate(this.model.get('date')),
-      'value'       : this.model.get('value'),
-      'activity'    : this.model.get('activity')
+      'value'       : this.model.get('weight')
     });
   }
 });
