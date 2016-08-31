@@ -36,7 +36,7 @@ var NewBodyWeightView = Backbone.NativeView.extend({
       'lb_date'   : _('date-format'),
       'date'      : utils.Helpers.formatDate(this.model.get('date')),
       'lb_weight' : _('weight'),
-      'value'     : this.model.get('value'),
+      'value'     : this.model.get('weight'),
     });
     // console.log('new view rendered');
     return this;
@@ -49,7 +49,7 @@ var NewBodyWeightView = Backbone.NativeView.extend({
         this.validated.date = true;
         this.trigger('enable-add');
         var d = date[1];
-        this.model.set('date', new Date(d[2], d[1] - 1, d[0]).toISOString());
+        this.model.set('date', new Date(d[2], d[1] - 1, d[0]));
         // this.model.set('date', date[1]);
       } else {
         this.validated.date = false;
@@ -66,65 +66,9 @@ var NewBodyWeightView = Backbone.NativeView.extend({
       } else {
         this.validated.value = true;
         this.trigger('enable-add');
-        this.model.set('value', v);
+        this.model.set('weight', v);
       }
     },
-
-
- //
- //  renderIcon: function (body) {
- //    var label = document.createElement('label');
- //    label.setAttribute('for', body.activity);
- //    var input = document.createElement('input');
- //    input.setAttribute('type', 'radio');
- //    input.setAttribute('name', 'select-body');
- //    input.setAttribute('value', body.activity);
- //    input.setAttribute('id', body.activity);
- //    var img = document.createElement('img');
- //    img.setAttribute('src', 'img/body/' + body.activity + '.png');
- //    img.setAttribute('alt', body.activity);
- //    label.appendChild(input);
- //    label.appendChild(img);
- //    document.getElementById('select-body').appendChild(label);
- //  },
- //
- //  bodySelected: function(element) {
- //    // console.log('bodySelected', element);
- //    // cleaning previous view (if any)
- //    if (this.subview) {
- //      this.subview.remove();
- //    }
- //    if (element.target.nodeName === 'INPUT') {
- //      var body = element.target.value;
- //      var session = Factory.getModel(
- //          'body',
- //          body,
- //          {'activity' : body});
- //      this.model.set(session);
- //      this.subview = Factory.getNewView('body', this.model);
- //      // console.log('view to be displayed is', this.subview);
- //      this.el.appendChild(document.createElement('div').innerHTML = this.subview.render().el);
- //      // add listener to subview to enable/disable the Add button
- //      this.listenTo(this.subview, 'enable-add', this.enableAdd);
- //      this.listenTo(this.subview, 'disable-add', this.disableAdd);
- //    }
- //  },
- //
- //  enableAdd: function() {
- //    var btn = document.getElementById('confirm-add-session-btn');
- //    // console.log('enable-add', btn.getAttribute('disabled'));
- //    if (btn.getAttribute('disabled') === 'disabled') {
- //      btn.removeAttribute('disabled');
- //    }
- //  },
- //
- //  disableAdd: function() {
- //    var btn = document.getElementById('confirm-add-session-btn');
- //    // console.log('disable-add', btn.getAttribute('disabled'));
- //    if (btn.getAttribute('disabled') === null) {
- //      btn.setAttribute('disabled', 'disabled');
- //    }
- // },
 
   addNewBody: function() {
     for (var i = 0; i < this.validated.length; i++) {
