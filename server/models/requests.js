@@ -12,6 +12,9 @@ module.exports = {
   sessions: {
     all: cozydb.defaultRequests.all
   },
+  gps_tracks: {
+    all: cozydb.defaultRequests.all
+  },
   body_weight: {
     all: cozydb.defaultRequests.all
   }

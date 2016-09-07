@@ -4,6 +4,7 @@
 // var dashboard = require('./dashboard');
 var messages = require('./messages');
 var sessions = require('./sessions');
+var gps_tracks = require('./gps_tracks');
 var body_weight = require('./body_weight');
 var preferences = require('./preferences');
 
@@ -27,6 +28,15 @@ module.exports = {
     get: sessions.getOne,
     put: sessions.update,
     delete: sessions.remove
+  },
+  'gps_tracks': {
+    get: gps_tracks.getAll,
+    post: gps_tracks.add
+  },
+  'gps_tracks/:id': {
+    get: gps_tracks.getOne,
+    put: gps_tracks.update,
+    delete: gps_tracks.remove
   },
   'body_weight': {
     get: body_weight.getAll,
