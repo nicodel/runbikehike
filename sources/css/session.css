@@ -1,12 +1,10 @@
 .session-view h1,
 .session-view div {
-  width: 90%;
   margin-left: 5%;
 }
 .session-view div.dc-chart,
 .session-view div.map {
   margin: 0;
-  width: 100%
 }
 .session-totals-container,
 .accordeon section.map {
@@ -14,7 +12,7 @@
   background-color: #F1F1F1;
 }
 .session-totals-container {
-  height: 28rem;
+  height: 14rem;
   padding: 0.5rem;
   margin-left: 5%;
 }
@@ -68,10 +66,7 @@
 h3 {
   background-color: cadetblue;
 }
-.map {
-  width: 600px;
-  height: 500px;
-}
+
 table {
   font-size: 1.2rem;
 }

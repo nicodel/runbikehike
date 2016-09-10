@@ -2,7 +2,7 @@
 
 ## Description
 
-Run, Bike, Hike... is a personal sports log, along with a GPS recording application. What ever you sport activity is, you can use Run, Bike, Hike... to keep track of it and follow your progrees across time.
+Run, Bike, Hike... is a personal sports log, along with a GPS recording application. What ever you  sport activity is, you can use Run, Bike, Hike... to keep track of it and follow your progress across time.
 It allows you to record your running or biking sessions, so you can follow your sporting progress. You can be a running expert or an occasional hiker, Run, Bike, Hike... is giving simple and essentials functionalities. During tracking, you can see the elapsed time, the distance traveled, the altitude. And once record is made, you can see your track on a map, your average speed, maximum altitude. Speed and altitude evolution are shown on a graph giving you a better understanding of given efforts. You can also record your weight training or swimming sessions, by entering the figures.
 Run, Bike, Hike... is a web application. It means that it can on any device using any browser. It needs a server in order to store all your data. And the good news is that you can host the server yourself in order to keep your data private.
 Run, Bike, Hike... can be hosted on a [Cozy](https://cozy.io) or on a [Node.js](https://nodejs.org) server.
@@ -16,7 +16,9 @@ If you already have a Cozy instance setup, then you ~~can~~ (soon) will be able 
 from the Marketplace or by hopping on the machine and running the following
 command:
 
-```cozy-monitor install runbikehike -r https://github.com/nicodel/runbikehike```
+```
+cozy-monitor install runbikehike -r https://github.com/nicodel/runbikehike
+```
 
 # How to install it on a Node server?
 
@@ -33,20 +35,41 @@ npm start
 
 ## Hack
 
-If you want to hack on Run, Bike, Hike..., be sure to have installed [Mocha](https://mochajs.org) on your
-machine. It is used for testing.
+If you want to hack on Run, Bike, Hike..., be sure to have installed [Mocha](https://mochajs.org) on your machine. It is used for testing.
 
-```npm install -g mocha americano```
+```
+npm install -g mocha americano
+```
 
 (of course, install dependencies for the application)
 
-```npm install```
+```
+npm install
+```
 
 Then you can build and start Run, Bike, Hike... this way:
 
 ```
 npm run build
 npm start
+```
+
+In order to try it on a Cozy Cloud dev environment, you need to install the following:
+
+```
+sudo apt-get install git nodejs nodejs-legacy npm virtualbox-4.3 vagrant
+sudo npm install -g cozy-dev
+mkdir cozy-dev && cd cozy-dev
+cozy-dev vm:init
+
+# Start the environment
+cozy-dev vm:start
+
+# Check that the environment is properly started
+cozy-dev vm:status
+
+# Update the environment (strongly recommended)
+cozy-dev vm:update
 ```
 
 ### Can i propose a pull request?
@@ -69,6 +92,8 @@ hardware where no one profiles you.
 * Migrating from a FirefoxOS client application, to a client/server application that can be hosted on any server and lanched from any device and browser.
 
 ### v0.2.0 - xx/xx/xxxx
+* Fix issue #24: Sorting dashboard entries.
+* Fix issue #22: Definig one and for all how Weiht will be declared and used.
 
 ### v0.1.18 - 29/06/2015
 * Fix issue #97: Exporting tracks to file regression bug was fixed.

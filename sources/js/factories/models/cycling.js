@@ -4,7 +4,7 @@ var models = models || {};
 
 models.cycling = function(options) {
   this.type       = options.type      || 'session';
-  this.family     = options.family    || 'athletics';
+  this.family     = options.family    || 'cycling';
   this.activity   = options.activity  || '';
   this.date       = options.date      || new Date().toISOString();
   this.name       = options.name      || '';

@@ -1,12 +1,9 @@
 /* globals Backbone, Preferences, Messages, Sessions, BodyWeights,
-IndicatorsView, DashboardView, NavigationView, SessionsView, ReportsView */
+IndicatorsView, DashboardView, NavigationView, SessionsView, ReportsView, NewSession */
 /* exported Router */
 'use strict';
 
 var Router = Backbone.Router.extend({
-  initialize: function() {
-    // console.log('starting router');
-  },
   routes: {
     ''  : 'start'
   },
@@ -22,5 +19,6 @@ var Router = Backbone.Router.extend({
     new IndicatorsView();
     new SessionsView();
     new ReportsView();
+    new NewSession();
   }
 });

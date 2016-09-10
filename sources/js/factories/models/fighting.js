@@ -4,7 +4,7 @@ var models = models || {};
 
 models.fighting = function(options) {
   this.type       = options.type      || 'fighting';
-  this.family     = options.family    || 'net';
+  this.family     = options.family    || 'fighting';
   this.activity   = options.activity  || '';
   this.date       = options.date      || new Date().toISOString();
   this.name       = options.name      || '';
