@@ -115,6 +115,7 @@ views.new_1 = Backbone.NativeView.extend({
         'unit'  : 'km/h'
       };
     }
+    console.log('altitude', this.session.get('altitude'));
     if (this.session.get('altitude')) {
       altitude_maximum = this.session.get('altitude').maximum;
       altitude_minimum = this.session.get('altitude').minimum;

@@ -25,7 +25,12 @@ utils.GPX = function() {
       gps_track     : {
         available   : true
       },
-      altitude  : {}
+      altitude  : {
+        altitude_maximum  : 0,
+        altitude_minimum  : 0,
+        positive_climb    : 0,
+        negative_climb    : 0
+      }
       /*date      : '',
       name      : '',
       duration  : 0,
@@ -183,6 +188,7 @@ utils.GPX = function() {
     }
     track.gps_track.available = true;
     // console.log('gps_track[0][5]', gps_track[0][5]);
+    console.log('track', track);
     callback({error: false, res: {'track': track, 'gps_track': gps_track}});
   }
 

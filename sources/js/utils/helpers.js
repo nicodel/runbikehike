@@ -148,14 +148,14 @@ utils.Helpers = function() {
   }
 
   function calculateCalories(gender, weigth, height, age, distance, duration, activity) {
-    console.log('calculate calories', gender, weigth, height, age, distance, duration, activity);
+    // console.log('calculate calories', gender, weigth, height, age, distance, duration, activity);
     // TODO verify the validity of each value
     if (distance === 0 || duration === 0) {
       return 0;
     }
     //var bmr = __RevisedHarrisBenedictEquation(gender, weigth, height, age, distance, duration);
     var bmr = __MifftlinStJeorEquation(gender, weigth, height, age, distance, duration);
-    console.log('RevisedHarrisBenedictEquation', bmr);
+    // console.log('RevisedHarrisBenedictEquation', bmr);
 
     var rate = 0;
     var speed = distance / duration * 3.6; // we calculate speed in km/h to not have to recalculate all intervals :D
