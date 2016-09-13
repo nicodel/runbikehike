@@ -1,11 +1,14 @@
 /* jshint browser: true */
-/* globals _, Backbone, microtemplate, Preferences, utils */
+/* globals _, Backbone, microtemplate, Preferences, utils, Session,  GPSTrack */
 'use strict';
 
 var views = views || {};
 
 views.new_1 = Backbone.NativeView.extend({
   template: microtemplate(document.getElementById('new-session-template-1').innerHTML),
+
+  session: new Session(),
+  gps_track: new GPSTrack(),
 
   events: {
     'change #import-file'   : 'enableImport',
@@ -26,9 +29,9 @@ views.new_1 = Backbone.NativeView.extend({
   },
 
   initialize: function() {
-    this.listenTo(this.model, 'import', this.renderImportedData);
     //this.listenTo(this.model, 'change:map', this.renderMap);
     // this.listenTo(this.model, 'all', function(a, b) {console.log('something on this.model', a, b);});
+    this.session.set(this.model.attributes);
   },
 
   importFile: function() {
@@ -41,19 +44,26 @@ views.new_1 = Backbone.NativeView.extend({
           // TODO create a modal view for error or information display
           console.log('error while importing', result.res);
         } else {
+          that.gps_track.set(result.res.gps_track);
+          console.log('new_1 that.gps_track', that.gps_track);
+          that.trigger('gps-track-imported', that.gps_track);
+
+          var track = result.res.track;
           var calories = utils.Helpers.calculateCalories(
               Preferences.get('gender'),
-              Preferences.get('weight'),
+              Preferences.get('weight'),  // TODO retreive latest weight value from the Weight Collection
               Preferences.get('height'),
               new Date().getFullYear() - Preferences.get('birthyear'),
-              result.res.distance,
-              result.res.duration,
-              that.model.get('activity')
+              track.distance,
+              track.time_interval.duration,
+              that.session.get('activity_name')
           );
-          result.res.calories = calories;
-          that.model.set(result.res);
-          that.model.trigger('import');
-          console.log('new session imported', that.model.attributes);
+          track.calories = calories;
+          that.session.set(track);
+          console.log('new session imported', that.session);
+          that.trigger('session-defined', that.session);
+          that.renderImportedData();
+
         }
       });
     };
@@ -64,20 +74,66 @@ views.new_1 = Backbone.NativeView.extend({
     this.validated.distance = true;
     this.validated.duration = true;
     var pref_unit = Preferences.get('unit');
-    var distance = utils.Helpers.distanceMeterToChoice(
-      pref_unit,
-      this.model.get('distance'),
-      false
-    );
-    var duration = utils.Helpers.formatDuration(this.model.get('duration'));
-    var speed = utils.Helpers.speedMsToChoice(pref_unit, this.model.get('avg_speed'));
+    var date;
+    var distance;
+    var duration;
+    var speed;
+    var calories;
+    var altitude_maximum;
+    var altitude_minimum;
+    if (this.session.get('date')) {
+      date = this.session.get('date');
+    } else {
+      date = new Date();
+    }
+    if (this.session.get('distance')) {
+      distance = utils.Helpers.distanceMeterToChoice(
+        pref_unit,
+        this.session.get('distance'),
+        false
+      );
+    } else {
+        distance = {
+          'value' : 0,
+          'unit'  : 'm'
+        };
+    }
+    if (this.session.get('time_intervae')) {
+      duration = utils.Helpers.formatDuration(this.session.get('time_interval').duration);
+    } else {
+      duration = {
+        'hour'  : 0,
+        'min'   : 0,
+        'sec'   : 0
+      };
+    }
+    if (this.session.get('speed')) {
+      speed = utils.Helpers.speedMsToChoice(pref_unit, this.session.get('speed'));
+    } else {
+      speed = {
+        'value' : 0,
+        'unit'  : 'km/h'
+      };
+    }
+    if (this.session.get('altitude')) {
+      altitude_maximum = this.session.get('altitude').maximum;
+      altitude_minimum = this.session.get('altitude').minimum;
+    } else {
+      altitude_maximum = 0;
+      altitude_minimum = 0;
+    }
+    if (this.session.get('calories')) {
+      calories = this.session.get('calories');
+    } else {
+      calories = 0;
+    }
     this.el.innerHTML = this.template({
       'lb_import_file': _('import-gpx-file'),
       'lb_import'     : _('import'),
       'lb_date'       : _('date-format'),
-      'date'          : utils.Helpers.formatDate(this.model.get('date')),
+      'date'          : utils.Helpers.formatDate(date),
       'lb_time'       : _('start-time-format'),
-      'time'          : utils.Helpers.formatTime(this.model.get('date')),
+      'time'          : utils.Helpers.formatTime(date),
       'lb_distance'   : _('distance-format'),
       'distance_unit' : distance.unit,
       'distance'      : distance.value,
@@ -86,15 +142,15 @@ views.new_1 = Backbone.NativeView.extend({
       'durationM'     : duration.min,
       'durationS'     : duration.sec,
       'lb_alt_max'    : _('altitude-max'),
-      'alt_max'       : this.model.get('alt_max'),
+      'alt_max'       : altitude_maximum,
       'lb_alt_min'    : _('altitude-min'),
-      'alt_min'       : this.model.get('alt_min'),
+      'alt_min'       : altitude_minimum,
       'alt_unit'      : 'm',
       'lb_avg_speed'  : _('average-speed'),
       'avg_speed'     : speed.value,
       'speed_unit'    : speed.unit,
       'lb_calories'   : _('calories'),
-      'calories'      : this.model.get('calories'),
+      'calories'      : calories,
       'lb_map'        : _('map')
     });
     // console.log('new view rendered');
@@ -107,33 +163,25 @@ views.new_1 = Backbone.NativeView.extend({
     var pref_unit = Preferences.get('unit');
     var distance = utils.Helpers.distanceMeterToChoice(
       pref_unit,
-      this.model.get('distance'),
+      this.session.get('distance'),
       false
     );
-    var duration = utils.Helpers.formatDuration(this.model.get('duration'));
-    var speed = utils.Helpers.speedMsToChoice(pref_unit, this.model.get('avg_speed'));
-    document.getElementById('new-session-date').value = utils.Helpers.formatDate(this.model.get('date'));
-    document.getElementById('new-session-time').value = utils.Helpers.formatTime(this.model.get('date'));
+    var duration = utils.Helpers.formatDuration(this.session.get('time_interval').duration);
+    var speed = utils.Helpers.speedMsToChoice(pref_unit, this.session.get('speed'));
+    document.getElementById('new-session-date').value = utils.Helpers.formatDate(this.session.get('date'));
+    document.getElementById('new-session-time').value = utils.Helpers.formatTime(this.session.get('date'));
     document.getElementById('new-session-distance').value = distance.value;
     // document.getElementById('new-session-distance-unit').innerHTML = distance.unit;
     document.getElementById('new-session-duration-hour').value = duration.hour;
     document.getElementById('new-session-duration-min').value = duration.min;
     document.getElementById('new-session-duration-sec').value = duration.sec;
-    document.getElementById('new-session-alt-max').value = this.model.get('alt_max');
-    document.getElementById('new-session-alt-min').value = this.model.get('alt_min');
+    document.getElementById('new-session-alt-max').value = this.session.get('altitude').altitude_maximum;
+    document.getElementById('new-session-alt-min').value = this.session.get('altitude').altitude_minimum;
     // document.getElementById('new-session-alt-unit-max').innerHTML = 'm';
     // document.getElementById('new-session-alt-unit-min').innerHTML = 'm';
     document.getElementById('new-session-avg-speed').value = speed.value;
     // document.getElementById('new-session-speed-unit').innerHTML = speed.unit;
-    document.getElementById('new-session-calories').value =  this.model.get('calories');
-
-    // var map = this.model.get('map');
-    // var data = this.model.get('data');
-    // if (map !== false) {
-    //   utils.Map.initialize('new-map');
-    //   utils.Map.getMap(data);
-    //   document.getElementById('new-map-container').className = 'new-line';
-    // }
+    document.getElementById('new-session-calories').value =  this.session.get('calories');
   },
 
   enableImport: function() {
@@ -145,38 +193,28 @@ views.new_1 = Backbone.NativeView.extend({
     }
   },
 
-  // renderMap: function() {
-  //   var map = this.model.get('map');
-  //   var data = this.model.get('data');
-  //   console.log('new data', data[0][100]);
-  //   if (map !== false) {
-  //     utils.Map.initialize('new-map');
-  //     utils.Map.getMap(data);
-  //     document.getElementById('new-map-container').className = 'new-line';
-  //   }
-  // },
-
   renderCalories: function() {
+    console.log('this.model.get("time_interval")', this.model.get('time_interval'));
     var calories = utils.Helpers.calculateCalories(
         Preferences.get('gender'),
         Preferences.get('weight'),
         Preferences.get('height'),
         new Date().getFullYear() - Preferences.get('birthyear'),
         this.model.get('distance'),
-        this.model.get('duration'),
-        this.model.get('activity')
+        this.model.get('time_interval').duration,
+        this.session.activity_name
     );
     document.getElementById('new-session-calories').value = calories;
-    this.model.set('calories', calories);
+    this.session.set('calories', calories);
   },
 
   renderAvgSpeed: function() {
-    var speed = this.model.get('distance') / this.model.get('duration');
+    var speed = this.session.get('distance') / this.session.get('duration');
     document.getElementById('new-session-avg-speed').value = utils.Helpers.speedMsToChoice(
       Preferences.get('unit'),
       speed
     ).value;
-    this.model.set('avg_speed', speed);
+    this.session.set('speed', speed);
   },
 
   __validateDuration: function() {
@@ -189,9 +227,9 @@ views.new_1 = Backbone.NativeView.extend({
       this.trigger('disable-add');
     } else if (h >= 0 || h <= 24 && m >= 0 || m <= 60 && s >= 0 || s <= 60) {
       // console.log('new duration', h * 3600 + m * 60 + s);
-      this.model.set(
-        'duration',
-        h * 3600 + m * 60 + s
+      this.model.set(     // TODO Check the possibility to set a model attribute like this
+        'time_interval',
+        {'duration': h * 3600 + m * 60 + s}
       );
       this.validated.duration = true;
       console.log('sending enable-add', this.validated);
@@ -216,7 +254,7 @@ views.new_1 = Backbone.NativeView.extend({
       this.trigger('enable-add');
       var d = date[1];
       var t = time[1];
-      this.model.set('date', new Date(d[2], d[1] - 1, d[0], t[0], t[1],t[2]));
+      this.session.set('date', new Date(d[2], d[1] - 1, d[0], t[0], t[1],t[2]));
 
     } else {
       this.validated.date = false;

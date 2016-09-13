@@ -76,7 +76,7 @@ cozy-dev vm:update
 
 Oh yeah, that'd be awesome! If you think about it, create a branch on your fork
 and if you feel like sending a pull request, please propose to merge into the
-`incoming` branch (not `master`). Then I'll give it a look and will most
+`master` branch. Then I'll give it a look and will most
 certainly accept it!
 
 ## What is Cozy?
@@ -93,7 +93,7 @@ hardware where no one profiles you.
 
 ### v0.2.0 - xx/xx/xxxx
 * Fix issue #24: Sorting dashboard entries.
-* Fix issue #22: Definig one and for all how Weiht will be declared and used.
+* Fix issue #22: Definig one and for all how data will be declared and used.
 
 ### v0.1.18 - 29/06/2015
 * Fix issue #97: Exporting tracks to file regression bug was fixed.

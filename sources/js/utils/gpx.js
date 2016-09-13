@@ -2,7 +2,7 @@
 'use strict';
 
 var utils = utils || {};
-
+// TODO write the export function and write tests for both export and import
 utils.GPX = function() {
   var olat      = null;
   var olon      = null;
@@ -20,7 +20,13 @@ utils.GPX = function() {
   function __parse(xml, callback) {
     // console.log('xml', xml);
     var track = {
-      date      : '',
+      date    : new Date(),
+      time_interval : {},
+      gps_track     : {
+        available   : true
+      },
+      altitude  : {}
+      /*date      : '',
       name      : '',
       duration  : 0,
       distance  : 0,
@@ -31,7 +37,11 @@ utils.GPX = function() {
       climb_pos : 0,
       climb_neg : 0,
       map       : false,
-      data      : []
+      data      : []*/
+    };
+    var gps_track = {
+      metadata  : {},
+      trk       : {}
     };
     var missing_time,
         start_time,
@@ -44,6 +54,7 @@ utils.GPX = function() {
       var time = metadata[0].getElementsByTagName('time');
       if (time.length > 0) {
         track.date = time[0].textContent;
+        gps_track.metadata.time = time[0].textContent;
       } else {
         missing_time = true;
       }
@@ -65,18 +76,19 @@ utils.GPX = function() {
      */
     var name = t.getElementsByTagName('name');
     if (name.length > 0) {
-      track.name = name[0].textContent;
-    } else {
+      gps_track.metadata.name = name[0].textContent;
+    } /*else {
       track.name = __nameIt();
-    }
+    }*/
 
     var trkseg = t.getElementsByTagName('trkseg');
     var trkpt;
     var tag;
     var previous;
     if (trkseg.length > 0) {
+      gps_track.trk.segs = [];
       for (var seg_nb = 0; seg_nb < trkseg.length; seg_nb++) {
-        track.data[seg_nb] = [];
+        gps_track.trk.segs[seg_nb] = [];
         trkpt = trkseg[seg_nb].getElementsByTagName('trkpt');
         if (trkpt.length > 0) {
           for (var pt_nb = 0; pt_nb < trkpt.length; pt_nb++) {
@@ -105,26 +117,26 @@ utils.GPX = function() {
             if (tag.length > 0) {
               point.altitude = parseFloat(tag[0].textContent);
               var alt = point.altitude;
-              if (track.alt_min === 0 || alt < track.alt_min) {
-                track.alt_min = alt;
+              if (track.altitude.altitude_minimum === 0 || alt < track.altitude.altitude_minimum) {
+                track.altitude.altitude_minimum = alt;
               }
-              if (track.alt_max === 0 || alt > track.alt_max) {
-                track.alt_max = alt;
+              if (track.altitude.altitude_maximum === 0 || alt > track.altitude.altitude_maximum) {
+                track.altitude.altitude_maximum = alt;
               }
               // TODO manage the altitude in relation to vertical accuracy
               if (isNaN(previous)) {
                 previous = alt;
               } else {
                 if (alt > previous) {
-                  track.climb_pos += (alt - previous);
+                  track.altitude.positive_climb += (alt - previous);
                 } else if (alt < previous) {
-                  track.climb_neg += (previous - alt);
+                  track.altitude.negative_climb += (previous - alt);
                 }
                 previous = alt;
               }
             } else {
-              track.alt_max = null;
-              track.alt_min = null;
+              track.altitude.altitude_maximum = null;
+              track.altitude.altitude_minimum = null;
             }
 
             tag = p.getElementsByTagName('speed');
@@ -146,7 +158,7 @@ utils.GPX = function() {
             if (tag.length > 0) {
               point.vertAccuracy = parseFloat(tag[0].textContent);
             }
-            track.data[seg_nb].push(point);
+            gps_track.trk.segs[seg_nb].push(point);
           }
         } else {
           callback({error: true, res:'Could not parse trkpt from file'});
@@ -156,23 +168,25 @@ utils.GPX = function() {
       callback({error: true, res: 'Could not parse track segment from file'});
     }
     if (end_time && start_time) {
-      track.duration = (end_time - start_time) / 1000;
+      track.time_interval.duration = (end_time - start_time) / 1000;
+      track.time_interval.start_date = start_time;
+      track.time_interval.end_date = end_time;
     } else {
-      track.duration = 0;
+      track.time_interval.duration = 0;
     }
     if (missing_time) {
-      track.duration = null;
+      track.time_interval.duration = null;
     }
     track.distance = distance;
-    if (track.duration !== '') {
-      track.avg_speed = track.distance / track.duration;
+    if (track.time_interval.duration !== '') {
+      track.speed = track.distance / track.duration;
     }
-    track.map = true;
-    // console.log('track.data[0][5]', track.data[0][5]);
-    callback({error: false, res: track});
+    track.gps_track.available = true;
+    // console.log('gps_track[0][5]', gps_track[0][5]);
+    callback({error: false, res: {'track': track, 'gps_track': gps_track}});
   }
 
-  function __nameIt() {
+  /*function __nameIt() {
     // Build track name
     var d     = new Date();
     var year  = d.getFullYear();
@@ -197,7 +211,7 @@ utils.GPX = function() {
       sec = '0' + sec.toString();
     }
     return 'TR-'+year+month+day+'-'+hour+min+sec;
-  }
+  }*/
 
   function __getDistance(lat, lon) {
     var dist = 0;

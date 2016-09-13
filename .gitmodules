@@ -1,4 +1,0 @@
-[submodule "publish/runbikehike-cozy"]
-	path = publish/runbikehike-cozy
-	url = git@gitlab.com:nicodel/runbikehike-cozy.git
-  ignore = dirty

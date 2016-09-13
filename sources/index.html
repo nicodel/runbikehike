@@ -477,13 +477,12 @@
     </a>
   </script>
 
-
   <script type="text/template" id="indicators-template">
     <div class="indicator green align-left">
       <span id="dashboard-sessions-number" class="text-big"><%= sessions %></span>
       <span data-l10n-id="sessions" class="text-big"></span>
     </div>
-    <div class="indicator red align-right">
+    <div class="indicator red align-right" id="indicator-calories">
       <span class="fa fa-fire fa-2x"></span>
       <span id="dashboard-calories" class="text-big"><%= calories %></span>
       <span data-l10n-id="burned-calories" class="text-big"></span>
@@ -651,6 +650,19 @@
   <script type="text/javascript" src="js/factories/models/athletics.js"></script>
   <script type="text/javascript" src="js/workers/data_compute.js"></script>
   <!-- <script type="text/javascript" src="js/factories/models/body_weight.js"></script> -->
+
+  <script type="text/javascript" src="js/models/message.js"></script>
+  <script type="text/javascript" src="js/models/session.js"></script>
+  <script type="text/javascript" src="js/models/gps_track.js"></script>
+  <script type="text/javascript" src="js/models/body_weight.js"></script>
+  <script type="text/javascript" src="js/models/item.js"></script>
+  <script type="text/javascript" src="js/models/preferences.js"></script>
+  <script type="text/javascript" src="js/collections/messages.js"></script>
+  <script type="text/javascript" src="js/collections/sessions.js"></script>
+  <script type="text/javascript" src="js/collections/gps_tracks.js"></script>
+  <script type="text/javascript" src="js/collections/body_weight.js"></script>
+  <script type="text/javascript" src="js/collections/dashboard.js"></script>
+
   <script type="text/javascript" src="js/factories/models/cycling.js"></script>
   <script type="text/javascript" src="js/factories/models/fighting.js"></script>
   <script type="text/javascript" src="js/factories/models/message.js"></script>
@@ -705,15 +717,7 @@
   <script type="text/javascript" src="js/factories/body_weight/body_weight.js"></script>
   <script type="text/javascript" src="js/factories/messages/message.js"></script>
   <script type="text/javascript" src="js/factories/factory.js"></script>
-  <script type="text/javascript" src="js/models/message.js"></script>
-  <script type="text/javascript" src="js/models/session.js"></script>
-  <script type="text/javascript" src="js/models/body_weight.js"></script>
-  <script type="text/javascript" src="js/models/item.js"></script>
-  <script type="text/javascript" src="js/models/preferences.js"></script>
-  <script type="text/javascript" src="js/collections/messages.js"></script>
-  <script type="text/javascript" src="js/collections/sessions.js"></script>
-  <script type="text/javascript" src="js/collections/body_weight.js"></script>
-  <script type="text/javascript" src="js/collections/dashboard.js"></script>
+
   <script type="text/javascript" src="js/views/indicators.js"></script>
   <script type="text/javascript" src="js/views/modal.js"></script>
   <script type="text/javascript" src="js/views/dashboard.js"></script>

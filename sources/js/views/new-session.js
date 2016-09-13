@@ -1,12 +1,15 @@
 /* jshint browser: true */
-/* globals Backbone, microtemplate, Sessions, Factory, Session */
+/* globals Backbone, microtemplate, Sessions, GPSTracks, Factory, Session, GPSTrack */
 /* exported NewSession */
 'use strict';
 
 var NewSession = Backbone.NativeView.extend({
   el: '#new-session-view',
 
-  model: new Session(),
+  gps_id: '',
+  session: new Session(),
+  gps_track: new GPSTrack(),
+  activity_name: '',
 
   subview: '',
 
@@ -51,18 +54,21 @@ var NewSession = Backbone.NativeView.extend({
       this.subview.remove();
     }
     if (element.target.nodeName === 'INPUT') {
-      var activity = element.target.value;
-      var session = Factory.getModel(
-          'session',
-          activity,
-          {'activity' : activity});
-      this.model.set(session);
-      this.subview = Factory.getNewView('session', this.model);
+      // this.session = new Session();
+      this.session.set({
+        'activity_name' : element.target.value
+      });
+      this.activity_name = element.target.value;
+      // this.gps_track = new GPSTrack();
+      this.subview = Factory.getNewView('session', this.session);
       // console.log('view to be displayed is', this.subview);
       this.el.appendChild(document.createElement('div').innerHTML = this.subview.render().el);
       // add listener to subview to enable/disable the Add button
       this.listenTo(this.subview, 'enable-add', this.enableAdd);
       this.listenTo(this.subview, 'disable-add', this.disableAdd);
+      // add listener to the possible session and gps track import
+      this.listenTo(this.subview, 'gps-track-imported', this.registerGPSTrack);
+      this.listenTo(this.subview, 'session-defined', this.registerSessionValues);
     }
   },
 
@@ -91,6 +97,25 @@ var NewSession = Backbone.NativeView.extend({
     }
  },
 
+ registerGPSTrack: function (model) {
+   console.log('GPS track to register', model);
+   this.gps_track.set(model);
+   this.gps_id = this.gps_track.get('cid');
+ },
+
+ registerSessionValues: function (model) {
+   console.log('model to store as a session', model);
+   if (model.get('gps_track').available === true) {
+     model.set('gps_track', {
+       'available'  : true,
+       'track_id'   : this.gps_id
+     });
+   }
+   this.session.set(model.attributes);
+   this.session.set('activity_name', this.activity_name);
+   console.log('Session to register', this.session);
+ },
+
   addNewSession: function() {
     for (var i = 0; i < this.subview.validated.length; i++) {
       var criteria = this.subview.validated[i];
@@ -100,13 +125,18 @@ var NewSession = Backbone.NativeView.extend({
         return;
       }
     }
-    // console.log('addNewSession - this.model', this.model);
-    var s = Sessions.add(this.model);
+    console.log('addNewSession - this.session', this.session);
+    console.log('addNewSession - this.gps_track', this.gps_track);
+
+    var s = Sessions.add(this.session);
     console.log('new session to save', s);
     s.save();
     Sessions.trigger('add-new', s);
+
+    var g = GPSTracks.add(this.gps_track);
+    g.save();
+
     // Cleaning Views
     this.subview.remove();
-  },
-
+  }
 });

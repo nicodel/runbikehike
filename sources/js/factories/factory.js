@@ -16,28 +16,30 @@ var Factory = (function() {
     return Model ? new Model(options) : null;
   };
   var getNewView = function(type, model) {
-    // console.log('FACTORY - display new session view for', model);
+    // console.log('FACTORY - getNewView model', model);
     var View;
+    var activity_name = model.get('activity_name');
     if (type === 'session') {
-      View = activities[model.get('activity')].new_view;
+      View = activities[activity_name].new_view;
     } else if (type === 'body') {
-      View = body_weight[model.get('activity')].new_view;
+      View = body_weight[activity_name].new_view;
     } else if (type === 'message') {
-      View = messages[model.get('activity')].new_view;
+      View = messages[activity_name].new_view;
     }
     return new View({
-      model: model
+      'model'     : model
     });
   };
   var getDashboardSummaryView = function(model) {
     // console.log('FACTORY - display dashboard summary view for', model);
     var View;
+    var activity_name = model.get('activity_name');
     if (model.get('weight')) {
       View = body_weight.summary_view_dashboard;
     } else {
       var type = model.get('type');
       if (type === 'session') {
-        View = activities[model.get('activity')].summary_view_dashboard;
+        View = activities[activity_name].summary_view_dashboard;
       } else if (type === 'body_weight') {
         View = body_weight.summary_view_dashboard;
       } else if (type === 'message') {

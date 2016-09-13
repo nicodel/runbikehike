@@ -148,12 +148,11 @@ utils.Helpers = function() {
   }
 
   function calculateCalories(gender, weigth, height, age, distance, duration, activity) {
-    console.log('calculate calories');
+    console.log('calculate calories', gender, weigth, height, age, distance, duration, activity);
     // TODO verify the validity of each value
     if (distance === 0 || duration === 0) {
       return 0;
     }
-    //var bmr = __originalHarrisBenedictEquation(gender, weigth, height, age, distance, duration);
     //var bmr = __RevisedHarrisBenedictEquation(gender, weigth, height, age, distance, duration);
     var bmr = __MifftlinStJeorEquation(gender, weigth, height, age, distance, duration);
     console.log('RevisedHarrisBenedictEquation', bmr);

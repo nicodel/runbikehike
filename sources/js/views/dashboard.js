@@ -64,24 +64,24 @@ var DashboardView = Backbone.NativeView.extend({
   },
 
   sortCollection: function() {
-    // console.log('sorting collection', this.collection);
+    console.log('sorting collection', this.collection);
     if (this.collection.length !== 0) {
       var that = this;
       // console.log('sorting collection by', this.sortAttribute, this.sortAscending);
       this.collection.comparator = function(doc) {
-        var activity = doc.get('activity');
+        var activity = doc.get('activity_name');
         var timestamp = doc.get('date');
-
+        console.log('sortCollection', activity, timestamp);
         if (!that.sortAscending) {
           if (that.sortAttribute === 'date') {
             return that.negateString(timestamp);
-          } else if (that.sortAttribute === 'activity') {
+          } else if (that.sortAttribute === 'activity_name') {
             return that.negateString(that.negateString(activity) + "-" + that.negateString(timestamp));
           }
         } else {
           if (that.sortAttribute === 'date') {
             return timestamp;
-          } else if (that.sortAttribute === 'activity') {
+          } else if (that.sortAttribute === 'activity_name') {
             return that.negateString(activity) + "-" + timestamp;
           }
         }
