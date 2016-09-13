@@ -58,8 +58,8 @@ utils.GPX = function() {
     if (metadata.length > 0) {
       var time = metadata[0].getElementsByTagName('time');
       if (time.length > 0) {
-        track.date = time[0].textContent;
-        gps_track.metadata.time = time[0].textContent;
+        track.date = new Date(time[0].textContent);
+        gps_track.metadata.time = new Date(time[0].textContent);
       } else {
         missing_time = true;
       }
@@ -184,7 +184,7 @@ utils.GPX = function() {
     }
     track.distance = distance;
     if (track.time_interval.duration !== '') {
-      track.speed = track.distance / track.duration;
+      track.speed = track.distance / track.time_interval.duration;
     }
     track.gps_track.available = true;
     // console.log('gps_track[0][5]', gps_track[0][5]);
