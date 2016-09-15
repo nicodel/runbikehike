@@ -111,8 +111,8 @@ var NewSession = Backbone.NativeView.extend({
        'track_id'   : this.gps_id
      });
    }
-   this.session.set(model.attributes);
-   this.session.set('activity_name', this.activity_name);
+   // model.set('activity_name', this.activity_name);
+   this.session = model;
    console.log('Session to register', this.session);
  },
 
@@ -133,8 +133,9 @@ var NewSession = Backbone.NativeView.extend({
     s.save();
     Sessions.trigger('add-new', s);
 
-    var g = GPSTracks.add(this.gps_track);
-    g.save();
+
+    //var g = GPSTracks.add(this.gps_track);
+    //g.save();
 
     // Cleaning Views
     this.subview.remove();

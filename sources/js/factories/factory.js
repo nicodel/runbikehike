@@ -31,7 +31,7 @@ var Factory = (function() {
     });
   };
   var getDashboardSummaryView = function(model) {
-    // console.log('FACTORY - display dashboard summary view for', model);
+    console.log('FACTORY - display dashboard summary view for', model);
     var View;
     var activity_name = model.get('activity_name');
     if (model.get('weight')) {
