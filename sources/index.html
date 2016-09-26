@@ -310,22 +310,43 @@
   </label>
 </script>
 
+<script type="text/template" id="new-session-import-form-template">
+  <h2><%= lb_import_file %></h2>
+  <div class="input form">
+    <input id="import-file" type="file"></input>
+    <button id="import-btn" disabled="disabled" class="small"><%= lb_import %></button>
+  </div>
+</script>
+<script type="text/template" id="new-session-altitude-template">
+  <div class="width-half text-small align-left"><%= lb_alt_max %> (<%= alt_unit %>)
+    <input id="new-session-alt-max" class="width-half align-right text-small text-right" type="number" disabled value="<%= alt_max %>" />
+  </div>
+  <div class="width-half text-small align-left"><%= lb_alt_min %> (<%= alt_unit %>)
+    <input id="new-session-alt-min" class="width-half align-right text-small text-right" type="number" disabled value="<%= alt_min %>" />
+  </div>
+</script>
+
+<script type="text/template" id="new-session-distance-template">
+  <div class="width-half text-small align-left"><%= lb_distance %> (<%= distance_unit %>)
+    <input id="new-session-distance" class="width-half align-right text-small text-right" type="number" step="0.01" value="<%= distance %>" />
+  </div>
+  <div class="width-half text-small align-left"><%= lb_avg_speed %> (<%= speed_unit %>)
+    <input id="new-session-avg-speed" class="width-half align-right text-small text-right" type="number" disabled value="<%= avg_speed %>" />
+  </div>
+</script>
+
   <script type="text/template" id="new-session-template-1">
-    <h2><%= lb_import_file %></h2>
-    <div class="form input">
-      <input id="import-file" type="file"></input>
-      <button id="import-btn" disabled="disabled" class="small"><%= lb_import %></button>
+    <div id="new-session-import-form">
+      <!-- <input id="import-file" type="file"></input>
+      <button id="import-btn" disabled="disabled" class="small"><%= lb_import %></button> -->
     </div>
     <h2 data-l10n-id="session-values"></h2>
-    <div class="form">
+    <div class="form" id="new-session-basics-template">
       <div class="width-half text-small align-left"><%= lb_date %>
         <input id="new-session-date" class="width-half align-right text-small text-right" type="date" value="<%= date %>" />
       </div>
       <div class="width-half text-small align-left"><%= lb_time %>
         <input id="new-session-time" class="width-half align-right text-small text-right" type="time" value="<%= time %>" />
-      </div>
-      <div class="width-half text-small align-left"><%= lb_distance %> (<%= distance_unit %>)
-        <input id="new-session-distance" class="width-half align-right text-small text-right" type="number" step="0.01" value="<%= distance %>" />
       </div>
       <div class="width-half text-small align-left"><%= lb_duration %>
         <span class="align-right">
@@ -335,15 +356,6 @@
           <span>:</span>
           <input id="new-session-duration-sec" class="duration text-small text-right" type="number" value="<%= durationS %>" />
         </span>
-      </div>
-      <div class="width-half text-small align-left"><%= lb_alt_max %> (<%= alt_unit %>)
-        <input id="new-session-alt-max" class="width-half align-right text-small text-right" type="number" disabled value="<%= alt_max %>" />
-      </div>
-      <div class="width-half text-small align-left"><%= lb_alt_min %> (<%= alt_unit %>)
-        <input id="new-session-alt-min" class="width-half align-right text-small text-right" type="number" disabled value="<%= alt_min %>" />
-      </div>
-      <div class="width-half text-small align-left"><%= lb_avg_speed %> (<%= speed_unit %>)
-        <input id="new-session-avg-speed" class="width-half align-right text-small text-right" type="number" disabled value="<%= avg_speed %>" />
       </div>
       <div class="width-half text-small align-left"><%= lb_calories %>
         <input id="new-session-calories" class="width-half align-right text-small text-right" type="number" disabled value="<%= calories %>" />
@@ -642,6 +654,7 @@
   <script type="text/javascript" src="js/lib/d3.js"></script>
   <script type="text/javascript" src="js/lib/crossfilter.js"></script>
   <script type="text/javascript" src="js/lib/dc.js"></script>
+  <script type="text/javascript" src="js/utils/polyfill.js"></script>
   <script type="text/javascript" src="js/utils/gpx.js"></script>
   <script type="text/javascript" src="js/utils/tracks.js"></script>
   <script type="text/javascript" src="js/utils/chrono.js"></script>
@@ -679,6 +692,10 @@
   <script type="text/javascript" src="js/factories/views/detailled_1.js"></script>
   <script type="text/javascript" src="js/factories/views/detailled_2.js"></script>
   <script type="text/javascript" src="js/factories/views/detailled_3.js"></script>
+  <script type="text/javascript" src="js/factories/views/new_session_import_form.js"></script>
+  <script type="text/javascript" src="js/factories/views/new_session_altitude.js"></script>
+  <script type="text/javascript" src="js/factories/views/new_session_distance.js"></script>
+  <script type="text/javascript" src="js/factories/views/new_session.js"></script>
   <script type="text/javascript" src="js/factories/views/new_1.js"></script>
   <script type="text/javascript" src="js/factories/views/new_2.js"></script>
   <script type="text/javascript" src="js/factories/views/new_3.js"></script>

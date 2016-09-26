@@ -1,4 +1,4 @@
-/* globals activities, body_weight, messages */
+/* globals views, activities, body_weight, messages */
 /* exported Factory */
 'use strict';
 
@@ -14,6 +14,35 @@ var Factory = (function() {
       Model = messages[activity].model;
     }
     return Model ? new Model(options) : null;
+  };
+  var getSessionNewView = function (model) {
+    // console.log('FACTORY - getSessionNewView model', model);
+    var name = model.get('activity_name');
+    var subviews = activities[name].new_view;
+    console.log('subviews', subviews);
+    var ImportFormSubview = false;
+    var AltitudeSubview = false;
+    var DistanceSubview = false;
+    // console.log('views', views);
+    if (subviews.includes('import_form')) {
+      ImportFormSubview = new views.new_session_import_form();
+    }
+    if (subviews.includes('altitude')  ) {
+      AltitudeSubview = new views.new_session_altitude({
+        'model': model
+      });
+    }
+    if (subviews.includes('distance')) {
+      DistanceSubview = new views.new_session_distance({
+        'model': model
+      });
+    }
+    return {
+      'basic_view' :new views.new_session({'model' : model}),
+      'import_form_subview' : ImportFormSubview,
+      'altitude_subview'    : AltitudeSubview,
+      'distance_subview'    : DistanceSubview
+    };
   };
   var getNewView = function(type, model) {
     // console.log('FACTORY - getNewView model', model);
@@ -86,6 +115,7 @@ var Factory = (function() {
   };
   return {
     getModel                : getModel,
+    getSessionNewView       : getSessionNewView,
     getNewView              : getNewView,
     getDashboardSummaryView : getDashboardSummaryView,
     getSessionsSummaryView  : getSessionsSummaryView,

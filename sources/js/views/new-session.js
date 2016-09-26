@@ -34,15 +34,15 @@ var NewSession = Backbone.NativeView.extend({
 
   renderIcon: function (activity) {
     var label = document.createElement('label');
-    label.setAttribute('for', activity.activity);
+    label.setAttribute('for', activity);
     var input = document.createElement('input');
     input.setAttribute('type', 'radio');
     input.setAttribute('name', 'select-activity');
-    input.setAttribute('value', activity.activity);
-    input.setAttribute('id', activity.activity);
+    input.setAttribute('value', activity);
+    input.setAttribute('id', activity);
     var img = document.createElement('img');
-    img.setAttribute('src', 'img/session/' + activity.family + '/' + activity.activity + '.png');
-    img.setAttribute('alt', activity.activity);
+    img.setAttribute('src', 'img/session/' + activity + '.png');
+    img.setAttribute('alt', activity);
     label.appendChild(input);
     label.appendChild(img);
     document.getElementById('select-activity').appendChild(label);
@@ -54,15 +54,29 @@ var NewSession = Backbone.NativeView.extend({
       this.subview.remove();
     }
     if (element.target.nodeName === 'INPUT') {
-      // this.session = new Session();
       this.session.set({
         'activity_name' : element.target.value
       });
       this.activity_name = element.target.value;
-      // this.gps_track = new GPSTrack();
-      this.subview = Factory.getNewView('session', this.session);
-      // console.log('view to be displayed is', this.subview);
+      // this.subview = Factory.getNewView('session', this.session);
+      var views = Factory.getSessionNewView(this.session);
+      console.log('views to be displayed is', views);
+
+      if (views.import_form_subview) {
+        var import_form_subview = views.import_form_subview;
+        this.el.appendChild(document.createElement('div').innerHTML = import_form_subview.render().el);
+      }
+
+      this.subview = views.basic_view;
       this.el.appendChild(document.createElement('div').innerHTML = this.subview.render().el);
+
+      if (views.altitude_subview) {
+        this.el.appendChild(document.createElement('div').innerHTML = views.altitude_subview.render().el);
+      }
+      if (views.distance_subview) {
+        this.el.appendChild(document.createElement('div').innerHTML = views.distance_subview.render().el);
+      }
+
       // add listener to subview to enable/disable the Add button
       this.listenTo(this.subview, 'enable-add', this.enableAdd);
       this.listenTo(this.subview, 'disable-add', this.disableAdd);
