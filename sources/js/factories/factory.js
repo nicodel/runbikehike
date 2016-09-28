@@ -25,7 +25,9 @@ var Factory = (function() {
     var DistanceSubview = false;
     // console.log('views', views);
     if (subviews.includes('import_form')) {
-      ImportFormSubview = new views.new_session_import_form();
+      ImportFormSubview = new views.new_session_import_form({
+        'model': model
+      });
     }
     if (subviews.includes('altitude')  ) {
       AltitudeSubview = new views.new_session_altitude({

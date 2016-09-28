@@ -7,8 +7,8 @@ var NewSession = Backbone.NativeView.extend({
   el: '#new-session-view',
 
   gps_id: '',
-  session: new Session(),
-  gps_track: new GPSTrack(),
+  model: new Session(),
+  gps_track: '',
   activity_name: '',
 
   subview: '',
@@ -30,6 +30,7 @@ var NewSession = Backbone.NativeView.extend({
     for (var i = 0; i < activities.length; i++) {
       this.renderIcon(activities[i]);
     }
+    this.listenTo(this.model, 'data-imported', this.renderImportedData);
   },
 
   renderIcon: function (activity) {
@@ -54,12 +55,12 @@ var NewSession = Backbone.NativeView.extend({
       this.subview.remove();
     }
     if (element.target.nodeName === 'INPUT') {
-      this.session.set({
+      this.model.set({
         'activity_name' : element.target.value
       });
       this.activity_name = element.target.value;
-      // this.subview = Factory.getNewView('session', this.session);
-      var views = Factory.getSessionNewView(this.session);
+      // this.subview = Factory.getNewView('session', this.model);
+      var views = Factory.getSessionNewView(this.model);
       console.log('views to be displayed is', views);
 
       if (views.import_form_subview) {
@@ -85,15 +86,6 @@ var NewSession = Backbone.NativeView.extend({
       this.listenTo(this.subview, 'session-defined', this.registerSessionValues);
     }
   },
-
-/*  enableImport: function() {
-    var file_list = this.dom.import_file.files;
-    if (file_list.length > 0) {
-      this.dom.import_btn.removeAttribute('disabled');
-    } else {
-      this.dom.import_btn.setAttribute('disabled', 'disabled');
-    }
-  },*/
 
   enableAdd: function() {
     var btn = document.getElementById('confirm-add-session-btn');
@@ -125,9 +117,8 @@ var NewSession = Backbone.NativeView.extend({
        'track_id'   : this.gps_id
      });
    }
-   // model.set('activity_name', this.activity_name);
-   this.session = model;
-   console.log('Session to register', this.session);
+   this.model = model;
+   console.log('Session to register', this.model);
  },
 
   addNewSession: function() {
@@ -139,10 +130,10 @@ var NewSession = Backbone.NativeView.extend({
         return;
       }
     }
-    console.log('addNewSession - this.session', this.session);
+    console.log('addNewSession - this.model', this.model);
     console.log('addNewSession - this.gps_track', this.gps_track);
 
-    var s = Sessions.add(this.session);
+    var s = Sessions.add(this.model);
     console.log('new session to save', s);
     s.save();
     Sessions.trigger('add-new', s);

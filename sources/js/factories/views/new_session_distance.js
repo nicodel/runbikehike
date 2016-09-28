@@ -16,7 +16,7 @@ views.new_session_distance = Backbone.NativeView.extend({
   },
 
   initialize: function (params) {
-    this.session = params.model;
+    this.listenTo(this.model, 'data-imported', this.renderImportedData);
   },
 
   render: function () {
@@ -29,15 +29,15 @@ views.new_session_distance = Backbone.NativeView.extend({
       'unit'  : 'km/h'
     };
     var pref_unit = Preferences.get('unit');
-    if (this.session.get('distance')) {
+    if (this.model.get('distance')) {
       distance = utils.Helpers.distanceMeterToChoice(
         pref_unit,
-        this.session.get('distance'),
+        this.model.get('distance'),
         false
       );
     }
-    if (this.session.get('speed')) {
-      speed = utils.Helpers.speedMsToChoice(pref_unit, this.session.get('speed'));
+    if (this.model.get('speed')) {
+      speed = utils.Helpers.speedMsToChoice(pref_unit, this.model.get('speed'));
     }
 
     this.el.innerHTML = this.template({
@@ -49,6 +49,19 @@ views.new_session_distance = Backbone.NativeView.extend({
       'speed_unit'    : speed.unit
     });
     return this;
+  },
+
+  renderImportedData: function () {
+    this.validated.distance = true;
+    var pref_unit = Preferences.get('unit');
+    var distance = utils.Helpers.distanceMeterToChoice(
+      pref_unit,
+      this.model.get('distance'),
+      false
+    );
+    var speed = utils.Helpers.speedMsToChoice(pref_unit, this.model.get('speed'));
+    document.getElementById('new-session-distance').value = distance.value;
+    document.getElementById('new-session-avg-speed').value = speed.value;
   },
   __validateDistance: function() {
     var d = parseFloat(document.getElementById('new-session-distance').value);

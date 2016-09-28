@@ -7,17 +7,21 @@ var views = views || {};
 views.new_session_altitude = Backbone.NativeView.extend({
   template: microtemplate(document.getElementById('new-session-altitude-template').innerHTML),
 
+  validated: {
+    altitude: false
+  },
+
   initialize: function (params) {
-    this.session = params.model;
+    this.listenTo(this.model, 'data-imported', this.renderImportedData);
   },
 
   render: function () {
     var altitude_maximum = 0;
     var altitude_minimum = 0;
 
-    if (this.session.get('altitude')) {
-      altitude_maximum = this.session.get('altitude').maximum;
-      altitude_minimum = this.session.get('altitude').minimum;
+    if (this.model.get('altitude')) {
+      altitude_maximum = this.model.get('altitude').maximum;
+      altitude_minimum = this.model.get('altitude').minimum;
     }
 
     this.el.innerHTML = this.template({
@@ -28,6 +32,13 @@ views.new_session_altitude = Backbone.NativeView.extend({
       'alt_unit'      : 'm',
     });
     return this;
+  },
+
+  renderImportedData: function () {
+    this.validated.altitude = true;
+    var pref_unit = Preferences.get('unit');
+    document.getElementById('new-session-alt-max').value = this.model.get('altitude').altitude_maximum;
+    document.getElementById('new-session-alt-min').value = this.model.get('altitude').altitude_minimum;
   }
 
 });

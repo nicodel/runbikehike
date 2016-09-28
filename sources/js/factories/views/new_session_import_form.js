@@ -7,7 +7,6 @@ var views = views || {};
 views.new_session_import_form = Backbone.NativeView.extend({
   template: microtemplate(document.getElementById('new-session-import-form-template').innerHTML),
 
-  session: new Session(),
   gps_track: new GPSTrack(),
 
   events: {
@@ -16,7 +15,7 @@ views.new_session_import_form = Backbone.NativeView.extend({
   },
 
   initialize: function (params) {
-
+    this.model = params.model;
   },
 
   render: function () {
@@ -39,7 +38,7 @@ views.new_session_import_form = Backbone.NativeView.extend({
         } else {
           that.gps_track.set(result.res.gps_track);
           console.log('new_1 that.gps_track', that.gps_track);
-          that.trigger('gps-track-imported', that.gps_track);
+          // that.trigger('gps-track-imported', that.gps_track);
 
           var track = result.res.track;
           var calories = utils.Helpers.calculateCalories(
@@ -49,14 +48,13 @@ views.new_session_import_form = Backbone.NativeView.extend({
               new Date().getFullYear() - Preferences.get('birthyear'),
               track.distance,
               track.time_interval.duration,
-              that.session.get('activity_name')
+              that.model.get('activity_name')
           );
           track.calories = calories;
-          that.session.set(track);
-          console.log('new session imported', that.session);
-          that.trigger('session-defined', that.session);
-          that.renderImportedData();
-
+          that.model.set(track);
+          console.log('new session imported', that.model);
+          // that.trigger('session-defined', that.model);
+          that.model.trigger('data-imported');
         }
       });
     };
