@@ -34,6 +34,7 @@ var NewSession = Backbone.NativeView.extend({
   },
 
   renderIcon: function (activity) {
+    console.log('render icon for', activity);
     var label = document.createElement('label');
     label.setAttribute('for', activity);
     var input = document.createElement('input');
@@ -42,7 +43,7 @@ var NewSession = Backbone.NativeView.extend({
     input.setAttribute('value', activity);
     input.setAttribute('id', activity);
     var img = document.createElement('img');
-    img.setAttribute('src', 'img/session/' + activity + '.png');
+    img.setAttribute('src', 'img/activities/' + activity + '.png');
     img.setAttribute('alt', activity);
     label.appendChild(input);
     label.appendChild(img);
