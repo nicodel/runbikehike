@@ -8,4 +8,4 @@ activities.paddling = {
   summary_view_sessions   : views.sessions_summary_1,
   detailled_view          : views.detailled_1
 };
-activities.list.push('watersports');
+activities.list.push('paddling');
