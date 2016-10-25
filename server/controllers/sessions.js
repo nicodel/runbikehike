@@ -8,7 +8,7 @@ module.exports.getAll = function(req, res, next) {
     if (err !== null) {
       next(null);
     } else {
-      var partial = [];
+      /*var partial = [];
       if (docs.length !== 0) {
         for (var i = 0; i < docs.length; i++) {
           console.log('data to be deleted is', docs[i].data);
@@ -18,7 +18,8 @@ module.exports.getAll = function(req, res, next) {
         }
       }
       console.log('partial', partial);
-      res.send(partial);
+      res.send(partial);*/
+      res.send(docs);
     }
   });
 };
