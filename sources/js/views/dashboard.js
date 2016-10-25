@@ -69,19 +69,19 @@ var DashboardView = Backbone.NativeView.extend({
       var that = this;
       // console.log('sorting collection by', this.sortAttribute, this.sortAscending);
       this.collection.comparator = function(doc) {
-        var activity = doc.get('activity');
+        var activity = doc.get('activity_name');
         var timestamp = doc.get('date');
-
+        // console.log('sortCollection', activity, timestamp);
         if (!that.sortAscending) {
           if (that.sortAttribute === 'date') {
             return that.negateString(timestamp);
-          } else if (that.sortAttribute === 'activity') {
+          } else if (that.sortAttribute === 'activity_name') {
             return that.negateString(that.negateString(activity) + "-" + that.negateString(timestamp));
           }
         } else {
           if (that.sortAttribute === 'date') {
             return timestamp;
-          } else if (that.sortAttribute === 'activity') {
+          } else if (that.sortAttribute === 'activity_name') {
             return that.negateString(activity) + "-" + timestamp;
           }
         }
@@ -109,10 +109,22 @@ var DashboardView = Backbone.NativeView.extend({
   },
 
   renderItem: function(item) {
-    var view = Factory.getDashboardSummaryView(item);
-    this.listenTo(view, 'dashboard-item-selected', this.itemSelected);
-    this.el.appendChild(view.render().el);
-    this.viewsList.push(view);
+    // console.log('dashboard renderItem', item);
+    var View;
+    if (item.get('docType') === 'sessions') {
+      var views = Factory.getDashboardSessionViews(item);
+      View = views.basics;
+      this.el.appendChild(View.render().el);
+      if (views.distance) {
+        console.log('render distance item', item);
+        document.getElementById('dashboard-session-distance').appendChild(views.distance.render().el);
+      }
+    } else if(item.get('docType') === 'messages') {
+      View = Factory.getDashboardMessageView(item);
+      this.el.appendChild(View.render().el);
+    }
+    this.listenTo(View, 'dashboard-item-selected', this.itemSelected);
+    this.viewsList.push(View);
   },
 
   render: function() {

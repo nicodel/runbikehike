@@ -1,4 +1,4 @@
-/* globals activities, body_weight, messages */
+/* globals views, activities, body_weight, messages */
 /* exported Factory */
 'use strict';
 
@@ -15,32 +15,96 @@ var Factory = (function() {
     }
     return Model ? new Model(options) : null;
   };
-  var getNewView = function(type, model) {
-    // console.log('FACTORY - display new session view for', model);
-    var View;
-    if (type === 'session') {
-      View = activities[model.get('activity')].new_view;
-    } else if (type === 'body') {
-      View = body_weight[model.get('activity')].new_view;
-    } else if (type === 'message') {
-      View = messages[model.get('activity')].new_view;
+  var getSessionNewView = function (model) {
+    // console.log('FACTORY - getSessionNewView model', model);
+    var name = model.get('activity_name');
+    var subviews = activities[name].new_view;
+    console.log('subviews', subviews);
+    var ImportFormSubview = false;
+    var AltitudeSubview = false;
+    var DistanceSubview = false;
+    // console.log('views', views);
+    if (subviews.includes('import_form')) {
+      ImportFormSubview = new views.new_session_import_form({
+        'model': model
+      });
     }
+    if (subviews.includes('altitude')  ) {
+      AltitudeSubview = new views.new_session_altitude({
+        'model': model
+      });
+    }
+    if (subviews.includes('distance')) {
+      DistanceSubview = new views.new_session_distance({
+        'model': model
+      });
+    }
+    return {
+      'basics' :new views.new_session({'model' : model}),
+      'import_form' : ImportFormSubview,
+      'altitude'    : AltitudeSubview,
+      'distance'    : DistanceSubview
+    };
+  };
+  /*var getNewView = function(type, model) {
+    // console.log('FACTORY - getNewView model', model);
+    var View;
+    var activity_name = model.get('activity_name');
+    if (type === 'session') {
+      View = activities[activity_name].new_view;
+    } else if (type === 'body') {
+      View = body_weight[activity_name].new_view;
+    } else if (type === 'message') {
+      View = messages[activity_name].new_view;
+    }
+    return new View({
+      'model'     : model
+    });
+  };*/
+
+  var getDashboardSessionViews = function (model) {
+    var View;
+    var DistanceSubview = false;
+    var activity_name = model.get('activity_name');
+    var subviews = activities[activity_name].new_view;
+    if (subviews.includes('distance')) {
+      DistanceSubview = new views.dashboard_session_distance({
+        'model': model
+      });
+    }
+    return {
+      'basics'    : new views.dashboard_session_basics({'model': model}),
+      'distance'  : DistanceSubview
+    };
+  };
+
+  var getDashboardMessageView = function (model) {
+    var View = messages[model.get('activity')].summary_view_dashboard;
     return new View({
       model: model
     });
   };
+
   var getDashboardSummaryView = function(model) {
-    // console.log('FACTORY - display dashboard summary view for', model);
+    console.log('FACTORY - display dashboard summary view for', model);
     var View;
+    var DistanceSubview = false;
+    var activity_name = model.get('activity_name');
+    var subviews = activities[activity_name].new_view;
+    if (subviews.includes('distance')) {
+      DistanceSubview = new views.dashboard_session_distance({
+        'model': model
+      });
+    }
     if (model.get('weight')) {
       View = body_weight.summary_view_dashboard;
     } else {
-      var type = model.get('type');
-      if (type === 'session') {
-        View = activities[model.get('activity')].summary_view_dashboard;
-      } else if (type === 'body_weight') {
-        View = body_weight.summary_view_dashboard;
-      } else if (type === 'message') {
+      var type = model.get('docType');
+      if (type === 'sessions') {
+        View = activities[activity_name].summary_view_dashboard;
+      /*} else if (type === 'body_weight') {
+        View = body_weight.summary_view_dashboard;*/
+      } else if (type === 'messages') {
         View = messages[model.get('activity')].summary_view_dashboard;
       }
     }
@@ -63,6 +127,35 @@ var Factory = (function() {
       model:  model
     });
   };
+
+  var getDetailsSessionView = function (model) {
+    var name = model.get('activity_name');
+    var subviews = activities[name].new_view;
+    var AltitudeSubview = false;
+    var DistanceSubview = false;
+    var MapSubview = false;
+    // console.log('views', views);
+    if (subviews.includes('altitude')  ) {
+      AltitudeSubview = new views.details_session_altitude({
+        'model': model
+      });
+    }
+    if (subviews.includes('distance')) {
+      DistanceSubview = new views.details_session_distance({
+        'model': model
+      });
+    }
+    if (subviews.includes('import_form')) {
+      MapSubview = new views.details_session_map({
+        'model' : model
+      });
+    }
+    return {
+      'altitude'  : AltitudeSubview,
+      'distance'  : DistanceSubview,
+      'map'       : MapSubview
+    };
+  };
   var getDetailledView = function(type, model) {
     var View;
     if (type === 'session') {
@@ -84,11 +177,15 @@ var Factory = (function() {
   };
   return {
     getModel                : getModel,
-    getNewView              : getNewView,
+    getSessionNewView       : getSessionNewView,
+    // getNewView              : getNewView,
+    getDashboardSessionViews  : getDashboardSessionViews,
+    getDashboardMessageView   : getDashboardMessageView,
     getDashboardSummaryView : getDashboardSummaryView,
     getSessionsSummaryView  : getSessionsSummaryView,
     getWeightView           : getWeightView,
-    getDetailledView        : getDetailledView,
+    //getDetailledView        : getDetailledView,
+    getDetailsSessionView   : getDetailsSessionView,
     getActivitiesList       : getActivitiesList,
     getBodiesList           : getBodiesList
   };

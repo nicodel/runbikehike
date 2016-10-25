@@ -1,16 +1,11 @@
 'use strict';
 var activities  = activities || {};
 activities.list = activities.list || [];
-var models      = models || {};
 var views       = views || {};
 activities.punching = {
-  model                   : models.fighting,
-  new_view                : views.new_4,
+  new_view                : [],
   summary_view_dashboard  : views.dashboard_summary_3,
   summary_view_sessions   : views.sessions_summary_3,
   detailled_view          : views.detailled_3
 };
-activities.list.push({
-  activity: 'punching',
-  family:   'fighting'
-});
+activities.list.push('punching');

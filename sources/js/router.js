@@ -1,5 +1,5 @@
 /* globals Backbone, Preferences, Messages, Sessions, BodyWeights,
-IndicatorsView, DashboardView, NavigationView, SessionsView, ReportsView, NewSession */
+IndicatorsView, DashboardView, NavigationView, SessionsView, ReportsView, NewSession, Session */
 /* exported Router */
 'use strict';
 

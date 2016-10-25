@@ -7,7 +7,7 @@ var views = views || {};
 views.dashboard_message = Backbone.NativeView.extend({
   tagName: 'li',
 
-  template: microtemplate(document.getElementById('dashboard_message').innerHTML),
+  template: microtemplate(document.getElementById('dashboard-message-template').innerHTML),
 
   initialize: function() {
     this.listenTo(this.model, 'change', this.render);

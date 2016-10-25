@@ -15,14 +15,11 @@ var MessagesCollection = Backbone.Collection.extend({
   synced: function(ev, res) {
     if (ev.length === 0) {
       console.log('adding the welcome message');
-      var welcome = Factory.getModel(
-        'message',
-        'message', {
-          'activity'  : 'message',
-          'date'      : new Date().toISOString(),
-          'text'      : 'Welcome to Run, Bike, Hike...'
+      var m = this.add({
+        'activity'  : 'message',
+        'date'      : new Date().toISOString(),
+        'text'      : 'Welcome to Run, Bike, Hike...'
       });
-      var m = this.add(welcome);
       m.save();
     }
   }
