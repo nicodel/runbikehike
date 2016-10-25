@@ -11,7 +11,7 @@ module.exports.getAll = function(req, res, next) {
       var partial = [];
       if (docs.length !== 0) {
         for (var i = 0; i < docs.length; i++) {
-          // console.log('data to be deleted is', docs[i].data);
+          console.log('data to be deleted is', docs[i].data);
           // delete docs[i].data;
           docs[i].data = [];
           partial.push(docs[i]);
@@ -47,7 +47,7 @@ module.exports.getOne = function(req, res, next) {
   if (err !== null) {
       next(null);
     } else {
-      // console.log('complete doc.data', complete.data);
+      console.log('complete doc', complete);
       res.send(complete);
     }
   });

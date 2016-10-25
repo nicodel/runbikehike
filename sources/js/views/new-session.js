@@ -31,10 +31,10 @@ var NewSession = Backbone.NativeView.extend({
       this.renderIcon(activities[i]);
     }
     this.listenTo(this.model, 'data-imported', this.renderImportedData);
+    this.listenTo(this.model, 'gps-track-imported', this.registerGPSTrackImported);
   },
 
   renderIcon: function (activity) {
-    console.log('render icon for', activity);
     var label = document.createElement('label');
     label.setAttribute('for', activity);
     var input = document.createElement('input');
@@ -64,19 +64,19 @@ var NewSession = Backbone.NativeView.extend({
       var views = Factory.getSessionNewView(this.model);
       console.log('views to be displayed is', views);
 
-      if (views.import_form_subview) {
+      if (views.import_form) {
         var import_form_subview = views.import_form_subview;
-        this.el.appendChild(document.createElement('div').innerHTML = import_form_subview.render().el);
+        this.el.appendChild(document.createElement('div').innerHTML = views.import_form.render().el);
       }
 
-      this.subview = views.basic_view;
+      this.subview = views.basics;
       this.el.appendChild(document.createElement('div').innerHTML = this.subview.render().el);
 
-      if (views.altitude_subview) {
-        this.el.appendChild(document.createElement('div').innerHTML = views.altitude_subview.render().el);
+      if (views.altitude) {
+        this.el.appendChild(document.createElement('div').innerHTML = views.altitude.render().el);
       }
-      if (views.distance_subview) {
-        this.el.appendChild(document.createElement('div').innerHTML = views.distance_subview.render().el);
+      if (views.distance) {
+        this.el.appendChild(document.createElement('div').innerHTML = views.distance.render().el);
       }
 
       // add listener to subview to enable/disable the Add button
@@ -104,10 +104,13 @@ var NewSession = Backbone.NativeView.extend({
     }
  },
 
- registerGPSTrack: function (model) {
-   console.log('GPS track to register', model);
-   this.gps_track.set(model);
-   this.gps_id = this.gps_track.get('cid');
+ registerGPSTrackImported: function (track) {
+   console.log('GPS track to register', track);
+   this.model.set('gps_track', {
+     'available'  : true,
+     'track_id'   : track.get('cid')
+   });
+   console.log('track has been added', this.model.get('gps_track'));
  },
 
  registerSessionValues: function (model) {
@@ -119,7 +122,7 @@ var NewSession = Backbone.NativeView.extend({
      });
    }
    this.model = model;
-   console.log('Session to register', this.model);
+   console.log('Session to register');
  },
 
   addNewSession: function() {

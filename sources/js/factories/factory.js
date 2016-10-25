@@ -40,13 +40,13 @@ var Factory = (function() {
       });
     }
     return {
-      'basic_view' :new views.new_session({'model' : model}),
-      'import_form_subview' : ImportFormSubview,
-      'altitude_subview'    : AltitudeSubview,
-      'distance_subview'    : DistanceSubview
+      'basics' :new views.new_session({'model' : model}),
+      'import_form' : ImportFormSubview,
+      'altitude'    : AltitudeSubview,
+      'distance'    : DistanceSubview
     };
   };
-  var getNewView = function(type, model) {
+  /*var getNewView = function(type, model) {
     // console.log('FACTORY - getNewView model', model);
     var View;
     var activity_name = model.get('activity_name');
@@ -60,20 +60,51 @@ var Factory = (function() {
     return new View({
       'model'     : model
     });
+  };*/
+
+  var getDashboardSessionViews = function (model) {
+    var View;
+    var DistanceSubview = false;
+    var activity_name = model.get('activity_name');
+    var subviews = activities[activity_name].new_view;
+    if (subviews.includes('distance')) {
+      DistanceSubview = new views.dashboard_session_distance({
+        'model': model
+      });
+    }
+    return {
+      'basics'    : new views.dashboard_session_basics({'model': model}),
+      'distance'  : DistanceSubview
+    };
   };
+
+  var getDashboardMessageView = function (model) {
+    var View = messages[model.get('activity')].summary_view_dashboard;
+    return new View({
+      model: model
+    });
+  };
+
   var getDashboardSummaryView = function(model) {
     console.log('FACTORY - display dashboard summary view for', model);
     var View;
+    var DistanceSubview = false;
     var activity_name = model.get('activity_name');
+    var subviews = activities[activity_name].new_view;
+    if (subviews.includes('distance')) {
+      DistanceSubview = new views.dashboard_session_distance({
+        'model': model
+      });
+    }
     if (model.get('weight')) {
       View = body_weight.summary_view_dashboard;
     } else {
-      var type = model.get('type');
-      if (type === 'session') {
+      var type = model.get('docType');
+      if (type === 'sessions') {
         View = activities[activity_name].summary_view_dashboard;
-      } else if (type === 'body_weight') {
-        View = body_weight.summary_view_dashboard;
-      } else if (type === 'message') {
+      /*} else if (type === 'body_weight') {
+        View = body_weight.summary_view_dashboard;*/
+      } else if (type === 'messages') {
         View = messages[model.get('activity')].summary_view_dashboard;
       }
     }
@@ -95,6 +126,35 @@ var Factory = (function() {
     return new View ({
       model:  model
     });
+  };
+
+  var getDetailsSessionView = function (model) {
+    var name = model.get('activity_name');
+    var subviews = activities[name].new_view;
+    var AltitudeSubview = false;
+    var DistanceSubview = false;
+    var MapSubview = false;
+    // console.log('views', views);
+    if (subviews.includes('altitude')  ) {
+      AltitudeSubview = new views.details_session_altitude({
+        'model': model
+      });
+    }
+    if (subviews.includes('distance')) {
+      DistanceSubview = new views.details_session_distance({
+        'model': model
+      });
+    }
+    if (subviews.includes('import_form')) {
+      MapSubview = new views.details_session_map({
+        'model' : model
+      });
+    }
+    return {
+      'altitude'  : AltitudeSubview,
+      'distance'  : DistanceSubview,
+      'map'       : MapSubview
+    };
   };
   var getDetailledView = function(type, model) {
     var View;
@@ -118,11 +178,14 @@ var Factory = (function() {
   return {
     getModel                : getModel,
     getSessionNewView       : getSessionNewView,
-    getNewView              : getNewView,
+    // getNewView              : getNewView,
+    getDashboardSessionViews  : getDashboardSessionViews,
+    getDashboardMessageView   : getDashboardMessageView,
     getDashboardSummaryView : getDashboardSummaryView,
     getSessionsSummaryView  : getSessionsSummaryView,
     getWeightView           : getWeightView,
-    getDetailledView        : getDetailledView,
+    //getDetailledView        : getDetailledView,
+    getDetailsSessionView   : getDetailsSessionView,
     getActivitiesList       : getActivitiesList,
     getBodiesList           : getBodiesList
   };

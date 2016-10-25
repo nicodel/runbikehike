@@ -85,12 +85,13 @@ var NavigationView = Backbone.NativeView.extend({
     model.fetch({
       success : function(mod, res) {
         // console.log('that.detailled_view', that.detailled_view);
-        if (that.detailled_view !== '') {
-          that.detailled_view.remove();
-        }
-        var type = mod.get('type');
-        that.detailled_view = Factory.getDetailledView(type, mod);
+        var View;
         that._viewSection(that.dom.session_view, that.dom.session_btn);
+        var views = Factory.getDetailsSessionView(mod);
+        new Session({
+          'model' : mod,
+          'views' : views
+        }).render();
       },
       error   : function(model, response) {
         console.log('error', model, response);
@@ -100,12 +101,18 @@ var NavigationView = Backbone.NativeView.extend({
 
   showEntry: function(model) {
     console.log('dashboard entry selected', model);
-    if (model.get('weight')) {
+    if (model.get('docType') === 'sessions') {
+      this.showSession(model);
+    } else if (model.get('docType') === 'messages'){
+      // TODO display messgaes details
+      console.log('detailled messages are not displayed yet');
+    }
+    /*if (model.get('weight')) {
       this.detailled_view = Factory.getWeightView(model);
       this._viewSection(this.dom.session_view, this.dom.session_btn);
     } else if (model.get('type') === 'session') {
         this.showSession(model);
-    }
+    }*/
   },
 
   _viewSection: function(section, button) {

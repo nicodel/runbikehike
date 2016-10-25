@@ -36,9 +36,10 @@ views.new_session_import_form = Backbone.NativeView.extend({
           // TODO create a modal view for error or information display
           console.log('error while importing', result.res);
         } else {
+          console.log('result.res.gps_track', result.res.gps_track);
           that.gps_track.set(result.res.gps_track);
           console.log('new_1 that.gps_track', that.gps_track);
-          // that.trigger('gps-track-imported', that.gps_track);
+          that.model.trigger('gps-track-imported', that.gps_track);
 
           var track = result.res.track;
           var calories = utils.Helpers.calculateCalories(
