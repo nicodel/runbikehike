@@ -8,17 +8,7 @@ module.exports.getAll = function(req, res, next) {
     if (err !== null) {
       next(null);
     } else {
-      var partial = [];
-      if (docs.length !== 0) {
-        for (var i = 0; i < docs.length; i++) {
-          // console.log('data to be deleted is', docs[i].data);
-          // delete docs[i].data;
-          docs[i].data = [];
-          partial.push(docs[i]);
-        }
-      }
-      console.log('partial', partial);
-      res.send(partial);
+      res.send(docs);
     }
   });
 };
@@ -32,7 +22,7 @@ module.exports.getAll = function(req, res, next) {
   });
 };
 module.exports.add = function(req, res, next) {
-  console.log('Message to be added is', req.body);
+  console.log('BodyWeight to be added is', req.body);
   BodyWeights.create(req.body, function (err, doc) {
     if (err) {
       next(err);
@@ -42,7 +32,7 @@ module.exports.add = function(req, res, next) {
   });
 };
 module.exports.getOne = function(req, res, next) {
-  console.log('getting one', req.params.id);
+  console.log('BodyWeight getting one', req.params.id);
   BodyWeights.find(req.params.id, function(err, complete) {
   if (err !== null) {
       next(null);
@@ -53,8 +43,8 @@ module.exports.getOne = function(req, res, next) {
   });
 };
 module.exports.remove = function(req, res, next) {
-    console.log('removing one', req.params.id);
+  console.log('BodyWeight removing one', req.params.id);
 };
 module.exports.update = function(req, res, next) {
-    console.log('updating one', req.params.id);
+  console.log('BodyWeight updating one', req.params.id);
 };

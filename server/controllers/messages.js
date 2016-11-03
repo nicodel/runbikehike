@@ -21,17 +21,9 @@ module.exports.add = function(req, res, next) {
       res.status(200).send(message);
     }
   });
-  // Messages.add(req.body, function(err, doc) {
-  //   if (err !== null) {
-  //     res.status(500).send({error: 'An error occured - ' + err + doc});
-  //     next(null);
-  //   } else {
-  //     res.send();
-  //   }
-  // });
 };
 module.exports.getOne = function(req, res, next) {
-  console.log('getting one', req.params.id);
+  console.log('Message getting one', req.params.id);
   Messages.find(req.params.id, function(err, complete) {
   if (err !== null) {
       next(null);

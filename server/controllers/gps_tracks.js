@@ -13,7 +13,7 @@ module.exports.getAll = function(req, res, next) {
   });
 };
 module.exports.add = function(req, res, next) {
-  // console.log('Session to be added is', req.body);
+  console.log('GPSTrack to be added is', req.body);
   GPSTracks.create(req.body, function (err, session) {
     if (err) {
       next(err);
@@ -23,7 +23,7 @@ module.exports.add = function(req, res, next) {
   });
 };
 module.exports.getOne = function(req, res, next) {
-  console.log('getting one', req.params.id);
+  console.log('GPSTrack getting one', req.params.id);
   GPSTracks.find(req.params.id, function(err, complete) {
   if (err !== null) {
       next(null);
@@ -34,7 +34,7 @@ module.exports.getOne = function(req, res, next) {
   });
 };
 module.exports.remove = function(req, res, next) {
-    console.log('removing one', req.params.id);
+    console.log('GPSTrack removing one', req.params.id);
     GPSTracks.destroy(req.params.id, function (err, complete) {
       if (err !== null) {
         next(null);
@@ -45,5 +45,5 @@ module.exports.remove = function(req, res, next) {
     });
 };
 module.exports.update = function(req, res, next) {
-    console.log('updating one', req.params.id);
+    console.log('GPSTrack updating one', req.params.id);
 };
