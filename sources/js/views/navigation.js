@@ -80,6 +80,15 @@ var NavigationView = Backbone.NativeView.extend({
   },
 
   showSession: function(model) {
+    // TODO instead of fetching session model (there is no more partial send), I need to fetch the GPS track corresponding, if it is True
+    /*
+    if model.get('gps_track').available is True
+      model.fetch({
+        'id': model.get('gps_track').id,
+        'success': {},
+        'error':  {}
+      })
+    */
     console.log('MAIN - will display model', model);
     var that = this;
     model.fetch({
