@@ -51,7 +51,7 @@ describe('Routing', function () {
           if (err) {
             throw err;
           } else {
-            //console.log('new session', res.body.id);
+            session = res.body;
             session_id = res.body.id;
           }
           done();
@@ -65,9 +65,10 @@ describe('Routing', function () {
         .end(function (err, res) {
           if (err) {
             throw err;
-          } else {
-            //console.log('getting specific session', res);
-            session = res.body;
+          } else if (session !== res.body) {
+            console.log('session', session);
+            console.log('res.body', res.body);
+            throw ('did not get the right session');
           }
           done();
         });
@@ -81,9 +82,8 @@ describe('Routing', function () {
         .end(function (err, res) {
           if (err) {
             throw err;
-          } else {
-            //console.log('modifying a session', res);
-            session.calories = res.body.calories;
+          } else if (session.calories !== res.body.calories) {
+            throw ('the modifyed calories value was not stored');
           }
           done();
         });
