@@ -12,7 +12,7 @@
     "dev": "NODE_ENV=dev nodemon --debug ./server.js",
     "start": "node server.js",
     "publish:cozy": "./scripts/publish-cozy.sh",
-    "test": "mocha tests/tests.js",
+    "test": "mocha tests/server-routes.js",
     "cozy-test": "npm run deploy && cd publish/runbikehike-cozy && cozy-dev deploy 9550 && cd ../.. ",
     "deploy": "npm run build && npm run publish:cozy"
   },
@@ -56,6 +56,7 @@
     "mocha": "^3.0.2",
     "nodemon": "^1.10.2",
     "should": "^11.1.0",
+    "supertest": "^2.0.1",
     "uglify-js": "^2.7.3",
     "uglifycss": "0.0.21"
   }
