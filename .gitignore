@@ -28,9 +28,9 @@ node_modules
 
 # pouchdb databases
 sessions*
+body_weight*
 gps_tracks*
 rbh_messages*
-body_weight*
 calories*
 
 # Published versions

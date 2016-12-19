@@ -4,7 +4,7 @@
 
 var DashboardCollection = Backbone.Collection.extend({
   model: Item,
-  url: 'dashboard',
+  url: 'data/dashboard',
   // initialize: function () {
   //   this.listenTo(this, 'all', function(ev, res) {console.log('DASHBOARD Collection', ev, res);});
   // }

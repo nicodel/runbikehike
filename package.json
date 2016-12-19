@@ -9,7 +9,7 @@
   "scripts": {
     "check:js": "./scripts/check-js.sh",
     "build": "./scripts/build.sh",
-    "dev": "NODE_ENV=development nodemon --debug ./server.js",
+    "dev": "NODE_ENV=development DEBUG=pouchdb:* nodemon --debug ./server.js",
     "start": "node server.js",
     "publish:cozy": "./scripts/publish-cozy.sh",
     "test:server": "mocha test/test-server.js",
