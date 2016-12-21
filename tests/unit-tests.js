@@ -190,18 +190,6 @@ describe('Run, Bike, Hike... Server', function () {
           done();
         });
     });
-    it('should now be the new weight value', function (done) {
-      request(server)
-        .get('/data/body_weight/' + id)
-        .expect(200)
-        .end(function (err, res) {
-          if (err) {
-            throw err;
-          }
-          res.body.weight.should.equal(56);
-          done();
-        });
-    });
     it('should return 200 when deleting a specific body_weight', function (done) {
       request(server)
         .delete('/data/body_weight/' + id)
@@ -309,18 +297,6 @@ describe('Run, Bike, Hike... Server', function () {
           done();
         });
     });
-    it('should now be the new name', function (done) {
-      request(server)
-        .get('/data/gps_tracks/' + id)
-        .expect(200)
-        .end(function (err, res) {
-          if (err) {
-            throw err;
-          }
-          res.body.metadata.name.should.equal('new testing track mane');
-          done();
-        });
-    });
     it('should return 200 when deleting a specific gps_track', function (done) {
       request(server)
         .delete('/data/gps_tracks/' + id)
@@ -401,18 +377,6 @@ describe('Run, Bike, Hike... Server', function () {
             throw err;
           }
           res.ok.should.be.true();
-          done();
-        });
-    });
-    it('should now be the new message', function (done) {
-      request(server)
-        .get('/data/rbh_messages/' + id)
-        .expect(200)
-        .end(function (err, res) {
-          if (err) {
-            throw err;
-          }
-          res.body.message.should.equal('nouveau');
           done();
         });
     });
@@ -502,18 +466,6 @@ describe('Run, Bike, Hike... Server', function () {
             throw err;
           }
           res.ok.should.be.true();
-          done();
-        });
-    });
-    it('should now be the new calories value', function (done) {
-      request(server)
-        .get('/data/calories/' + id)
-        .expect(200)
-        .end(function (err, res) {
-          if (err) {
-            throw err;
-          }
-          res.body.calories.should.equal(9876);
           done();
         });
     });
