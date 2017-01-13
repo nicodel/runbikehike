@@ -1,9 +1,11 @@
 /* globals _, Backbone, Message, Factory */
 /* exported Messages */
 'use strict';
+var RBH = RBH || {};
+RBH.Collections = RBH.Collections || {};
 
-var MessagesCollection = Backbone.Collection.extend({
-  model: Message,
+RBH.Collections.Messages = Backbone.Collection.extend({
+  model: RBH.Models.Message,
   url: 'data/messages',
 
   initialize: function() {
@@ -24,4 +26,4 @@ var MessagesCollection = Backbone.Collection.extend({
     }
   }
 });
-var Messages = new MessagesCollection();
+var Messages = new RBH.Collections.Messages();

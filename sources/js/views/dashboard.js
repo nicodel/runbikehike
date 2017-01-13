@@ -3,7 +3,10 @@
 /* exported DashboardView */
 'use strict';
 
-var DashboardView = Backbone.NativeView.extend({
+var RBH = RBH || {};
+RBH.Views = RBH.Views || {};
+
+RBH.Views.Dashboard = Backbone.NativeView.extend({
   el: '#dashboard',
 
   events: {
@@ -93,12 +96,16 @@ var DashboardView = Backbone.NativeView.extend({
   },
 
   negateString: function(s) {
-    s = s.toLowerCase();
-    s = s.split("");
-    s = s.map(function(letter) {
-      return String.fromCharCode(-(letter.charCodeAt(0)));
-    });
-    return s.join("");
+    if (typeof s === 'string' || s instanceof String) {
+      s = s.toLowerCase();
+      s = s.split("");
+      s = s.map(function(letter) {
+        return String.fromCharCode(-(letter.charCodeAt(0)));
+      });
+      return s.join("");
+    } else {
+      return null;
+    }
   },
 
   addEntry: function() {
@@ -116,7 +123,7 @@ var DashboardView = Backbone.NativeView.extend({
       View = views.basics;
       this.el.appendChild(View.render().el);
       if (views.distance) {
-        console.log('render distance item', item);
+        // console.log('render distance item', item);
         document.getElementById('dashboard-session-distance').appendChild(views.distance.render().el);
       }
     } else if(item.get('docType') === 'messages') {

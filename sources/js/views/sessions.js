@@ -2,8 +2,10 @@
 /* global Backbone, Factory, Sessions */
 /* exported SessionsView */
 'use strict';
+var RBH = RBH || {};
+RBH.Views = RBH.Views || {};
 
-var SessionsView = Backbone.NativeView.extend({
+RBH.Views.Sessions = Backbone.NativeView.extend({
   el: '#sessions-list',
 
   events: {

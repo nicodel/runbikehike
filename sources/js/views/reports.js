@@ -2,8 +2,10 @@
 /* globals Backbone, d3, crossfilter, dc, Preferences, Dashboard, utils, BodyWeights */
 /* exported ReportsView */
 'use strict';
+var RBH = RBH || {};
+RBH.Views = RBH.Views || {};
 
-var ReportsView = Backbone.NativeView.extend({
+RBH.Views.Reports = Backbone.NativeView.extend({
   el: '#reports-view',
 
   weightChart : dc.lineChart('#reports-weight-graph'),

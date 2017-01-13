@@ -2,12 +2,14 @@
 /* globals _, Backbone, microtemplate, Preferences, utils, Session,  GPSTrack */
 'use strict';
 
-var views = views || {};
+var RBH = RBH || {};
+RBH.Factory = RBH.Factory || {};
+RBH.Factory.Views = RBH.Factory.Views || {};
 
-views.new_session_import_form = Backbone.NativeView.extend({
+RBH.Factory.Views.new_session_import_form = Backbone.NativeView.extend({
   template: microtemplate(document.getElementById('new-session-import-form-template').innerHTML),
 
-  gps_track: new GPSTrack(),
+  gps_track: new RBH.Models.GPSTrack(),
 
   events: {
     'change #import-file'   : 'enableImport',

@@ -2,9 +2,11 @@
 /* globals Backbone, microtemplate, Preferences, utils, d3, crossfilter, dc */
 'use strict';
 
-var views = views || {};
+var RBH = RBH || {};
+RBH.Factory = RBH.Factory || {};
+RBH.Factory.Views = RBH.Factory.Views || {};
 
-views.details_session_map = Backbone.NativeView.extend({
+RBH.Factory.Views.details_session_map = Backbone.NativeView.extend({
   template: microtemplate(document.getElementById('details-session-map-template').innerHTML),
 
   initialize: function () {

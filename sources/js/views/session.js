@@ -3,8 +3,10 @@
  Backbone, microtemplate, Preferences, utils, d3, crossfilter, dc
 */
 'use strict';
+var RBH = RBH || {};
+RBH.Views = RBH.Views || {};
 
-var Session = Backbone.NativeView.extend({
+RBH.Views.Session = Backbone.NativeView.extend({
   el: '#session-view',
 
   session_id: '',

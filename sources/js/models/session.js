@@ -1,7 +1,9 @@
 /* globals Backbone */
 /* exported Session */
 'use strict';
+var RBH = RBH || {};
+RBH.Models = RBH.Models || {};
 
-var Session = Backbone.Model.extend({
+RBH.Models.Session = Backbone.Model.extend({
   idAttribute: '_id'
 });

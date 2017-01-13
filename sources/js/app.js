@@ -2,11 +2,12 @@
 /* exported _ */
 /* globals Backbone, Router */
 'use strict';
+var RBH = RBH || {};
 
 document.addEventListener('DOMContentLoaded', function() {
   // console.log("document.webL10n.getLanguage()", document.webL10n.getLanguage());
   var _ = document.webL10n.get;
   console.log('launching');
-  new Router();
+  new RBH.Router();
   Backbone.history.start();
 }, false);

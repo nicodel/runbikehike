@@ -2,8 +2,10 @@
 /* globals Backbone, microtemplate, Sessions */
 /* exported ModalView */
 'use strict';
+var RBH = RBH || {};
+RBH.Views = RBH.Views || {};
 
-var ModalView = Backbone.NativeView.extend({
+RBH.Views.Modal = Backbone.NativeView.extend({
   el: '#modal',
   template: microtemplate(document.getElementById('modal-delete-template').innerHTML),
   events: {

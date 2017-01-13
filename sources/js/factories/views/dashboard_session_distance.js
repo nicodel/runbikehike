@@ -2,9 +2,11 @@
 /* globals Backbone, microtemplate, Preferences, utils */
 'use strict';
 
-var views = views || {};
+var RBH = RBH || {};
+RBH.Factory = RBH.Factory || {};
+RBH.Factory.Views = RBH.Factory.Views || {};
 
-views.dashboard_session_distance = Backbone.NativeView.extend({
+RBH.Factory.Views.dashboard_session_distance = Backbone.NativeView.extend({
   template: microtemplate(document.getElementById('dashboard-session-distance-template').innerHTML),
 
   initialize: function() {

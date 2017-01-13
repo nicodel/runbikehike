@@ -3,22 +3,25 @@ IndicatorsView, DashboardView, NavigationView, SessionsView, ReportsView, NewSes
 /* exported Router */
 'use strict';
 
-var Router = Backbone.Router.extend({
+var RBH = RBH || {};
+
+RBH.Router = Backbone.Router.extend({
   routes: {
     ''  : 'start'
   },
 
   start: function() {
-    Preferences.fetch();
+    //Preferences.fetch();
     Messages.fetch();
     Sessions.fetch();
     BodyWeights.fetch();
+    Calories.fetch();
 
-    new NavigationView();
-    new DashboardView();
-    new IndicatorsView();
-    new SessionsView();
-    new ReportsView();
-    new NewSession();
+    new RBH.Views.Navigation();
+    new RBH.Views.Dashboard();
+    new RBH.Views.Indicators();
+    new RBH.Views.Sessions();
+    new RBH.Views.Reports();
+    new RBH.Views.NewSession();
   }
 });

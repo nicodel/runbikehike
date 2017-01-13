@@ -3,8 +3,10 @@
    PreferencesView, NewSession, NewBodyWeightView */
 /* exported NavigationView */
 'use strict';
+var RBH = RBH || {};
+RBH.Views = RBH.Views || {};
 
-var NavigationView = Backbone.NativeView.extend({
+RBH.Views.Navigation = Backbone.NativeView.extend({
   el: 'nav',
   events: {
     'click #new-session-btn'  : 'showNewSession',

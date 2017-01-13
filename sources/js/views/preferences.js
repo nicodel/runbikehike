@@ -2,8 +2,10 @@
 /* globals Backbone, Preferences */
 /* exported PreferencesView */
 'use strict';
+var RBH = RBH || {};
+RBH.Views = RBH.Views || {};
 
-var PreferencesView = Backbone.NativeView.extend({
+RBH.Views.Preferences = Backbone.NativeView.extend({
   el: '#preferences-view',
 
   events: {

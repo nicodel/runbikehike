@@ -2,8 +2,10 @@
 /* globals Backbone, microtemplate, Dashboard, Preferences, utils */
 /* exported IndicatorsView */
 'use strict';
+var RBH = RBH || {};
+RBH.Views = RBH.Views || {};
 
-var IndicatorsView = Backbone.NativeView.extend({
+RBH.Views.Indicators = Backbone.NativeView.extend({
   el: '#indicators',
 
   template: microtemplate(document.getElementById('indicators-template').innerHTML),

@@ -2,12 +2,14 @@
 /* globals Backbone, microtemplate, Sessions, GPSTracks, Factory, Session, GPSTrack */
 /* exported NewSession */
 'use strict';
+var RBH = RBH || {};
+RBH.Views = RBH.Views || {};
 
-var NewSession = Backbone.NativeView.extend({
+RBH.Views.NewSession = Backbone.NativeView.extend({
   el: '#new-session-view',
 
   gps_id: '',
-  model: new Session(),
+  model: new RBH.Models.Session(),
   gps_track: '',
   activity_name: '',
 
@@ -26,7 +28,7 @@ var NewSession = Backbone.NativeView.extend({
 
   initialize: function () {
     document.getElementById('select-activity').innerHTML = '';
-    var activities = Factory.getActivitiesList();
+    var activities = RBH.Factory.getActivitiesList();
     for (var i = 0; i < activities.length; i++) {
       this.renderIcon(activities[i]);
     }
@@ -61,7 +63,7 @@ var NewSession = Backbone.NativeView.extend({
       });
       this.activity_name = element.target.value;
       // this.subview = Factory.getNewView('session', this.model);
-      var views = Factory.getSessionNewView(this.model);
+      var views = RBH.Factory.getSessionNewView(this.model);
       console.log('views to be displayed is', views);
 
       if (views.import_form) {

@@ -1,12 +1,12 @@
 /* globals Backbone */
 /* exported Message */
 'use strict';
+var RBH = RBH || {};
+RBH.Models = RBH.Models || {};
 
-var Message = Backbone.Model.extend({
-  idAttribute: '_id',
-
-  initialize: function() {
-    // console.log('DocModel initialize', this);
-    // this.listenTo(this, 'all', function(ev, res) {console.log('Message Model', ev, res);});
+RBH.Models.Message = Backbone.Model.extend({
+  idAttribute : '_id',
+  defaults : {
+    date : new Date()
   }
 });

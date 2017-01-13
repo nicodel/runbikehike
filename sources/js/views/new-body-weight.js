@@ -2,8 +2,10 @@
 /* globals _, Backbone, microtemplate, utils, BodyWeights, Factory, Tracking */
 /* exported NewBodyWeightView */
 'use strict';
+var RBH = RBH || {};
+RBH.Views = RBH.Views || {};
 
-var NewBodyWeightView = Backbone.NativeView.extend({
+RBH.Views.NewBodyWeight = Backbone.NativeView.extend({
   el: '#new-body-weight-view',
 
   events: {
