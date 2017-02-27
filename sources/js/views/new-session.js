@@ -1,6 +1,5 @@
 /* jshint browser: true */
-/* globals Backbone, microtemplate, Sessions, GPSTracks, Factory, Session, GPSTrack */
-/* exported NewSession */
+/* globals Backbone, microtemplate */
 'use strict';
 var RBH = RBH || {};
 RBH.Views = RBH.Views || {};
@@ -139,10 +138,10 @@ RBH.Views.NewSession = Backbone.NativeView.extend({
     console.log('addNewSession - this.model', this.model);
     console.log('addNewSession - this.gps_track', this.gps_track);
 
-    var s = Sessions.add(this.model);
+    var s = RBH.Collections.Sessions.add(this.model);
     console.log('new session to save', s);
     s.save();
-    Sessions.trigger('add-new', s);
+    RBH.Collections.Sessions.trigger('add-new', s);
 
 
     //var g = GPSTracks.add(this.gps_track);

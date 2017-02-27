@@ -13,7 +13,7 @@
     "dev": "NODE_ENV=development DEBUG=pouchdb:* nodemon --debug ./server.js",
     "start": "node server.js",
     "publish:cozy": "./scripts/publish-cozy.sh",
-    "test:server": "mocha test/test-server.js",
+    "test:server": "mocha test/unit-tests.js",
     "test:test": "npm run test:server",
     "test:debug": "NODE_ENV='development' DEBUG=pouchdb:* mocha test/test-server.js",
     "test": "NODE_ENV='development' grunt check",

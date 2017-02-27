@@ -1,5 +1,4 @@
 /* globals Backbone */
-/* exported BodyWeight */
 'use strict';
 
 var RBH = RBH || {};

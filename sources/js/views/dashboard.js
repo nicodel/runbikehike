@@ -1,6 +1,5 @@
 /* jshint browser: true */
-/* globals Backbone, Factory, Dashboard, Messages, Sessions, BodyWeights */
-/* exported DashboardView */
+/* globals Backbone */
 'use strict';
 
 var RBH = RBH || {};
@@ -23,12 +22,12 @@ RBH.Views.Dashboard = Backbone.NativeView.extend({
 
   initialize: function() {
     // console.log('DASHBOARD VIEW - initialize');
-    this.collection = Dashboard;
+    this.collection = RBH.Collections.Dashboard;
     // this.collection.reset();
 
-    this.listenTo(Messages, 'sync', this.resync);
-    this.listenTo(Sessions, 'sync', this.resync);
-    this.listenTo(BodyWeights, 'sync', this.resync);
+/*    this.listenTo(RBH.Collections.Messages, 'sync', this.resync);
+    this.listenTo(RBH.Collections.Sessions, 'sync', this.resync);
+    this.listenTo(RBH.Collections.BodyWeights, 'sync', this.resync);*/
 
     this.listenTo(this.collection, 'sync', this.render);
     this.listenTo(this.collection, 'reset', this.render);
@@ -54,13 +53,13 @@ RBH.Views.Dashboard = Backbone.NativeView.extend({
 
   resync: function (ev, res) {
     this.collection.reset();
-    Messages.forEach(function (item) {
+    RBH.Collections.Messages.forEach(function (item) {
       this.collection.add(item);
     }, this);
-    Sessions.forEach(function (item) {
+    RBH.Collections.Sessions.forEach(function (item) {
       this.collection.add(item);
     }, this);
-    BodyWeights.forEach(function (item) {
+    RBH.Collections.BodyWeights.forEach(function (item) {
       this.collection.add(item);
     }, this);
     this.sortCollection();
@@ -119,7 +118,7 @@ RBH.Views.Dashboard = Backbone.NativeView.extend({
     // console.log('dashboard renderItem', item);
     var View;
     if (item.get('docType') === 'sessions') {
-      var views = Factory.getDashboardSessionViews(item);
+      var views = RBH.Factory.getDashboardSessionViews(item);
       View = views.basics;
       this.el.appendChild(View.render().el);
       if (views.distance) {
@@ -127,7 +126,7 @@ RBH.Views.Dashboard = Backbone.NativeView.extend({
         document.getElementById('dashboard-session-distance').appendChild(views.distance.render().el);
       }
     } else if(item.get('docType') === 'messages') {
-      View = Factory.getDashboardMessageView(item);
+      View = RBH.Factory.getDashboardMessageView(item);
       this.el.appendChild(View.render().el);
     }
     this.listenTo(View, 'dashboard-item-selected', this.itemSelected);

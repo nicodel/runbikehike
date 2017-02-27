@@ -1,5 +1,4 @@
 /* globals Backbone */
-/* exported Message */
 'use strict';
 var RBH = RBH || {};
 RBH.Models = RBH.Models || {};

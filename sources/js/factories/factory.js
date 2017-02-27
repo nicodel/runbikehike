@@ -1,4 +1,3 @@
-/* globals views, activities, body_weight, messages */
 'use strict';
 var RBH = RBH || {};
 RBH.Factory = RBH.Factory || {};
@@ -97,8 +96,8 @@ RBH.Factory = (function() {
     });
   };
   var getWeightView = function(model) {
-    var View = body_weight.detailled_view;
-    console.log('body_weight', body_weight);
+    var View = RBH.Factory.BodyWeight.body_weight.detailled_view;
+    console.log('body_weight', RBH.Factory.BodyWeight.body_weight);
     return new View ({
       model:  model
     });
@@ -137,7 +136,7 @@ RBH.Factory = (function() {
     if (type === 'session') {
       View = RBH.Factory.Activities[model.get('activity')].detailled_view;
     } else if (type === 'message'){
-      View = messages[model.get('activity')].detailled_view;
+      View = RBH.Factory.Messages.message.detailled_view;
     }
     return new View({
       model: model
@@ -149,7 +148,7 @@ RBH.Factory = (function() {
   };
   var getBodiesList = function () {
     // console.log('body_weight', body_weight);
-    return body_weight.list;
+    return RBH.Factory.BodyWeight.body_weight.list;
   };
   return {
     // getModel                : getModel,

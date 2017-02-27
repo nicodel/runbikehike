@@ -1,5 +1,4 @@
-/* globals _, Backbone, GPSTrack */
-/* exported GPSTracks */
+/* globals _, Backbone */
 'use strict';
 var RBH = RBH || {};
 RBH.Collections = RBH.Collections || {};
@@ -11,4 +10,3 @@ RBH.Collections.GPSTracks = Backbone.Collection.extend({
     // this.listenTo(this, 'all', function(ev, res) {console.log('GPSTRACKS Collection', ev, res);});
   },
 });
-var GPSTracks = new RBH.Collections.GPSTracks();

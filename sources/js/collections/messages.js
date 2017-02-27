@@ -1,16 +1,15 @@
-/* globals _, Backbone, Message, Factory */
-/* exported Messages */
+/* globals _, Backbone */
 'use strict';
 var RBH = RBH || {};
 RBH.Collections = RBH.Collections || {};
 
 RBH.Collections.Messages = Backbone.Collection.extend({
   model: RBH.Models.Message,
-  url: 'data/messages',
+  url: 'data/rbh_messages',
 
   initialize: function() {
     // console.log('DocsCollection initialize');
-    // this.listenTo(this, 'all', function(ev, res) {console.log('MESSAGES Collection', ev, res);});
+    this.listenTo(this, 'all', function(ev, res) {console.log('MESSAGES Collection', ev, res);});
     this.listenTo(this, 'sync', this.synced);
   },
 
@@ -26,4 +25,3 @@ RBH.Collections.Messages = Backbone.Collection.extend({
     }
   }
 });
-var Messages = new RBH.Collections.Messages();

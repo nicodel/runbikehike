@@ -1,6 +1,6 @@
 /* jshint browser: true */
 /* exported _ */
-/* globals Backbone, Router */
+/* globals Backbone */
 'use strict';
 var RBH = RBH || {};
 

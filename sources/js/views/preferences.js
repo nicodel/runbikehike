@@ -1,6 +1,5 @@
 /* jshint browser: true */
-/* globals Backbone, Preferences */
-/* exported PreferencesView */
+/* globals Backbone */
 'use strict';
 var RBH = RBH || {};
 RBH.Views = RBH.Views || {};
@@ -31,7 +30,7 @@ RBH.Views.Preferences = Backbone.NativeView.extend({
   initialize: function() {
     // console.log('PreferencesView initialize');
     // console.log('PreferencesView this.model', this.model);
-    this.model = Preferences;
+    this.model = RBH.Models.Preferences;
     // this.model.fetch();
     this.render();
     // this.listenTo('change', this.render);

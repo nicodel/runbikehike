@@ -1,5 +1,4 @@
-/* globals _, Backbone, Item, Messages */
-/* exported Dashboard */
+/* globals _, Backbone */
 'use strict';
 var RBH = RBH || {};
 RBH.Collections = RBH.Collections || {};
@@ -11,4 +10,3 @@ RBH.Collections.Dashboard = Backbone.Collection.extend({
   //   this.listenTo(this, 'all', function(ev, res) {console.log('DASHBOARD Collection', ev, res);});
   // }
 });
-var Dashboard = new RBH.Collections.Dashboard();
