@@ -20,11 +20,11 @@ RBH.Router = Backbone.Router.extend({
     calories.fetch();
     console.log('RBH', RBH);
 
+    //new RBH.Views.Sessions();
+    //new RBH.Views.Reports();
+    //new RBH.Views.NewSession();
+    //new RBH.Views.Dashboard();
+    //new RBH.Views.Indicators();
     new RBH.Views.Navigation();
-    new RBH.Views.Dashboard();
-    new RBH.Views.Indicators();
-    new RBH.Views.Sessions();
-    new RBH.Views.Reports();
-    new RBH.Views.NewSession();
   }
 });
