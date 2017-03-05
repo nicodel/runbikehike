@@ -1,10 +1,10 @@
 /* jshint browser: true */
-/* globals Backbone, Factory, Session, BodyWeight, Preferences, Sessions, BodyWeights, Dashboard,
-   PreferencesView, NewSession, NewBodyWeightView */
-/* exported NavigationView */
+/* globals Backbone */
 'use strict';
+var RBH = RBH || {};
+RBH.Views = RBH.Views || {};
 
-var NavigationView = Backbone.NativeView.extend({
+RBH.Views.Navigation = Backbone.NativeView.extend({
   el: 'nav',
   events: {
     'click #new-session-btn'  : 'showNewSession',
@@ -35,11 +35,11 @@ var NavigationView = Backbone.NativeView.extend({
     this.active_section = this.dom.dashboard_view;
     this.active_button = this.dom.dashboard_btn;
 
-    this.listenTo(Dashboard, 'dashboard-entry-selected', this.showEntry);
-    this.listenTo(Dashboard, 'sessions-entry-selected', this.showSession);
-    this.listenTo(Sessions, 'add-new', this.showSession);
-    this.listenTo(Sessions, 'removed', this.showDashboard);
-    this.listenTo(BodyWeights, 'add-new', this.showDashboard);
+    this.listenTo(RBH.Views.Dashboard, 'dashboard-entry-selected', this.showEntry);
+    this.listenTo(RBH.Views.Dashboard, 'sessions-entry-selected', this.showSession);
+    this.listenTo(RBH.Views.Sessions, 'add-new', this.showSession);
+    this.listenTo(RBH.Views.Sessions, 'removed', this.showDashboard);
+    this.listenTo(RBH.Views.BodyWeights, 'add-new', this.showDashboard);
   },
 
   showNewSession: function() {
@@ -51,8 +51,8 @@ var NavigationView = Backbone.NativeView.extend({
 
   showNewBodyWeight: function() {
     console.log('showNewBody');
-    new NewBodyWeightView({
-      model: new BodyWeight({
+    new RBH.Views.NewBodyWeight({
+      model: new RBH.Models.BodyWeight({
         date: new Date(),
         weight: 0
       })
@@ -73,8 +73,8 @@ var NavigationView = Backbone.NativeView.extend({
   },
 
   showPreferences: function() {
-    new PreferencesView({
-      model: Preferences
+    new RBH.Views.Preferences({
+      model: RBH.Models.Preferences
     });
     this._viewSection(this.dom.preference_view, this.dom.preference_btn);
   },
@@ -96,8 +96,8 @@ var NavigationView = Backbone.NativeView.extend({
         // console.log('that.detailled_view', that.detailled_view);
         var View;
         that._viewSection(that.dom.session_view, that.dom.session_btn);
-        var views = Factory.getDetailsSessionView(mod);
-        new Session({
+        var views = RBH.Factory.getDetailsSessionView(mod);
+        new RBH.Models.Session({
           'model' : mod,
           'views' : views
         }).render();

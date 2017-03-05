@@ -1,12 +1,12 @@
-/* globals _, Backbone, Item, Messages */
-/* exported Dashboard */
+/* globals _, Backbone */
 'use strict';
+var RBH = RBH || {};
+RBH.Collections = RBH.Collections || {};
 
-var DashboardCollection = Backbone.Collection.extend({
-  model: Item,
-  url: 'dashboard',
+RBH.Collections.Dashboard = Backbone.Collection.extend({
+  model: RBH.Models.Item,
+  url: 'data/dashboard',
   // initialize: function () {
   //   this.listenTo(this, 'all', function(ev, res) {console.log('DASHBOARD Collection', ev, res);});
   // }
 });
-var Dashboard = new DashboardCollection();

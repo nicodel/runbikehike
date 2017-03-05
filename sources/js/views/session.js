@@ -1,10 +1,11 @@
 /* jshint browser: true */
-/* globals Sessions, ModalView,
- Backbone, microtemplate, Preferences, utils, d3, crossfilter, dc
+/* globals Backbone, microtemplate, Preferences, utils, d3, crossfilter, dc
 */
 'use strict';
+var RBH = RBH || {};
+RBH.Views = RBH.Views || {};
 
-var Session = Backbone.NativeView.extend({
+RBH.Views.Session = Backbone.NativeView.extend({
   el: '#session-view',
 
   session_id: '',
@@ -20,7 +21,7 @@ var Session = Backbone.NativeView.extend({
 
   showModal: function () {
     console.log('showModal');
-    new ModalView({model: this.model});
+    new RBH.Views.Modal({model: this.model});
   },
 
   deleteSession: function (el) {
@@ -28,7 +29,7 @@ var Session = Backbone.NativeView.extend({
     this.model.destroy({
       success: function (model, response) {
         console.log('deleteSession - success', model, response);
-        Sessions.trigger('removed');
+        RBH.Collections.Sessions.trigger('removed');
       },
       error: function (model, error) {
         console.log('deleteSession - error', model, error);

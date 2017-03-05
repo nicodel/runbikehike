@@ -1,8 +1,9 @@
 /* globals Backbone */
-/* exported Preferences */
 'use strict';
+var RBH = RBH || {};
+RBH.Models = RBH.Models || {};
 
-var preferencesmodel = Backbone.Model.extend({
+RBH.Models.Preferences = Backbone.Model.extend({
 
   urlRoot: 'preferences',
 
@@ -12,4 +13,4 @@ var preferencesmodel = Backbone.Model.extend({
     // console.log('PreferencesModel initialize', this);
   }
 });
-var Preferences = new preferencesmodel({parse: true});
+var Preferences = new RBH.Models.Preferences({parse: true});

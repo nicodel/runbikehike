@@ -1,7 +1,9 @@
 /* globals Backbone */
-/* exported BodyWeight */
 'use strict';
 
-var BodyWeight = Backbone.Model.extend({
+var RBH = RBH || {};
+RBH.Models = RBH.Models || {};
+
+RBH.Models.BodyWeight = Backbone.Model.extend({
   idAttribute: '_id'
 });

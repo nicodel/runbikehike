@@ -1,9 +1,10 @@
 /* jshint browser: true */
-/* global Backbone, Factory, Sessions */
-/* exported SessionsView */
+/* global Backbone */
 'use strict';
+var RBH = RBH || {};
+RBH.Views = RBH.Views || {};
 
-var SessionsView = Backbone.NativeView.extend({
+RBH.Views.Sessions = Backbone.NativeView.extend({
   el: '#sessions-list',
 
   events: {
@@ -16,7 +17,7 @@ var SessionsView = Backbone.NativeView.extend({
   sortAttribute: 'date',
 
   initialize: function() {
-    this.collection = Sessions;
+    this.collection = RBH.Collections.Sessions;
     this.listenTo(this.collection, 'sync', this.render);
     this.listenTo(this.collection, 'reset', this.render);
     this.render();
@@ -70,7 +71,7 @@ var SessionsView = Backbone.NativeView.extend({
 
   renderItem: function(item) {
     item.set('session_cid', item.cid);
-    var view = Factory.getSessionsSummaryView(item);
+    var view = RBH.Factory.getSessionsSummaryView(item);
     this.listenTo(item, 'sessions-item-selected', this.sessionSelected);
     this.el.appendChild(view.render().el);
     this.viewsList.push(view);

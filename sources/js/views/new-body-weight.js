@@ -1,9 +1,10 @@
 /* jshint browser: true */
-/* globals _, Backbone, microtemplate, utils, BodyWeights, Factory, Tracking */
-/* exported NewBodyWeightView */
+/* globals _, Backbone, microtemplate, utils */
 'use strict';
+var RBH = RBH || {};
+RBH.Views = RBH.Views || {};
 
-var NewBodyWeightView = Backbone.NativeView.extend({
+RBH.Views.NewBodyWeight = Backbone.NativeView.extend({
   el: '#new-body-weight-view',
 
   events: {
@@ -80,10 +81,10 @@ var NewBodyWeightView = Backbone.NativeView.extend({
       }
     }
     console.log('addNewSession - this.model', this.model);
-    var b = BodyWeights.add(this.model);
+    var b = RBH.collections.BodyWeights.add(this.model);
     // console.log('new body to save', b);
     b.save();
-    BodyWeights.trigger('add-new', b);
+    RBH.collections.BodyWeights.trigger('add-new', b);
     // Cleaning Views
     this.remove();
   }

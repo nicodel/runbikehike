@@ -1,10 +1,11 @@
 /* jshint browser: true */
 /* globals Backbone, microtemplate, Preferences, utils */
 'use strict';
+var RBH = RBH || {};
+RBH.Factory = RBH.Factory || {};
+RBH.Factory.Views = RBH.Factory.Views || {};
 
-var views = views || {};
-
-views.dashboard_message = Backbone.NativeView.extend({
+RBH.Factory.Views.dashboard_message = Backbone.NativeView.extend({
   tagName: 'li',
 
   template: microtemplate(document.getElementById('dashboard-message-template').innerHTML),
@@ -20,9 +21,8 @@ views.dashboard_message = Backbone.NativeView.extend({
   render: function() {
     // console.log('DASHBOARD MESSAGE - this.model', this.model);
     this.el.innerHTML = this.template({
-      'session_cid' : this.model.get('session_cid'),
-      'date'        : utils.Helpers.formatDate(this.model.get('date')),
-      'text'        : this.model.get('text')
+      'date'  : utils.Helpers.formatDate(this.model.get('date')),
+      'text'  : this.model.get('message')
     });
     return this;
   }

@@ -1,8 +1,9 @@
 /* globals Backbone */
-/* exported Message */
 'use strict';
+var RBH = RBH || {};
+RBH.Models = RBH.Models || {};
 
-var Item = Backbone.Model.extend({
+RBH.Models.Item = Backbone.Model.extend({
     idAttribute: '_id',
     save: false
 });

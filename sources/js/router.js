@@ -1,24 +1,30 @@
-/* globals Backbone, Preferences, Messages, Sessions, BodyWeights,
-IndicatorsView, DashboardView, NavigationView, SessionsView, ReportsView, NewSession, Session */
-/* exported Router */
+/* globals Backbone */
 'use strict';
 
-var Router = Backbone.Router.extend({
+var RBH = RBH || {};
+
+RBH.Router = Backbone.Router.extend({
   routes: {
     ''  : 'start'
   },
 
   start: function() {
-    Preferences.fetch();
-    Messages.fetch();
-    Sessions.fetch();
-    BodyWeights.fetch();
+    //Preferences.fetch();
+    var messages = new RBH.Collections.Messages();
+    messages.fetch();
+    var sessions = new RBH.Collections.Sessions();
+    sessions.fetch();
+    var bodyweights = new RBH.Collections.BodyWeights();
+    bodyweights.fetch();
+    var calories =  new RBH.Collections.Calories();
+    calories.fetch();
+    console.log('RBH', RBH);
 
-    new NavigationView();
-    new DashboardView();
-    new IndicatorsView();
-    new SessionsView();
-    new ReportsView();
-    new NewSession();
+    //new RBH.Views.Sessions();
+    //new RBH.Views.Reports();
+    //new RBH.Views.NewSession();
+    //new RBH.Views.Dashboard();
+    //new RBH.Views.Indicators();
+    new RBH.Views.Navigation();
   }
 });

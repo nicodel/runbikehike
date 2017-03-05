@@ -3,9 +3,11 @@
  Backbone, microtemplate, Preferences, utils */
 'use strict';
 
-var views = views || {};
+var RBH = RBH || {};
+RBH.Factory = RBH.Factory || {};
+RBH.Factory.Views = RBH.Factory.Views || {};
 
-views.details_session_altitude = Backbone.NativeView.extend({
+RBH.Factory.Views.details_session_altitude = Backbone.NativeView.extend({
   template: microtemplate(document.getElementById('details-session-altitude-template').innerHTML),
 
   initialize: function () {

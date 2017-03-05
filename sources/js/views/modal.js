@@ -1,9 +1,10 @@
 /* jshint browser: true */
-/* globals Backbone, microtemplate, Sessions */
-/* exported ModalView */
+/* globals Backbone, microtemplate */
 'use strict';
+var RBH = RBH || {};
+RBH.Views = RBH.Views || {};
 
-var ModalView = Backbone.NativeView.extend({
+RBH.Views.Modal = Backbone.NativeView.extend({
   el: '#modal',
   template: microtemplate(document.getElementById('modal-delete-template').innerHTML),
   events: {
@@ -30,7 +31,7 @@ var ModalView = Backbone.NativeView.extend({
     this.model.destroy({
       success: function (model, response) {
         console.log('deleteSession - success', model, response);
-        Sessions.trigger('removed');
+        RBH.Collections.Sessions.trigger('removed');
         that.hideModal();
       },
       error: function (model, error) {

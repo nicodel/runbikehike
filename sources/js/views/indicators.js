@@ -1,20 +1,21 @@
 /* jshint browser: true */
-/* globals Backbone, microtemplate, Dashboard, Preferences, utils */
-/* exported IndicatorsView */
+/* globals Backbone, microtemplate, utils */
 'use strict';
+var RBH = RBH || {};
+RBH.Views = RBH.Views || {};
 
-var IndicatorsView = Backbone.NativeView.extend({
+RBH.Views.Indicators = Backbone.NativeView.extend({
   el: '#indicators',
 
   template: microtemplate(document.getElementById('indicators-template').innerHTML),
 
   initialize: function() {
-    this.collection = Dashboard;
+    this.collection = RBH.Collections.Dashboard;
 
     this.listenTo(this.collection, 'add', this.render);
     this.listenTo(this.collection, 'sync', this.render);
 
-    this.listenTo(Preferences, 'change', this.render);
+    this.listenTo(RBH.Collections.Preferences, 'change', this.render);
     this.render();
   },
 
@@ -37,7 +38,7 @@ var IndicatorsView = Backbone.NativeView.extend({
       });
     }
     var dist = utils.Helpers.distanceMeterToChoice(
-      Preferences.get('unit'),
+      RBH.Collections.Preferences.get('unit'),
       totals.distance,
       false
     );

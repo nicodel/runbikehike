@@ -2,9 +2,11 @@
 /* global Backbone, microtemplate, Preferences, utils */
 'use strict';
 
-var views = views || {};
+var RBH = RBH || {};
+RBH.Factory = RBH.Factory || {};
+RBH.Factory.Views = RBH.Factory.Views || {};
 
-views.sessions_summary_2 = Backbone.NativeView.extend({
+RBH.Factory.Views.sessions_summary_2 = Backbone.NativeView.extend({
   tagName: 'li',
 
   template: microtemplate(document.getElementById('session-summary-template-2').innerHTML),

@@ -2,9 +2,11 @@
 /* globals _, Backbone, microtemplate, Preferences, utils, Session */
 'use strict';
 
-var views = views || {};
+var RBH = RBH || {};
+RBH.Factory = RBH.Factory || {};
+RBH.Factory.Views = RBH.Factory.Views || {};
 
-views.new_session = Backbone.NativeView.extend({
+RBH.Factory.Views.new_session = Backbone.NativeView.extend({
   template: microtemplate(document.getElementById('new-session-template-1').innerHTML),
 
   session   : new Session(),
@@ -31,7 +33,7 @@ views.new_session = Backbone.NativeView.extend({
   initialize: function(params) {
     this.session.set(this.model.attributes);
     if (params.import_form_subview) {
-      this.import_form_subview = new views.new_session_import_form({
+      this.import_form_subview = new RBH.Factory.Views.new_session_import_form({
         'model': this.session
       });
     }

@@ -26,8 +26,12 @@ public/*
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
 
-# cozy-db
-db*
+# pouchdb databases
+sessions*
+body_weight*
+gps_tracks*
+rbh_messages*
+calories*
 
 # Published versions
 publish/*

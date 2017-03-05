@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="utf-8">
+  <head>
+    <title>Run, Bike, Hike... Tests</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
+  </head>
+  <body>
+    <div id="mocha"></div>
+
+    <!-- Test Fixtures. -->
+    <!-- <div id="fixtures" style="display: none; visibility: hidden;"></div> -->
+
+    <script type="text/template" id="new-session-activity">
+  </script>
+
+    <!--
+      New Session - Import Form template
+    -->
+    <script type="text/template" id="new-session-import-form-template">
+    </script>
+
+    <!--
+      New Session - Altitude template
+    -->
+    <script type="text/template" id="new-session-altitude-template">
+    </script>
+
+    <!--
+      New Session - Distance template
+    -->
+    <script type="text/template" id="new-session-distance-template">
+    </script>
+
+    <!--
+      New Session - Basics template
+    -->
+      <script type="text/template" id="new-session-template-basics">
+      </script>
+
+      <script type="text/template" id="new-session-template-2">
+      </script>
+
+      <script type="text/template" id="new-session-template-3">
+      </script>
+
+      <script type="text/template" id="new-session-template-4">
+      </script>
+
+    <!--
+      Dashboard - Session Basics template
+    -->
+      <script type="text/template" id="dashboard-session-template">
+      </script>
+
+      <!--
+        Dashboard - Session Distance template
+      -->
+      <script type="text/>template" id="dashboard-session-distance-template">
+      </script>
+
+      <script type="text/template" id="dashboard-weight-template">
+      </script>
+
+      <script type="text/template" id="dashboard-message-template">
+      </script>
+
+      <script type="text/template" id="indicators-template">
+      </script>
+
+      <script type="text/template" id="details-session-basics-template">
+      </script>
+
+      <!--
+        Details - Session Distance template
+      -->
+
+      <script type="text/>template" id="details-session-distance-template">
+      </script>
+
+      <!--
+        Details - Session Altitude template
+      -->
+      <script type="text/>template" id="details-session-altitude-template">
+      </script>
+
+      <!--
+        Details - Session Map template
+      -->
+
+      <script type="text/>template" id="details-session-map-template">
+      </script>
+
+      <script type="text/template" id="body-details-template">
+      </script>
+
+      <script type="text/template" id="session-details-template-2">
+      </script>
+
+      <script type="text/template" id="session-details-template-3">
+      </script>
+
+      <script type="text/template" id="modal-delete-template">
+      </script>
+
+    <!-- JavaScript Test Libraries. -->
+    <script src="../node_modules/mocha/mocha.js"></script>
+    <script src="../node_modules/should/should.js"></script>
+    <script src="lib/sinon-1.17.6.js"></script>
+
+    <!-- JavaScript Core Libraries -->
+    <script type="text/javascript" src="../sources/js/lib/l10n.js"></script>
+    <script type="text/javascript" src="../sources/js/lib/microtemplates.js"></script>
+    <script type="text/javascript" src="../sources/js/lib/exoskeleton.js"></script>
+    <script type="text/javascript" src="../sources/js/lib/backbone.nativeajax.js"></script>
+    <script type="text/javascript" src="../sources/js/lib/backbone.nativeview.js"></script>
+    <script type="text/javascript" src="../sources/js/lib/leaflet.js"></script>
+    <script type="text/javascript" src="../sources/js/lib/d3.js"></script>
+    <script type="text/javascript" src="../sources/js/lib/crossfilter.js"></script>
+    <script type="text/javascript" src="../sources/js/lib/dc.js"></script>
+
+    <!-- <script>
+      // Test overrides (before any app components).
+      App.Config = _.extend(App.Config, {
+        storeName: "notes-test" // localStorage for tests.
+      });
+    </script> -->
+
+    <!-- <script type="text/javascript" src="../sources/js/utils/polyfill.js"></script>
+    <script type="text/javascript" src="../sources/js/utils/gpx.js"></script>
+    <script type="text/javascript" src="../sources/js/utils/tracks.js"></script>
+    <script type="text/javascript" src="../sources/js/utils/chrono.js"></script>
+    <script type="text/javascript" src="../sources/js/utils/map.js"></script>
+    <script type="text/javascript" src="../sources/js/utils/helpers.js"></script>
+    <script type="text/javascript" src="../sources/js/workers/data_compute.js"></script> -->
+
+    <script type="text/javascript" src="../sources/js/models/message.js"></script>
+    <script type="text/javascript" src="../sources/js/models/session.js"></script>
+    <script type="text/javascript" src="../sources/js/models/gps_track.js"></script>
+    <script type="text/javascript" src="../sources/js/models/body_weight.js"></script>
+    <script type="text/javascript" src="../sources/js/models/calorie.js"></script>
+    <script type="text/javascript" src="../sources/js/models/item.js"></script>
+    <script type="text/javascript" src="../sources/js/models/preferences.js"></script>
+    <script type="text/javascript" src="../sources/js/collections/messages.js"></script>
+    <script type="text/javascript" src="../sources/js/collections/sessions.js"></script>
+    <script type="text/javascript" src="../sources/js/collections/gps_tracks.js"></script>
+    <script type="text/javascript" src="../sources/js/collections/body_weight.js"></script>
+    <script type="text/javascript" src="../sources/js/collections/calories.js"></script>
+    <script type="text/javascript" src="../sources/js/collections/dashboard.js"></script>
+
+    <script type="text/javascript" src="../sources/js/factories/views/dashboard_message.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/views/dashboard_session_basics.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/views/dashboard_session_distance.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/views/details-session-distance.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/views/details-session-altitude.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/views/details-session-map.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/views/new_session_import_form.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/views/new_session_altitude.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/views/new_session_distance.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/views/new_session_basics.js"></script>
+
+    <script type="text/javascript" src="../sources/js/factories/activities/bmx.js"></script>
+    <!-- <script type="text/javascript" src="../sources/js/factories/activities/climbing.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/activities/football.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/activities/frisbee.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/activities/handball.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/activities/in_sea.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/activities/kicking.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/activities/kitesurfing.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/activities/mountain_biking.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/activities/paddling.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/activities/ping_pong.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/activities/punching.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/activities/racing.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/activities/regular_biking.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/activities/roller_skating.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/activities/running.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/activities/skateboarding.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/activities/skiing.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/activities/sparring.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/activities/stick_fighting.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/activities/sup.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/activities/surfing.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/activities/swimming.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/activities/tennis.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/activities/time_trial_biking.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/activities/trekking.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/activities/walking.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/activities/wrestling.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/body_weight/body_weight.js"></script>
+    <script type="text/javascript" src="../sources/js/factories/messages/message.js"></script> -->
+    <script type="text/javascript" src="../sources/js/factories/factory.js"></script>
+
+    <script type="text/javascript" src="../sources/js/views/indicators.js"></script>
+    <script type="text/javascript" src="../sources/js/views/modal.js"></script>
+    <script type="text/javascript" src="../sources/js/views/dashboard.js"></script>
+    <script type="text/javascript" src="../sources/js/views/new-session.js"></script>
+    <script type="text/javascript" src="../sources/js/views/session.js"></script>
+    <script type="text/javascript" src="../sources/js/views/new-body-weight.js"></script>
+    <script type="text/javascript" src="../sources/js/views/preferences.js"></script>
+    <script type="text/javascript" src="../sources/js/views/sessions.js"></script>
+    <script type="text/javascript" src="../sources/js/views/reports.js"></script>
+    <script type="text/javascript" src="../sources/js/views/navigation.js"></script>
+    <!-- <script type="text/javascript" src="../sources/js/router.js"></script> -->
+    <!-- <script type="text/javascript" src="../sources/js/app.js"></script> -->
+
+    <!-- Set up Mocha and Chai -->
+    <script>
+      mocha.setup({
+        ui: "bdd",
+        bail: false
+      });
+
+      window.onload = function () {
+        (window.mochaPhantomJS || mocha).run();
+      };
+    </script>
+    <script src="app/polyfill_include.js"></script>
+
+    <!--TESTS -->
+    <script src="app/namespace.js"></script>
+    <script src="app/models.js"></script>
+    <script src="app/factory.js"></script>
+
+  </body>
+</html>

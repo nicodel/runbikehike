@@ -4,9 +4,11 @@
 */
 'use strict';
 
-var views = views || {};
+var RBH = RBH || {};
+RBH.Factory = RBH.Factory || {};
+RBH.Factory.Views = RBH.Factory.Views || {};
 
-views.detailled_1 = Backbone.NativeView.extend({
+RBH.Factory.Views.detailled_1 = Backbone.NativeView.extend({
   el: '#session-view',
 
   session_id: '',

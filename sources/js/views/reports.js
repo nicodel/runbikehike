@@ -1,9 +1,10 @@
 /* jshint browser: true */
-/* globals Backbone, d3, crossfilter, dc, Preferences, Dashboard, utils, BodyWeights */
-/* exported ReportsView */
+/* globals Backbone, d3, crossfilter, dc */
 'use strict';
+var RBH = RBH || {};
+RBH.Views = RBH.Views || {};
 
-var ReportsView = Backbone.NativeView.extend({
+RBH.Views.Reports = Backbone.NativeView.extend({
   el: '#reports-view',
 
   weightChart : dc.lineChart('#reports-weight-graph'),
@@ -13,12 +14,12 @@ var ReportsView = Backbone.NativeView.extend({
 
 
   initialize: function() {
-    this.collection = Dashboard;
+    this.collection = RBH.Collections.Dashboard;
 
     // this.listenTo(this.collection, 'sync', this.render);
     // this.listenTo(this.collection, 'reset', this.render);
 
-    this.listenTo(BodyWeights, 'sync', this.render);
+    this.listenTo(RBH.Collections.BodyWeights, 'sync', this.render);
 
     var that = this;
     document.getElementById('reports-select-date').addEventListener('change', function(el) {
@@ -59,7 +60,7 @@ var ReportsView = Backbone.NativeView.extend({
   },
 
   render: function() {
-    var user_unit = Preferences.get('unit');
+    var user_unit = RBH.Models.Preferences.get('unit');
 
     var red   = '#FF0000';
     var blue  = '#0000FF';
@@ -70,7 +71,7 @@ var ReportsView = Backbone.NativeView.extend({
     var act_data = [];
     var weight_data = [];
     var item;
-    BodyWeights.forEach(function(model) {
+    RBH.Collections.BodyWeights.forEach(function(model) {
       item = model.attributes;
       item.formateddate = dateFormat.parse(item.date);
       item.day = d3.time.day(item.formateddate);

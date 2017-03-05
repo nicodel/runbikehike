@@ -7,9 +7,12 @@ models.body_weight = function(options) {
   this.weight = options.weight  || 0;
   this.vendor = options.vendor  || 'RunBikeHike';
 };
+var RBH                     = RBH || {};
+RBH.Factory                 = RBH.Factory || {};
+RBH.Factory.BodyWeight      = RBH.Factory.BodyWeight || {};
 
 var views   = views || {};
-body_weight = {
+RBH.Factory.BodyWeight.body_weight = {
   model                   : models.body_weight,
   new_view                : views.new_2,
   summary_view_dashboard  : views.dashboard_summary_2,
