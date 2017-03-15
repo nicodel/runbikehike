@@ -148,7 +148,7 @@ utils.Helpers = function() {
   }
 
   function calculateCalories(gender, weigth, height, age, distance, duration, activity) {
-    // console.log('calculate calories', gender, weigth, height, age, distance, duration, activity);
+    console.log('calculate calories', gender, weigth, height, age, distance, duration, activity);
     // TODO verify the validity of each value
     if (distance === 0 || duration === 0) {
       return 0;
@@ -233,7 +233,7 @@ utils.Helpers = function() {
       } else {
         rate = 15.8;
       }
-    } else if (activity === 'mountain_biking') {
+    } else if (activity === 'mountain_biking' || activity === 'bmx') {
       rate = 8.5;
     } else if (activity === 'time_trial_biking') {
       rate = 16;
