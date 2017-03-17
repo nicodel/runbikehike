@@ -26,6 +26,7 @@ RBH.Views.NewSession = Backbone.NativeView.extend({
   template : microtemplate(document.getElementById('new-session-activity').innerHTML),
 
   initialize: function () {
+    this.collection = RBH.Collections.Sessions;
     document.getElementById('select-activity').innerHTML = '';
     var activities = RBH.Factory.getActivitiesList();
     for (var i = 0; i < activities.length; i++) {
@@ -138,10 +139,10 @@ RBH.Views.NewSession = Backbone.NativeView.extend({
     console.log('addNewSession - this.model', this.model);
     console.log('addNewSession - this.gps_track', this.gps_track);
 
-    var s = RBH.Collections.Sessions.add(this.model);
+    var s = this.collection.add(this.model);
     console.log('new session to save', s);
     s.save();
-    RBH.Collections.Sessions.trigger('add-new', s);
+    this.collection.trigger('add-new', s);
 
 
     //var g = GPSTracks.add(this.gps_track);

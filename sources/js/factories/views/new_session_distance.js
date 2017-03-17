@@ -1,5 +1,5 @@
 /* jshint browser: true */
-/* globals _, Backbone, microtemplate, Preferences, utils, Session,  GPSTrack */
+/* globals _, Backbone, microtemplate, utils, Session,  GPSTrack */
 'use strict';
 
 var RBH = RBH || {};
@@ -30,16 +30,16 @@ RBH.Factory.Views.new_session_distance = Backbone.NativeView.extend({
       'value' : 0,
       'unit'  : 'km/h'
     };
-    var pref_unit = Preferences.get('unit');
+    // var pref_unit = Preferences.get('unit');
     if (this.model.get('distance')) {
       distance = utils.Helpers.distanceMeterToChoice(
-        pref_unit,
+        RBH.UserUnit,
         this.model.get('distance'),
         false
       );
     }
     if (this.model.get('speed')) {
-      speed = utils.Helpers.speedMsToChoice(pref_unit, this.model.get('speed'));
+      speed = utils.Helpers.speedMsToChoice(RBH.UserUnit, this.model.get('speed'));
     }
 
     this.el.innerHTML = this.template({
@@ -55,13 +55,13 @@ RBH.Factory.Views.new_session_distance = Backbone.NativeView.extend({
 
   renderImportedData: function () {
     this.validated.distance = true;
-    var pref_unit = Preferences.get('unit');
+    // var pref_unit = Preferences.get('unit');
     var distance = utils.Helpers.distanceMeterToChoice(
-      pref_unit,
+      RBH.UserUnit,
       this.model.get('distance'),
       false
     );
-    var speed = utils.Helpers.speedMsToChoice(pref_unit, this.model.get('speed'));
+    var speed = utils.Helpers.speedMsToChoice(RBH.UserUnit, this.model.get('speed'));
     document.getElementById('new-session-distance').value = distance.value;
     document.getElementById('new-session-avg-speed').value = speed.value;
   },
@@ -75,7 +75,7 @@ RBH.Factory.Views.new_session_distance = Backbone.NativeView.extend({
       this.model.set(
         'distance',
         utils.Helpers.distanceChoiceToMeter(
-          Preferences.get('unit'),
+          RBH.UserUnit,
           d
         )
       );

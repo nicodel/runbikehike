@@ -35,10 +35,12 @@ RBH.Factory = (function() {
   };
 
   var getDashboardSessionViews = function (model) {
+    console.log('model', model);
     var View;
     var DistanceSubview = false;
     var activity_name = model.get('activity_name');
     var subviews = RBH.Factory.Activities[activity_name].new_view;
+    console.log('subviews', subviews);
 
     if (subviews.includes('distance')) {
       DistanceSubview = new RBH.Factory.Views.dashboard_session_distance({
@@ -143,7 +145,7 @@ RBH.Factory = (function() {
     });
   };
   var getActivitiesList = function () {
-    // console.log('activities', activities);
+    console.log('activities', RBH.Factory.Activities.list);
     return RBH.Factory.Activities.list;
   };
   var getBodiesList = function () {

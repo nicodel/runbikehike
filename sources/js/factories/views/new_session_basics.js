@@ -21,6 +21,8 @@ RBH.Factory.Views.new_session = Backbone.NativeView.extend({
     'change #new-session-duration-hour' : '__validateDuration',
     'change #new-session-duration-min'  : '__validateDuration',
     'change #new-session-duration-sec'  : '__validateDuration',
+    // TODO understand why change event is not fired when new-session-distance  value is changed
+    'change #new-session-distance'      : '__distanceChanged'
   },
 
   validated: {
@@ -36,7 +38,7 @@ RBH.Factory.Views.new_session = Backbone.NativeView.extend({
         'model': this.model
       });
     }
-    console.log('getting a listener on this.model', this.model);
+    // console.log('getting a listener on this.model', this.model);
     this.listenTo(this.model, 'data-imported', this.renderImportedData);
   },
 
@@ -44,7 +46,8 @@ RBH.Factory.Views.new_session = Backbone.NativeView.extend({
 
     this.validated.distance = true;
     this.validated.duration = true;
-    var pref_unit = Preferences.get('unit');
+    // var pref_unit = Preferences.get('unit');
+    // var pref_unit = 'metric'; // TODO manage the Preferences
     var date;
     var distance;
     var duration;
@@ -59,7 +62,7 @@ RBH.Factory.Views.new_session = Backbone.NativeView.extend({
     }
     if (this.model.get('distance')) {
       distance = utils.Helpers.distanceMeterToChoice(
-        pref_unit,
+        RBH.UserUnit,
         this.model.get('distance'),
         false
       );
@@ -79,7 +82,7 @@ RBH.Factory.Views.new_session = Backbone.NativeView.extend({
       };
     }
     if (this.model.get('speed')) {
-      speed = utils.Helpers.speedMsToChoice(pref_unit, this.model.get('speed'));
+      speed = utils.Helpers.speedMsToChoice(RBH.UserUnit, this.model.get('speed'));
     } else {
       speed = {
         'value' : 0,
@@ -119,7 +122,8 @@ RBH.Factory.Views.new_session = Backbone.NativeView.extend({
     console.log('render Imported data', this.model);
     //this.validated.distance = true;
     this.validated.duration = true;
-    var pref_unit = Preferences.get('unit');
+    // var pref_unit = Preferences.get('unit');
+    // var pref_unit = 'metric'; // TODO manage Preferences
     /*var distance = utils.Helpers.distanceMeterToChoice(
       pref_unit,
       this.model.get('distance'),
@@ -142,19 +146,34 @@ RBH.Factory.Views.new_session = Backbone.NativeView.extend({
     document.getElementById('new-session-calories').value =  this.model.get('calories');
   },
 
+  // TODO manage when user did not give one or all the needed information below
   renderCalories: function() {
-    console.log('this.model.get("time_interval")', this.model.get('time_interval'));
+    console.log('this.model.get("activity_name")', this.model.get('activity_name'));
     var calories = utils.Helpers.calculateCalories(
-        Preferences.get('gender'),
-        Preferences.get('weight'),
-        Preferences.get('height'),
-        new Date().getFullYear() - Preferences.get('birthyear'),
+        // Preferences.get('gender'),
+        'male', // TODO manage gender
+        // Preferences.get('weight'),
+        95, // TODO manage the user weight
+        // Preferences.get('height'),
+        194,  // TODO manage user height
+        // new Date().getFullYear() - Preferences.get('birthyear'),
+        43,   // TODO manage user birthyear
         this.model.get('distance'),
         this.model.get('time_interval').duration,
-        this.model.activity_name
+        this.model.get('activity_name')
     );
     document.getElementById('new-session-calories').value = calories;
     this.model.set('calories', calories);
+    console.log('calories', calories);
+  },
+
+  renderAvgSpeed: function () {
+    var speed = this.model.get('distance') /this.model.get('sduration');
+    document.getElementById('new-session-avg-speed').value = utils.Helpers.speedMsToChoice(
+      RBH.UserUnit,
+      speed
+    ).value;
+    this.model.set('avg_speed', speed);
   },
 
   __validateDuration: function() {
@@ -165,14 +184,14 @@ RBH.Factory.Views.new_session = Backbone.NativeView.extend({
     if (Number.isNaN(h) || Number.isNaN(m) || Number.isNaN(s)) {
       this.validated.duration = false;
       this.trigger('disable-add');
-    } else if (h >= 0 || h <= 24 && m >= 0 || m <= 60 && s >= 0 || s <= 60) {
+    } else if (h >= 0 || h < 24 && m >= 0 || m < 60 && s >= 0 || s < 60) {
       // console.log('new duration', h * 3600 + m * 60 + s);
       this.model.set(     // TODO Check the possibility to set a model attribute like this
         'time_interval',
         {'duration': h * 3600 + m * 60 + s}
       );
       this.validated.duration = true;
-      console.log('sending enable-add', this.validated);
+      // console.log('sending enable-add', this.validated);
       this.trigger('enable-add');
       if (this.validated.distance) {
         this.renderCalories();
@@ -180,7 +199,7 @@ RBH.Factory.Views.new_session = Backbone.NativeView.extend({
       }
     } else {
       this.validated.duration = false;
-      console.log('sending disable-add', this.validated);
+      // console.log('sending disable-add', this.validated);
       this.trigger('disable-add');
     }
   },
@@ -190,7 +209,7 @@ RBH.Factory.Views.new_session = Backbone.NativeView.extend({
     var time = utils.Helpers.checkTime(document.getElementById('new-session-time').value);
     if (date[0] && time[0]) {
       this.validated.date = true;
-      console.log('sending enable-add', this.validated);
+      // console.log('sending enable-add', this.validated);
       this.trigger('enable-add');
       var d = date[1];
       var t = time[1];
@@ -198,9 +217,15 @@ RBH.Factory.Views.new_session = Backbone.NativeView.extend({
 
     } else {
       this.validated.date = false;
-      console.log('sending disable-add', this.validated);
+      // console.log('sending disable-add', this.validated);
       this.trigger('disable-add');
     }
     // console.log('validate date', this.validated.date);
+  },
+
+  __distanceChanged: function () {
+    console.log('distanceChanged');
+    this.renderAvgSpeed();
+    this.renderCalories();
   }
 });
