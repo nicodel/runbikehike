@@ -27,11 +27,11 @@ public/*
 node_modules
 
 # pouchdb databases
-sessions*
-body_weight*
-gps_tracks*
-rbh_messages*
-calories*
+sessions/*
+body_weight/*
+gps_tracks/*
+rbh_messages/*
+calories/*
 
 # Published versions
 publish/*
