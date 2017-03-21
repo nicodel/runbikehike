@@ -12,7 +12,7 @@ RBH.Factory.Views.dashboard_session_distance = Backbone.NativeView.extend({
   initialize: function() {
     this.listenTo(this.model, 'change', this.render);
     this.listenTo(this.model, 'destroy', this.remove);
-    this.listenTo(Preferences, 'change', this.render);
+    // this.listenTo(Preferences, 'change', this.render);
   },
 
   extend: Backbone.Events,
@@ -20,10 +20,10 @@ RBH.Factory.Views.dashboard_session_distance = Backbone.NativeView.extend({
   render: function() {
     // console.log('DASHBOARD SESSION DISTANCE - this.model', this.model);
     var dist = utils.Helpers.distanceMeterToChoice(
-        Preferences.get('unit'),
+        RBH.UserUnit,
         this.model.get('distance'), false);
     var speed = utils.Helpers.speedMsToChoice(
-        Preferences.get('unit'),
+        RBH.UserUnit,
         this.model.get('avg_speed'));
     this.el.innerHTML = this.template({
       'session_cid' : this.model.cid,
