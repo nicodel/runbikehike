@@ -59,12 +59,14 @@ RBH.Views.NewSession = Backbone.NativeView.extend({
     }
     if (element.target.nodeName === 'INPUT') {
       this.model.set({
-        'activity_name' : element.target.value
+        'activity_name' : element.target.value,
+        'date'          : new Date(),
+        'docType'       : 'sessions'
       });
       this.activity_name = element.target.value;
       // this.subview = Factory.getNewView('session', this.model);
       var views = RBH.Factory.getSessionNewView(this.model);
-      console.log('views to be displayed is', views);
+      // console.log('views to be displayed is', views);
 
       if (views.import_form) {
         var import_form_subview = views.import_form_subview;
@@ -92,7 +94,7 @@ RBH.Views.NewSession = Backbone.NativeView.extend({
 
   enableAdd: function() {
     var btn = document.getElementById('confirm-add-session-btn');
-    console.log('enable-add', btn.getAttribute('disabled'));
+    // console.log('enable-add', btn.getAttribute('disabled'));
     if (btn.getAttribute('disabled') === 'disabled') {
       btn.removeAttribute('disabled');
     }
@@ -100,23 +102,23 @@ RBH.Views.NewSession = Backbone.NativeView.extend({
 
   disableAdd: function() {
     var btn = document.getElementById('confirm-add-session-btn');
-    console.log('disable-add', btn.getAttribute('disabled'));
+    // console.log('disable-add', btn.getAttribute('disabled'));
     if (btn.getAttribute('disabled') === null) {
       btn.setAttribute('disabled', 'disabled');
     }
  },
 
  registerGPSTrackImported: function (track) {
-   console.log('GPS track to register', track);
+  //  console.log('GPS track to register', track);
    this.model.set('gps_track', {
      'available'  : true,
      'track_id'   : track.get('cid')
    });
-   console.log('track has been added', this.model.get('gps_track'));
+  //  console.log('track has been added', this.model.get('gps_track'));
  },
 
  registerSessionValues: function (model) {
-   console.log('model to store as a session', model);
+  //  console.log('model to store as a session', model);
    if (model.get('gps_track').available === true) {
      model.set('gps_track', {
        'available'  : true,
@@ -124,7 +126,7 @@ RBH.Views.NewSession = Backbone.NativeView.extend({
      });
    }
    this.model = model;
-   console.log('Session to register');
+  //  console.log('Session to register');
  },
 
   addNewSession: function() {
@@ -136,8 +138,8 @@ RBH.Views.NewSession = Backbone.NativeView.extend({
         return;
       }
     }
-    console.log('addNewSession - this.model', this.model);
-    console.log('addNewSession - this.gps_track', this.gps_track);
+    // console.log('addNewSession - this.model', this.model);
+    // console.log('addNewSession - this.gps_track', this.gps_track);
 
     var s = this.collection.add(this.model);
     console.log('new session to save', s);

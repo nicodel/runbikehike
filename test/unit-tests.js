@@ -56,11 +56,9 @@ describe('Run, Bike, Hike... Server', function () {
         .expect('Content-Type', /json/)
         .expect(200)
         .end(function (err, res) {
-          // console.log(Object.keys(res.body.rows));
           if (err) {
             throw err;
           }
-          //console.log('nb of sessions', Object.keys(res.body.rows).length);
           done();
         });
     });
@@ -104,6 +102,18 @@ describe('Run, Bike, Hike... Server', function () {
             throw err;
           }
           res.ok.should.be.true();
+          done();
+        });
+    });
+    it('should return 200 when getting all sessions', function (done) {
+      request(server)
+        .get('/data/sessions')
+        .expect('Content-Type', /json/)
+        .expect(200)
+        .end(function (err, res) {
+          if (err) {
+            throw err;
+          }
           done();
         });
     });

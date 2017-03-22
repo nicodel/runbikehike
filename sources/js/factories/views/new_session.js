@@ -166,18 +166,24 @@ RBH.Factory.Views.new_session = Backbone.NativeView.extend({
   },
 
   renderCalories: function() {
-    console.log('this.model.get("time_interval")', this.model.get('time_interval'));
+    // console.log('this.model.get("time_interval")', this.model.get('time_interval'));
     var calories = utils.Helpers.calculateCalories(
-        Preferences.get('gender'),
-        Preferences.get('weight'),
-        Preferences.get('height'),
-        new Date().getFullYear() - Preferences.get('birthyear'),
+        RBH.UserGender,
+        RBH.UserHeight,
+        RBH.UserWeight,
+        new Date().getFullYear() - RBH.UserBirthYear,
         this.model.get('distance'),
         this.model.get('time_interval').duration,
         this.session.activity_name
     );
     document.getElementById('new-session-calories').value = calories;
     this.session.set('calories', calories);
+  },
+
+  renderAvgSpeed: function () {
+    var speed = this.model.get('distance') / this.model.get('time_interval').duration;
+    document.getElementById('new-message-avg-speed').value = speed;
+    this.model.set('speed', speed);
   },
 
   __validateDuration: function() {
@@ -190,12 +196,18 @@ RBH.Factory.Views.new_session = Backbone.NativeView.extend({
       this.trigger('disable-add');
     } else if (h >= 0 || h <= 24 && m >= 0 || m <= 60 && s >= 0 || s <= 60) {
       // console.log('new duration', h * 3600 + m * 60 + s);
+      var da = this.model.get('date');
+      var du = h * 3600 + m * 60 + s;
       this.model.set(     // TODO Check the possibility to set a model attribute like this
         'time_interval',
-        {'duration': h * 3600 + m * 60 + s}
+        {
+          'duration'    : du,
+          'start_date'  : da,
+          'end-date'    : da + du
+        }
       );
       this.validated.duration = true;
-      console.log('sending enable-add', this.validated);
+      // console.log('sending enable-add', this.validated);
       this.trigger('enable-add');
       if (this.validated.distance) {
         this.renderCalories();
@@ -203,7 +215,7 @@ RBH.Factory.Views.new_session = Backbone.NativeView.extend({
       }
     } else {
       this.validated.duration = false;
-      console.log('sending disable-add', this.validated);
+      // console.log('sending disable-add', this.validated);
       this.trigger('disable-add');
     }
   },
@@ -213,7 +225,7 @@ RBH.Factory.Views.new_session = Backbone.NativeView.extend({
     var time = utils.Helpers.checkTime(document.getElementById('new-session-time').value);
     if (date[0] && time[0]) {
       this.validated.date = true;
-      console.log('sending enable-add', this.validated);
+      // console.log('sending enable-add', this.validated);
       this.trigger('enable-add');
       var d = date[1];
       var t = time[1];
@@ -221,7 +233,7 @@ RBH.Factory.Views.new_session = Backbone.NativeView.extend({
 
     } else {
       this.validated.date = false;
-      console.log('sending disable-add', this.validated);
+      // console.log('sending disable-add', this.validated);
       this.trigger('disable-add');
     }
     // console.log('validate date', this.validated.date);

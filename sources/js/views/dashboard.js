@@ -22,15 +22,16 @@ RBH.Views.Dashboard = Backbone.NativeView.extend({
 
   initialize: function() {
     // console.log('DASHBOARD VIEW - initialize');
-    this.collection = RBH.Collections.Dashboard;
+    this.collection = new RBH.Collections.Dashboard();
     // this.collection.reset();
 
-/*    this.listenTo(RBH.Collections.Messages, 'sync', this.resync);
+    // this.listenTo(RBH.Collections.Messages, 'sync', this.resync);
     this.listenTo(RBH.Collections.Sessions, 'sync', this.resync);
-    this.listenTo(RBH.Collections.BodyWeights, 'sync', this.resync);*/
+    // this.listenTo(RBH.Collections.BodyWeights, 'sync', this.resync);
 
-    this.listenTo(this.collection, 'sync', this.render);
-    this.listenTo(this.collection, 'reset', this.render);
+    // this.listenTo(this.collection, 'sync', this.render);
+    // this.listenTo(this.collection, 'reset', this.render);
+
     // this.listenTo(this.collection, 'sort-it');
     // this.listenTo(this.collection, 'all', function(a, b) {console.log('DASHBOARD - this.collection', a, b);});
 
@@ -53,15 +54,16 @@ RBH.Views.Dashboard = Backbone.NativeView.extend({
 
   resync: function (ev, res) {
     this.collection.reset();
-    RBH.Collections.Messages.forEach(function (item) {
-      this.collection.add(item);
-    }, this);
+    // RBH.Collections.Messages.forEach(function (item) {
+    //   this.collection.add(item);
+    // }, this);
+    console.log('RBH.collections.Sessions', RBH.Collections.Sessions);
     RBH.Collections.Sessions.forEach(function (item) {
       this.collection.add(item);
     }, this);
-    RBH.Collections.BodyWeights.forEach(function (item) {
-      this.collection.add(item);
-    }, this);
+    // RBH.Collections.BodyWeights.forEach(function (item) {
+    //   this.collection.add(item);
+    // }, this);
     this.sortCollection();
   },
 
@@ -115,8 +117,9 @@ RBH.Views.Dashboard = Backbone.NativeView.extend({
   },
 
   renderItem: function(item) {
-    // console.log('dashboard renderItem', item);
+    console.log('item', item);
     var View;
+    // if (item.get('docType') === 'sessions') {
     if (item.get('docType') === 'sessions') {
       var views = RBH.Factory.getDashboardSessionViews(item);
       View = views.basics;
@@ -129,13 +132,14 @@ RBH.Views.Dashboard = Backbone.NativeView.extend({
       View = RBH.Factory.getDashboardMessageView(item);
       this.el.appendChild(View.render().el);
     }
+    console.log('View', View);
     this.listenTo(View, 'dashboard-item-selected', this.itemSelected);
     this.viewsList.push(View);
   },
 
   render: function() {
     if (this.collection.length !== 0) {
-      // console.log('dashboard view render', this.collection);
+      console.log('dashboard view render', this.collection);
       if (this.el.innerHTML !== '') {
         this.viewsList.forEach(function(view) {
           view.remove();

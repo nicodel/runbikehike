@@ -35,11 +35,12 @@ RBH.Views.Navigation = Backbone.NativeView.extend({
     this.active_section = this.dom.dashboard_view;
     this.active_button = this.dom.dashboard_btn;
 
-    this.listenTo(RBH.Views.Dashboard, 'dashboard-entry-selected', this.showEntry);
-    this.listenTo(RBH.Views.Dashboard, 'sessions-entry-selected', this.showSession);
-    this.listenTo(RBH.Views.Sessions, 'add-new', this.showSession);
-    this.listenTo(RBH.Views.Sessions, 'removed', this.showDashboard);
-    this.listenTo(RBH.Views.BodyWeights, 'add-new', this.showDashboard);
+    // this.listenTo(RBH.Views.Dashboard, 'dashboard-entry-selected', this.showEntry);
+    // this.listenTo(RBH.Views.Dashboard, 'sessions-entry-selected', this.showSession);
+    // this.listenTo(RBH.Views.Sessions, 'add-new', this.showSession);
+    // this.listenTo(RBH.Views.Sessions, 'removed', this.showDashboard);
+    // this.listenTo(RBH.Views.BodyWeights, 'add-new', this.showDashboard);
+    this.listenTo(RBH.Collections.Sessions, 'add-new', this.showDashboard);
   },
 
   showNewSession: function() {
@@ -50,7 +51,7 @@ RBH.Views.Navigation = Backbone.NativeView.extend({
   },
 
   showNewBodyWeight: function() {
-    console.log('showNewBody');
+    // console.log('showNewBody');
     new RBH.Views.NewBodyWeight({
       model: new RBH.Models.BodyWeight({
         date: new Date(),
@@ -89,7 +90,7 @@ RBH.Views.Navigation = Backbone.NativeView.extend({
         'error':  {}
       })
     */
-    console.log('MAIN - will display model', model);
+    // console.log('MAIN - will display model', model);
     var that = this;
     model.fetch({
       success : function(mod, res) {
@@ -109,7 +110,7 @@ RBH.Views.Navigation = Backbone.NativeView.extend({
   },
 
   showEntry: function(model) {
-    console.log('dashboard entry selected', model);
+    // console.log('dashboard entry selected', model);
     if (model.get('docType') === 'sessions') {
       this.showSession(model);
     } else if (model.get('docType') === 'messages'){
@@ -125,7 +126,7 @@ RBH.Views.Navigation = Backbone.NativeView.extend({
   },
 
   _viewSection: function(section, button) {
-    console.log('viewSection', section);
+    // console.log('viewSection', section);
     if (section !== this.active_section) {
       this.active_section.setAttribute('disabled', 'true');
       section.setAttribute('disabled', 'false');

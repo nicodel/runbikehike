@@ -37,6 +37,7 @@
   "icon-path": "img/icon128.png",
   "dependencies": {
     "americano": "^0.4.5",
+    "backbone-pouch": "^1.5.0",
     "body-parser": "^1.15.2",
     "cozydb": "^0.1.13",
     "debug": "^2.3.3",

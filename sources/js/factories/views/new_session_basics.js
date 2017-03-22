@@ -150,14 +150,10 @@ RBH.Factory.Views.new_session = Backbone.NativeView.extend({
   renderCalories: function() {
     console.log('this.model.get("activity_name")', this.model.get('activity_name'));
     var calories = utils.Helpers.calculateCalories(
-        // Preferences.get('gender'),
-        'male', // TODO manage gender
-        // Preferences.get('weight'),
-        95, // TODO manage the user weight
-        // Preferences.get('height'),
-        194,  // TODO manage user height
-        // new Date().getFullYear() - Preferences.get('birthyear'),
-        43,   // TODO manage user birthyear
+        RBH.UserGender,
+        RBH.UserHeight,
+        RBH.UserWeight,
+        new Date().getFullYear() - RBH.UserBirthYear,
         this.model.get('distance'),
         this.model.get('time_interval').duration,
         this.model.get('activity_name')
@@ -168,7 +164,7 @@ RBH.Factory.Views.new_session = Backbone.NativeView.extend({
   },
 
   renderAvgSpeed: function () {
-    var speed = this.model.get('distance') /this.model.get('sduration');
+    var speed = this.model.get('distance') /this.model.get('time_interval').duration;
     document.getElementById('new-session-avg-speed').value = utils.Helpers.speedMsToChoice(
       RBH.UserUnit,
       speed
