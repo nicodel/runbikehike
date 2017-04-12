@@ -150,7 +150,6 @@ RBH.Factory.Views.new_session = Backbone.NativeView.extend({
 
   // TODO manage when user did not give one or all the needed information below
   renderCalories: function() {
-    console.log('this.model.get("activity_name")', this.model.get('activity_name'));
     var calories = utils.Helpers.calculateCalories(
         RBH.UserGender,
         RBH.UserHeight,

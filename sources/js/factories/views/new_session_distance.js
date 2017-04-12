@@ -70,8 +70,6 @@ RBH.Factory.Views.new_session_distance = Backbone.NativeView.extend({
 
   renderAvgSpeed: function () {
     var speed = this.model.get('avg_speed');
-    console.log('ready to render speed', speed);
-    console.log('ready to render speed', utils.Helpers.speedMsToChoice(RBH.UserUnit, speed));
     document.getElementById('new-session-avg-speed').value = utils.Helpers.speedMsToChoice(
       RBH.UserUnit,
       speed

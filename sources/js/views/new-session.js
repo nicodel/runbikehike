@@ -148,7 +148,6 @@ RBH.Views.NewSession = Backbone.NativeView.extend({
           distance
         )
       );
-      console.log('distance to store', distance);
       this.validated.distance = true;
       this.calculateAvgSpeed();
       this.calculateCalories();
@@ -161,7 +160,6 @@ RBH.Views.NewSession = Backbone.NativeView.extend({
       this.validated.duration = false;
       this.disableAdd();
     } else if (h >= 0 || h < 24 && m >= 0 || m < 60 && s >= 0 || s < 60) {
-      console.log('ready to render calories');
       // this.trigger('new-session-duration-changed', h, m, s);
       this.model.set(
         'time_interval',
@@ -169,8 +167,6 @@ RBH.Views.NewSession = Backbone.NativeView.extend({
       );
       this.validated.duration = true;
       this.enableAdd();
-      console.log('this.subviews.distance', this.subviews.distance);
-      console.log('this.validated.distance', this.validated.distance);
       if (this.subviews.distance) {
         if (this.validated.distance) {
           this.calculateCalories();
@@ -242,7 +238,6 @@ RBH.Views.NewSession = Backbone.NativeView.extend({
     // console.log('addNewSession - this.gps_track', this.gps_track);
 
     var s = this.collection.add(this.model);
-    console.log('new session to save', s);
     s.save();
     this.collection.trigger('add-new', s);
 
