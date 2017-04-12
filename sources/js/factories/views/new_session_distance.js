@@ -10,7 +10,7 @@ RBH.Factory.Views.new_session_distance = Backbone.NativeView.extend({
   template: microtemplate(document.getElementById('new-session-distance-template').innerHTML),
 
   events : {
-    'change #new-session-distance'  : '__validateDistance',
+    'change #new-session-distance'      : '__validateDistance'
   },
 
   validated: {
@@ -19,6 +19,8 @@ RBH.Factory.Views.new_session_distance = Backbone.NativeView.extend({
 
   initialize: function (params) {
     this.listenTo(this.model, 'data-imported', this.renderImportedData);
+    // TODO find a better way to know speed are ready to render
+    this.listenTo(this.model, 'new-session-render-speed', this.renderAvgSpeed);
   },
 
   render: function () {
@@ -65,28 +67,19 @@ RBH.Factory.Views.new_session_distance = Backbone.NativeView.extend({
     document.getElementById('new-session-distance').value = distance.value;
     document.getElementById('new-session-avg-speed').value = speed.value;
   },
+
+  renderAvgSpeed: function () {
+    var speed = this.model.get('avg_speed');
+    console.log('ready to render speed', speed);
+    console.log('ready to render speed', utils.Helpers.speedMsToChoice(RBH.UserUnit, speed));
+    document.getElementById('new-session-avg-speed').value = utils.Helpers.speedMsToChoice(
+      RBH.UserUnit,
+      speed
+    ).value;
+  },
+
   __validateDistance: function() {
     var d = parseFloat(document.getElementById('new-session-distance').value);
-    if (Number.isNaN(d)) {
-      this.validated.distance = false;
-      //console.log('sending disable-add', this.validated);
-      this.trigger('disable-add');
-    } else {
-      this.model.set(
-        'distance',
-        utils.Helpers.distanceChoiceToMeter(
-          RBH.UserUnit,
-          d
-        )
-      );
-      this.validated.distance = true;
-      this.trigger('enable-add');
-      //console.log('sending enable-add', this.validated);
-      if (this.validated.duration) {
-        this.renderCalories();
-        this.renderAvgSpeed();
-      }
-    }
+    this.trigger('new-session-distance-changed', d);
   }
-
 });

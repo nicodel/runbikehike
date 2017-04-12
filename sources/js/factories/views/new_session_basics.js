@@ -22,7 +22,7 @@ RBH.Factory.Views.new_session = Backbone.NativeView.extend({
     'change #new-session-duration-min'  : '__validateDuration',
     'change #new-session-duration-sec'  : '__validateDuration',
     // TODO understand why change event is not fired when new-session-distance  value is changed
-    'change #new-session-distance'      : '__distanceChanged'
+    // 'change #new-session-distance'      : '__distanceChanged'
   },
 
   validated: {
@@ -40,6 +40,8 @@ RBH.Factory.Views.new_session = Backbone.NativeView.extend({
     }
     // console.log('getting a listener on this.model', this.model);
     this.listenTo(this.model, 'data-imported', this.renderImportedData);
+    // TODO find a better way to know calories are ready to render
+    this.listenTo(this.model, 'new-session-render-calories', this.renderCalories);
   },
 
   render: function() {
@@ -163,65 +165,16 @@ RBH.Factory.Views.new_session = Backbone.NativeView.extend({
     console.log('calories', calories);
   },
 
-  renderAvgSpeed: function () {
-    var speed = this.model.get('distance') /this.model.get('time_interval').duration;
-    document.getElementById('new-session-avg-speed').value = utils.Helpers.speedMsToChoice(
-      RBH.UserUnit,
-      speed
-    ).value;
-    this.model.set('avg_speed', speed);
-  },
-
   __validateDuration: function() {
     var h = parseInt(document.getElementById('new-session-duration-hour').value, 10);
     var m = parseInt(document.getElementById('new-session-duration-min').value, 10);
     var s = parseInt(document.getElementById('new-session-duration-sec').value, 10);
-    // console.log('new duration', h, m, s);
-    if (Number.isNaN(h) || Number.isNaN(m) || Number.isNaN(s)) {
-      this.validated.duration = false;
-      this.trigger('disable-add');
-    } else if (h >= 0 || h < 24 && m >= 0 || m < 60 && s >= 0 || s < 60) {
-      // console.log('new duration', h * 3600 + m * 60 + s);
-      this.model.set(     // TODO Check the possibility to set a model attribute like this
-        'time_interval',
-        {'duration': h * 3600 + m * 60 + s}
-      );
-      this.validated.duration = true;
-      // console.log('sending enable-add', this.validated);
-      this.trigger('enable-add');
-      if (this.validated.distance) {
-        this.renderCalories();
-        this.renderAvgSpeed();
-      }
-    } else {
-      this.validated.duration = false;
-      // console.log('sending disable-add', this.validated);
-      this.trigger('disable-add');
-    }
+    this.trigger('new-session-duration-changed', h, m, s);
   },
 
   __validateDate: function() {
     var date = utils.Helpers.checkDate(document.getElementById('new-session-date').value);
     var time = utils.Helpers.checkTime(document.getElementById('new-session-time').value);
-    if (date[0] && time[0]) {
-      this.validated.date = true;
-      // console.log('sending enable-add', this.validated);
-      this.trigger('enable-add');
-      var d = date[1];
-      var t = time[1];
-      this.model.set('date', new Date(d[2], d[1] - 1, d[0], t[0], t[1],t[2]));
-
-    } else {
-      this.validated.date = false;
-      // console.log('sending disable-add', this.validated);
-      this.trigger('disable-add');
-    }
-    // console.log('validate date', this.validated.date);
-  },
-
-  __distanceChanged: function () {
-    console.log('distanceChanged');
-    this.renderAvgSpeed();
-    this.renderCalories();
+    this.trigger('new-session-date-changed', date, time);
   }
 });

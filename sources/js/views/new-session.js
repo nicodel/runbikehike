@@ -1,5 +1,5 @@
 /* jshint browser: true */
-/* globals Backbone, microtemplate */
+/* globals Backbone, microtemplate, utils */
 'use strict';
 var RBH = RBH || {};
 RBH.Views = RBH.Views || {};
@@ -11,6 +11,11 @@ RBH.Views.NewSession = Backbone.NativeView.extend({
   model: new RBH.Models.Session(),
   gps_track: '',
   activity_name: '',
+  validated: {
+    duration  : false,
+    date      : true
+  },
+  subviews : {},
 
   subview: '',
 
@@ -71,6 +76,7 @@ RBH.Views.NewSession = Backbone.NativeView.extend({
       if (views.import_form) {
         var import_form_subview = views.import_form_subview;
         this.el.appendChild(document.createElement('div').innerHTML = views.import_form.render().el);
+        this.subviews.import_form = true;
       }
 
       this.subview = views.basics;
@@ -78,10 +84,18 @@ RBH.Views.NewSession = Backbone.NativeView.extend({
 
       if (views.altitude) {
         this.el.appendChild(document.createElement('div').innerHTML = views.altitude.render().el);
+        this.subviews.altitude = true;
       }
       if (views.distance) {
+        this.validated.distance = false;
+        this.listenTo(views.distance, 'new-session-distance-changed', this.distanceChanged);
         this.el.appendChild(document.createElement('div').innerHTML = views.distance.render().el);
+        this.subviews.distance = true;
       }
+
+      // add listener to bascis subview for duration and date change
+      this.listenTo(this.subview, 'new-session-duration-changed', this.durationChanged);
+      this.listenTo(this.subview, 'new-session-date-changed', this.dateChanged);
 
       // add listener to subview to enable/disable the Add button
       this.listenTo(this.subview, 'enable-add', this.enableAdd);
@@ -106,7 +120,93 @@ RBH.Views.NewSession = Backbone.NativeView.extend({
     if (btn.getAttribute('disabled') === null) {
       btn.setAttribute('disabled', 'disabled');
     }
- },
+  },
+
+  dateChanged: function (date, time) {
+    if (date[0] && time[0]) {
+      this.validated.date = true;
+      this.trigger('enable-add');
+      var d = date[1];
+      var t = time[1];
+      this.model.set('date', new Date(d[2], d[1] - 1, d[0], t[0], t[1],t[2]));
+
+    } else {
+      this.validated.date = false;
+      this.trigger('disable-add');
+    }
+  },
+
+  distanceChanged: function (distance) {
+    if (Number.isNaN(distance)) {
+      this.validated.distance = false;
+      this.trigger('disable-add');
+    } else {
+      this.model.set(
+        'distance',
+        utils.Helpers.distanceChoiceToMeter(
+          RBH.UserUnit,
+          distance
+        )
+      );
+      console.log('distance to store', distance);
+      this.validated.distance = true;
+      this.calculateAvgSpeed();
+      this.calculateCalories();
+      this.trigger('enable-add');
+    }
+  },
+
+  durationChanged: function (h, m, s) {
+    if (Number.isNaN(h) || Number.isNaN(m) || Number.isNaN(s)) {
+      this.validated.duration = false;
+      this.disableAdd();
+    } else if (h >= 0 || h < 24 && m >= 0 || m < 60 && s >= 0 || s < 60) {
+      console.log('ready to render calories');
+      // this.trigger('new-session-duration-changed', h, m, s);
+      this.model.set(
+        'time_interval',
+        {'duration': h * 3600 + m * 60 + s}
+      );
+      this.validated.duration = true;
+      this.enableAdd();
+      console.log('this.subviews.distance', this.subviews.distance);
+      console.log('this.validated.distance', this.validated.distance);
+      if (this.subviews.distance) {
+        if (this.validated.distance) {
+          this.calculateCalories();
+          this.calculateAvgSpeed();
+        }
+      } else {
+        this.calculateCalories();
+      }
+    } else {
+      this.validated.duration = false;
+      this.disableAdd();
+    }
+  },
+
+  calculateCalories: function () {
+    var calories = utils.Helpers.calculateCalories(
+        RBH.UserGender,
+        RBH.UserHeight,
+        RBH.UserWeight,
+        new Date().getFullYear() - RBH.UserBirthYear,
+        this.model.get('distance'),
+        this.model.get('time_interval').duration,
+        this.model.get('activity_name')
+    );
+    document.getElementById('new-session-calories').value = calories;
+    this.model.set('calories', calories);
+    this.model.trigger('new-session-render-calories');
+  },
+
+  calculateAvgSpeed: function () {
+    if (this.model.get('time_interval')) {
+      var speed = this.model.get('distance') / this.model.get('time_interval').duration / 1000;
+      this.model.set('avg_speed', speed);
+      this.model.trigger('new-session-render-speed');
+    }
+  },
 
  registerGPSTrackImported: function (track) {
   //  console.log('GPS track to register', track);
