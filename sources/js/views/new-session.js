@@ -25,7 +25,7 @@ RBH.Views.NewSession = Backbone.NativeView.extend({
   },
 
   dom: {
-    activity    : document.getElementById('new-activity-details'),
+    activity    : document.getElementById('new-activity-details')
   },
 
   template : microtemplate(document.getElementById('new-session-activity').innerHTML),
@@ -81,6 +81,7 @@ RBH.Views.NewSession = Backbone.NativeView.extend({
 
       this.subview = views.basics;
       this.el.appendChild(document.createElement('div').innerHTML = this.subview.render().el);
+      var subviews_anchor = document.getElementById('new-session-subview-anchor');
 
       if (views.altitude) {
         this.el.appendChild(document.createElement('div').innerHTML = views.altitude.render().el);
@@ -89,7 +90,7 @@ RBH.Views.NewSession = Backbone.NativeView.extend({
       if (views.distance) {
         this.validated.distance = false;
         this.listenTo(views.distance, 'new-session-distance-changed', this.distanceChanged);
-        this.el.appendChild(document.createElement('div').innerHTML = views.distance.render().el);
+        subviews_anchor.appendChild(views.distance.render().el);
         this.subviews.distance = true;
       }
 
