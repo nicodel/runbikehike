@@ -198,7 +198,7 @@ RBH.Views.NewSession = Backbone.NativeView.extend({
 
   calculateAvgSpeed: function () {
     if (this.model.get('time_interval')) {
-      var speed = this.model.get('distance') / this.model.get('time_interval').duration / 1000;
+      var speed = this.model.get('distance') / this.model.get('time_interval').duration;
       this.model.set('avg_speed', speed);
       this.model.trigger('new-session-render-speed');
     }
