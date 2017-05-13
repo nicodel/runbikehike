@@ -17,6 +17,10 @@
 .new-body-view div {
   margin: 1rem;
 }
+.new-session-view div.margin-0,
+.new-session-view div.margin-0 div:first-child {
+  margin: 0;
+}
 .new-session-view form,
 .new-session-view div.form,
 .new-body-view form,
