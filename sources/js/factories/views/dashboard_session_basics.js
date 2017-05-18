@@ -21,7 +21,7 @@ RBH.Factory.Views.dashboard_session_basics = Backbone.NativeView.extend({
 
   render: function() {
     // console.log('DASHBOARD SESSION BASICS - this.model', this.model);
-    console.log('date', this.model);
+    // console.log('date', this.model);
     var duration = utils.Helpers.formatDuration(this.model.get('time_interval').duration);
     var activity = this.model.get('activity_name');
     this.el.innerHTML = this.template({
