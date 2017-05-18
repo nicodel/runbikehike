@@ -11,11 +11,10 @@ RBH.Views.Indicators = Backbone.NativeView.extend({
 
   initialize: function() {
     this.collection = RBH.Collections.Dashboard;
-
     this.listenTo(this.collection, 'add', this.render);
     this.listenTo(this.collection, 'sync', this.render);
 
-    this.listenTo(RBH.Collections.Preferences, 'change', this.render);
+    // this.listenTo(RBH.Collections.Preferences, 'change', this.render);
     this.render();
   },
 
@@ -29,16 +28,21 @@ RBH.Views.Indicators = Backbone.NativeView.extend({
     };
     // console.log('INDICATORS - this.collection', this.collection);
     if (this.collection.length !== 0) {
-      var sessions = this.collection.where({type: 'session'});
+      var sessions = this.collection.where({docType: 'sessions'});
+      // var sessions = this.collection;
       sessions.forEach(function(item) {
+        // console.log('INDICATORS - item', item);
         totals.sessions += 1;
         totals.calories += item.get('calories');
-        totals.distance += item.get('distance');
-        totals.duration += item.get('duration');
+        if (item.get('distance')) {
+          totals.distance += item.get('distance');
+        }
+        totals.duration += item.get('time_interval').duration;
       });
     }
+    // console.log('INDICATORS - totals', totals);
     var dist = utils.Helpers.distanceMeterToChoice(
-      RBH.Collections.Preferences.get('unit'),
+      RBH.UserUnit,
       totals.distance,
       false
     );
@@ -49,7 +53,6 @@ RBH.Views.Indicators = Backbone.NativeView.extend({
       'distance'  : dist.value + ' ' + dist.unit,
       'duration'  : duration.hour + ':' + duration.min + ':' + duration.sec
     });
-    // console.log('totals', totals);
     return this;
   },
 });

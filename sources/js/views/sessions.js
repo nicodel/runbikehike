@@ -92,9 +92,9 @@ RBH.Views.Sessions = Backbone.NativeView.extend({
 
   sessionSelected: function(session) {
     var session_cid = session.target.getAttribute('session_id');
-    console.log('click sessions', session_cid);
+    // console.log('click sessions', session_cid);
     this.viewsList.forEach(function(view) {
-      console.log('view', view.model.cid);
+      // console.log('view', view.model.cid);
       if (view.model.cid === session_cid) {
         this.collection.trigger('sessions-entry-selected', view.model);
       }

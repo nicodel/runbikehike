@@ -33,12 +33,13 @@ RBH.Router = Backbone.Router.extend({
     // var calories =  new RBH.Collections.Calories();
     // calories.fetch();
     // console.log('RBH', RBH);
+    RBH.Collections.Dashboard.fetch();
 
     // new RBH.Views.Sessions();
     //new RBH.Views.Reports();
     new RBH.Views.NewSession();
     new RBH.Views.Dashboard();
-    //new RBH.Views.Indicators();
+    new RBH.Views.Indicators();
     new RBH.Views.Navigation();
   }
 });
