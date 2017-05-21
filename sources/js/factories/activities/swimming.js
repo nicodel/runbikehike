@@ -1,11 +1,14 @@
 'use strict';
-var activities  = activities || {};
-activities.list = activities.list || [];
-var views       = views || {};
-activities.swimming = {
+var RBH                     = RBH || {};
+RBH.Factory                 = RBH.Factory || {};
+RBH.Factory.Activities      = RBH.Factory.Activities || {};
+RBH.Factory.Activities.list = RBH.Factory.Activities.list || [];
+var views                   = views || {};
+
+RBH.Factory.Activities.swimming = {
   new_view                : ['import_form', 'distance'],
   summary_view_dashboard  : views.dashboard_summary_1,
   summary_view_sessions   : views.sessions_summary_1,
   detailled_view          : views.detailled_1
 };
-activities.list.push('swimming');
+RBH.Factory.Activities.list.push('swimming');
