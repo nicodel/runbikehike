@@ -121,13 +121,8 @@ RBH.Views.Dashboard = Backbone.NativeView.extend({
     var View;
     // if (item.get('docType') === 'sessions') {
     if (item.get('docType') === 'sessions') {
-      var views = RBH.Factory.getDashboardSessionViews(item);
-      View = views.basics;
+    View = RBH.Factory.getDashboardSessionViews(item);
       this.el.appendChild(View.render().el);
-      if (views.distance) {
-        // console.log('render distance item', item);
-        document.getElementById('dashboard-session-distance').appendChild(views.distance.render().el);
-      }
     } else if(item.get('docType') === 'messages') {
       View = RBH.Factory.getDashboardMessageView(item);
       this.el.appendChild(View.render().el);

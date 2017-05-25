@@ -8,8 +8,7 @@ RBH.Factory.Views = RBH.Factory.Views || {};
 
 RBH.Factory.Views.dashboard_session_basics = Backbone.NativeView.extend({
   tagName: 'li',
-
-  template: microtemplate(document.getElementById('dashboard-session-template').innerHTML),
+  template: microtemplate(document.getElementById('dashboard-session-basics-template').innerHTML),
 
   initialize: function() {
     this.listenTo(this.model, 'change', this.render);
