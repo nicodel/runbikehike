@@ -43,16 +43,10 @@ RBH.Factory = (function() {
     // console.log('subviews', subviews);
 
     if (subviews.includes('distance')) {
-      DistanceSubview = new RBH.Factory.Views.dashboard_session_distance({
-        'model': model
-      });
+      return new RBH.Factory.Views.dashboard_session_distance({'model': model});
+    } else {
+      return new RBH.Factory.Views.dashboard_session_basics({'model': model});
     }
-    return {
-      'basics'    : new RBH.Factory.Views.dashboard_session_basics({
-                      'model': model
-                    }),
-      'distance'  : DistanceSubview
-    };
   };
 
   var getDashboardMessageView = function (model) {

@@ -361,7 +361,7 @@
   Dashboard - Session Basics template
 -->
 
-  <script type="text/template" id="dashboard-session-template">
+  <script type="text/template" id="dashboard-session-basics-template">
     <a href="#" class="session-summary-click" session_id="<%= session_cid %>">
       <div class="summary-container" session_id="<%= session_cid %>">
         <img src="<%= icon_path %>" alt="<%= activity %>" class="activity" session_id="<%= session_cid %>">
@@ -369,7 +369,6 @@
           <span class="fa fa-clock-o fa-2x" session_id="<%= session_cid %>"></span>
           <span class="text-big" session_id="<%= session_cid %>"><%= duration %></span>
         </div>
-        <span class="distance information" id="dashboard-session-distance"></div>
         <div class="time information text-small" session_id="<%= session_cid %>"><%= date %></div>
       </div>
     </a>
@@ -380,14 +379,24 @@
   -->
 
   <script type="text/>template" id="dashboard-session-distance-template">
-    <div class="distance information" session_id="<%= session_cid %>">
-      <span class="fa fa-road fa-2x" session_id="<%= session_cid %>"></span>
-      <span class="text-big" session_id="<%= session_cid %>"><%= distance %></span>
-    </div>
-    <div class="speed information" session_id="<%= session_cid %>">
-      <span class="fa fa-tachometer fa-2x" session_id="<%= session_cid %>"></span>
-      <span class="text-big" session_id="<%= session_cid %>"><%= avg_speed %></span>
-    </div>
+    <a href="#" class="session-summary-click" session_id="<%= session_cid %>">
+      <div class="summary-container" session_id="<%= session_cid %>">
+        <img src="<%= icon_path %>" alt="<%= activity %>" class="activity" session_id="<%= session_cid %>">
+        <div class="duration information" session_id="<%= session_cid %>">
+          <span class="fa fa-clock-o fa-2x" session_id="<%= session_cid %>"></span>
+          <span class="text-big" session_id="<%= session_cid %>"><%= duration %></span>
+        </div>
+        <div class="distance information" session_id="<%= session_cid %>">
+          <span class="fa fa-road fa-2x" session_id="<%= session_cid %>"></span>
+          <span class="text-big" session_id="<%= session_cid %>"><%= distance %></span>
+        </div>
+        <div class="speed information" session_id="<%= session_cid %>">
+          <span class="fa fa-tachometer fa-2x" session_id="<%= session_cid %>"></span>
+          <span class="text-big" session_id="<%= session_cid %>"><%= avg_speed %></span>
+        </div>
+        <div class="time information text-small" session_id="<%= session_cid %>"><%= date %></div>
+      </div>
+    </a>
   </script>
 
   <script type="text/template" id="dashboard-weight-template">
