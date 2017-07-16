@@ -1,5 +1,5 @@
 /* jshint browser: true */
-/* globals _, Backbone, microtemplate, Preferences, utils, Session,  GPSTrack */
+/* globals _, Backbone, microtemplate, utils, Session,  GPSTrack */
 'use strict';
 
 var RBH = RBH || {};
@@ -45,13 +45,13 @@ RBH.Factory.Views.new_session_import_form = Backbone.NativeView.extend({
 
           var track = result.res.track;
           var calories = utils.Helpers.calculateCalories(
-              Preferences.get('gender'),
-              Preferences.get('weight'),  // TODO retreive latest weight value from the Weight Collection
-              Preferences.get('height'),
-              new Date().getFullYear() - Preferences.get('birthyear'),
-              track.distance,
-              track.time_interval.duration,
-              that.model.get('activity_name')
+            RBH.UserGender,
+            RBH.UserWeight,
+            RBH.UserHeight,
+            new Date().getFullYear() - RBH.UserBirthYear,
+            track.distance,
+            track.time_interval.duration,
+            that.model.get('activity_name')
           );
           track.calories = calories;
           that.model.set(track);
