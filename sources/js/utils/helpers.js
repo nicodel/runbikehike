@@ -94,7 +94,8 @@ utils.Helpers = function() {
       if (day < 10) {
         day = '0' + day.toString();
       }
-      return day + '/' + month + '/' + year;
+      // return day + '/' + month + '/' + year;
+      return year + '-' + month + '-' + day;
     }
   }
 
