@@ -18,9 +18,11 @@ RBH.Factory.Views.new_session_import_form = Backbone.NativeView.extend({
 
   initialize: function (params) {
     this.model = params.model;
+    console.log('model in import form', this.model);
   },
 
   render: function () {
+    console.log('model in import form', this.model);
     this.el.innerHTML = this.template({
       'lb_import_file': _('import-gpx-file'),
       'lb_import'     : _('import'),
@@ -38,25 +40,20 @@ RBH.Factory.Views.new_session_import_form = Backbone.NativeView.extend({
           // TODO create a modal view for error or information display
           console.log('error while importing', result.res);
         } else {
-          console.log('result.res.gps_track', result.res.gps_track);
           that.gps_track.set(result.res.gps_track);
-          console.log('new_1 that.gps_track', that.gps_track);
-          that.model.trigger('gps-track-imported', that.gps_track);
-
-          var track = result.res.track;
+          var model_track = result.res.track;
           var calories = utils.Helpers.calculateCalories(
             RBH.UserGender,
             RBH.UserWeight,
             RBH.UserHeight,
             new Date().getFullYear() - RBH.UserBirthYear,
-            track.distance,
-            track.time_interval.duration,
+            model_track.distance,
+            model_track.time_interval.duration,
             that.model.get('activity_name')
           );
-          track.calories = calories;
-          that.model.set(track);
-          console.log('new session imported', that.model);
-          // that.trigger('session-defined', that.model);
+          model_track.calories = calories;
+          that.model.set(model_track);
+          that.model.trigger('gps-track-imported', that.gps_track);
           that.model.trigger('data-imported');
         }
       });

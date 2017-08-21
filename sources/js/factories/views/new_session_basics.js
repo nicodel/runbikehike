@@ -113,7 +113,7 @@ RBH.Factory.Views.new_session = Backbone.NativeView.extend({
       'durationM'     : duration.min,
       'durationS'     : duration.sec,
       'lb_calories'   : _('calories'),
-      'calories'      : calories,
+      'calories'      : calories
     });
     // console.log('new view rendered');
     //document.getElementById('new-session-import-form').appendChild(this.import_form_subview().el);
@@ -122,20 +122,16 @@ RBH.Factory.Views.new_session = Backbone.NativeView.extend({
 
   renderImportedData: function() {
     console.log('render Imported data', this.model);
-    //this.validated.distance = true;
+    this.validated.distance = true;
     this.validated.duration = true;
-    // var pref_unit = Preferences.get('unit');
-    // var pref_unit = 'metric'; // TODO manage Preferences
-    /*var distance = utils.Helpers.distanceMeterToChoice(
-      pref_unit,
-      this.model.get('distance'),
-      false
-    );*/
-    var duration = utils.Helpers.formatDuration(this.model.get('time_interval').duration);
     //var speed = utils.Helpers.speedMsToChoice(pref_unit, this.model.get('speed'));
-    document.getElementById('new-session-date').value = utils.Helpers.formatDate(this.model.get('date'));
-    document.getElementById('new-session-time').value = utils.Helpers.formatTime(this.model.get('date'));
+    var t = utils.Helpers.formatTime(this.model.get('date'));
+    var d = utils.Helpers.formatDate(this.model.get('date'));
+    document.getElementById('new-session-date').value = d;
+    document.getElementById('new-session-time').value = t;
 //    document.getElementById('new-session-distance').value = distance.value;
+    var duration = utils.Helpers.formatDuration(this.model.get('time_interval').duration);
+    console.log('duration', duration);
     document.getElementById('new-session-duration-hour').value = duration.hour;
     document.getElementById('new-session-duration-min').value = duration.min;
     document.getElementById('new-session-duration-sec').value = duration.sec;

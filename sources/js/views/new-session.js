@@ -37,8 +37,6 @@ RBH.Views.NewSession = Backbone.NativeView.extend({
     for (var i = 0; i < activities.length; i++) {
       this.renderIcon(activities[i]);
     }
-    this.listenTo(this.model, 'data-imported', this.renderImportedData);
-    this.listenTo(this.model, 'gps-track-imported', this.registerGPSTrackImported);
   },
 
   renderIcon: function (activity) {
@@ -102,7 +100,6 @@ RBH.Views.NewSession = Backbone.NativeView.extend({
       this.listenTo(this.subview, 'enable-add', this.enableAdd);
       this.listenTo(this.subview, 'disable-add', this.disableAdd);
       // add listener to the possible session and gps track import
-      this.listenTo(this.subview, 'gps-track-imported', this.registerGPSTrack);
       this.listenTo(this.subview, 'session-defined', this.registerSessionValues);
     }
   },

@@ -132,7 +132,7 @@ utils.Helpers = function() {
     var hh = Math.floor(sec / 3600);
     var mm = Math.floor((sec - hh * 3600) / 60);
     var ss = Math.floor(sec - (hh * 3600) - (mm * 60));
-    if (hh < 10) {
+    /*if (hh < 10) {
       hh = '0' + hh;
     }
     if (mm < 10) {
@@ -140,7 +140,7 @@ utils.Helpers = function() {
     }
     if (ss < 10) {
       ss = '0' + ss;
-    }
+    }*/
     return {
       hour  : hh,
       min   : mm,
@@ -399,7 +399,8 @@ utils.Helpers = function() {
   function checkTime(input) {
     var errorMsg = "";
     // regular expression to match required time format
-    var re = /^(\d{1,2}):(\d{2}):(\d{2})(:00)?([ap]m)?$/;
+    // var re = /^(\d{1,2}):(\d{2}):(\d{2})(:00)?([ap]m)?$/;
+    var re = /^(\d{1,2}):(\d{2})?([ap]m)?$/;
 
     if(input !== '') {
       var time = input.match(re);
