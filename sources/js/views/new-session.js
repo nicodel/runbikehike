@@ -106,38 +106,42 @@ RBH.Views.NewSession = Backbone.NativeView.extend({
 
   enableAdd: function() {
     var btn = document.getElementById('confirm-add-session-btn');
-    // console.log('enable-add', btn.getAttribute('disabled'));
-    if (btn.getAttribute('disabled') === 'disabled') {
-      btn.removeAttribute('disabled');
+    // console.log('enable-add', this.validated);
+    if (this.validated.date) {
+      if (this.validated.duration) {
+        if (btn.getAttribute('disabled') === 'disabled') {
+          btn.removeAttribute('disabled');
+        }
+      }
     }
   },
 
   disableAdd: function() {
     var btn = document.getElementById('confirm-add-session-btn');
-    // console.log('disable-add', btn.getAttribute('disabled'));
+    // console.log('disable-add', this.validated);
     if (btn.getAttribute('disabled') === null) {
       btn.setAttribute('disabled', 'disabled');
     }
   },
 
   dateChanged: function (date, time) {
+    // console.log('date changed', date, time);
     if (date[0] && time[0]) {
       this.validated.date = true;
-      this.trigger('enable-add');
+      this.enableAdd();
       var d = date[1];
       var t = time[1];
       this.model.set('date', new Date(d[2], d[1] - 1, d[0], t[0], t[1],t[2]));
-
     } else {
       this.validated.date = false;
-      this.trigger('disable-add');
+      this.disableAdd();
     }
   },
 
   distanceChanged: function (distance) {
     if (Number.isNaN(distance)) {
       this.validated.distance = false;
-      this.trigger('disable-add');
+      this.disableAdd();
     } else {
       this.model.set(
         'distance',
@@ -149,7 +153,7 @@ RBH.Views.NewSession = Backbone.NativeView.extend({
       this.validated.distance = true;
       this.calculateAvgSpeed();
       this.calculateCalories();
-      this.trigger('enable-add');
+      this.enableAdd();
     }
   },
 
