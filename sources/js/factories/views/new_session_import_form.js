@@ -1,5 +1,5 @@
 /* jshint browser: true */
-/* globals _, Backbone, microtemplate, Preferences, utils, Session,  GPSTrack */
+/* globals _, Backbone, microtemplate, utils, Session,  GPSTrack */
 'use strict';
 
 var RBH = RBH || {};
@@ -18,6 +18,7 @@ RBH.Factory.Views.new_session_import_form = Backbone.NativeView.extend({
 
   initialize: function (params) {
     this.model = params.model;
+    // console.log('model in import form', this.model);
   },
 
   render: function () {
@@ -38,25 +39,20 @@ RBH.Factory.Views.new_session_import_form = Backbone.NativeView.extend({
           // TODO create a modal view for error or information display
           console.log('error while importing', result.res);
         } else {
-          console.log('result.res.gps_track', result.res.gps_track);
           that.gps_track.set(result.res.gps_track);
-          console.log('new_1 that.gps_track', that.gps_track);
-          that.model.trigger('gps-track-imported', that.gps_track);
-
-          var track = result.res.track;
+          var model_track = result.res.track;
           var calories = utils.Helpers.calculateCalories(
-              Preferences.get('gender'),
-              Preferences.get('weight'),  // TODO retreive latest weight value from the Weight Collection
-              Preferences.get('height'),
-              new Date().getFullYear() - Preferences.get('birthyear'),
-              track.distance,
-              track.time_interval.duration,
-              that.model.get('activity_name')
+            RBH.UserGender,
+            RBH.UserWeight,
+            RBH.UserHeight,
+            new Date().getFullYear() - RBH.UserBirthYear,
+            model_track.distance,
+            model_track.time_interval.duration,
+            that.model.get('activity_name')
           );
-          track.calories = calories;
-          that.model.set(track);
-          console.log('new session imported', that.model);
-          // that.trigger('session-defined', that.model);
+          model_track.calories = calories;
+          that.model.set(model_track);
+          that.model.trigger('gps-track-imported', that.gps_track);
           that.model.trigger('data-imported');
         }
       });

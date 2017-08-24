@@ -94,7 +94,8 @@ utils.Helpers = function() {
       if (day < 10) {
         day = '0' + day.toString();
       }
-      return day + '/' + month + '/' + year;
+      // return day + '/' + month + '/' + year;
+      return year + '-' + month + '-' + day;
     }
   }
 
@@ -115,7 +116,8 @@ utils.Helpers = function() {
       if (seconds < 10) {
         seconds = '0' + seconds;
       }
-      return hours + ':' + minutes + ':' + seconds;
+      // return hours + ':' + minutes + ':' + seconds;
+      return hours + ':' + minutes;
     }
   }
 
@@ -130,7 +132,7 @@ utils.Helpers = function() {
     var hh = Math.floor(sec / 3600);
     var mm = Math.floor((sec - hh * 3600) / 60);
     var ss = Math.floor(sec - (hh * 3600) - (mm * 60));
-    if (hh < 10) {
+    /*if (hh < 10) {
       hh = '0' + hh;
     }
     if (mm < 10) {
@@ -138,7 +140,7 @@ utils.Helpers = function() {
     }
     if (ss < 10) {
       ss = '0' + ss;
-    }
+    }*/
     return {
       hour  : hh,
       min   : mm,
@@ -369,20 +371,21 @@ utils.Helpers = function() {
     var errorMsg = "";
 
     // regular expression to match required date format
-    var re = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/;
+    // var re = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/;
+    var re = /^(\d{4})-(\d{1,2})-(\d{1,2})$/;
 
     if(input !== '') {
       var date = input.match(re);
       // console.log('date', date);
       if(date) {
-        if(date[1] < 1 || date[1] > 31) {
-          errorMsg = "Invalid value for day: " + date[1];
+        if(date[3] < 1 || date[3] > 31) {
+          errorMsg = "Invalid value for day: " + date[3];
           return [false, errorMsg];
         } else if(date[2] < 1 || date[2] > 12) {
           errorMsg = "Invalid value for month: " + date[2];
           return [false, errorMsg];
-        } else if(date[3] < minYear || date[3] > maxYear) {
-          errorMsg = "Invalid value for year: " + date[3] + " - must be between " + minYear + " and " + maxYear;
+        } else if(date[1] < minYear || date[1] > maxYear) {
+          errorMsg = "Invalid value for year: " + date[1] + " - must be between " + minYear + " and " + maxYear;
           return [false, errorMsg];
         }
         // return new Date(date[3], date[2] - 1, date[1]);
@@ -390,14 +393,15 @@ utils.Helpers = function() {
         errorMsg = "Invalid date format: " + input;
         return [false, errorMsg];
       }
-      return [true, [date[1], date[2], date[3]]];
+      return [true, [date[3], date[2], date[1]]];
     }
   }
 
   function checkTime(input) {
     var errorMsg = "";
     // regular expression to match required time format
-    var re = /^(\d{1,2}):(\d{2}):(\d{2})(:00)?([ap]m)?$/;
+    // var re = /^(\d{1,2}):(\d{2}):(\d{2})(:00)?([ap]m)?$/;
+    var re = /^(\d{1,2}):(\d{2})?([ap]m)?$/;
 
     if(input !== '') {
       var time = input.match(re);
