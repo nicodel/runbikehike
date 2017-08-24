@@ -125,13 +125,12 @@ RBH.Views.NewSession = Backbone.NativeView.extend({
   },
 
   dateChanged: function (date, time) {
-    // console.log('date changed', date, time);
     if (date[0] && time[0]) {
       this.validated.date = true;
       this.enableAdd();
       var d = date[1];
       var t = time[1];
-      this.model.set('date', new Date(d[2], d[1] - 1, d[0], t[0], t[1],t[2]));
+      this.model.set('date', new Date(d[2], d[1] - 1, d[0], t[0], t[1],0));
     } else {
       this.validated.date = false;
       this.disableAdd();
@@ -232,10 +231,11 @@ RBH.Views.NewSession = Backbone.NativeView.extend({
       var criteria = this.subview.validated[i];
       if (!criteria) {
         // TODO Manage error messages and invalid values in new-session form
-        // console.log('something is not right and session could not be added', this.validated);
+        console.log('something is not right and session could not be added', criteria);
         return;
       }
     }
+
     // console.log('addNewSession - this.model', this.model);
     // console.log('addNewSession - this.gps_track', this.gps_track);
 

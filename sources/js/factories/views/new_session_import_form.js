@@ -18,11 +18,10 @@ RBH.Factory.Views.new_session_import_form = Backbone.NativeView.extend({
 
   initialize: function (params) {
     this.model = params.model;
-    console.log('model in import form', this.model);
+    // console.log('model in import form', this.model);
   },
 
   render: function () {
-    console.log('model in import form', this.model);
     this.el.innerHTML = this.template({
       'lb_import_file': _('import-gpx-file'),
       'lb_import'     : _('import'),

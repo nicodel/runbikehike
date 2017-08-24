@@ -121,7 +121,6 @@ RBH.Factory.Views.new_session = Backbone.NativeView.extend({
   },
 
   renderImportedData: function() {
-    // console.log('render Imported data', this.model);
     this.validated.distance = true;
     this.validated.duration = true;
     //var speed = utils.Helpers.speedMsToChoice(pref_unit, this.model.get('speed'));
