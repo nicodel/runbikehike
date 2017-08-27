@@ -52,6 +52,10 @@ RBH.Factory.Views.new_session_import_form = Backbone.NativeView.extend({
           );
           model_track.calories = calories;
           that.model.set(model_track);
+          that.model.set('gps_track', {
+            'available' : true,
+            'cid'       : that.gps_track.cid
+          });
           that.model.trigger('gps-track-imported', that.gps_track);
           that.model.trigger('data-imported');
         }
