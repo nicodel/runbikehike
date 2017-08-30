@@ -105,8 +105,14 @@
   <section id="session-view" disabled="true" class="session-view">
     <h1 data-l10n-id="session"></h1>
     <i class="fa fa-2x fa-trash" aria-hidden="true" id="session-1-delete"></i>
+    <div id="session-details-basics" class="session-totals-container"></div>
+    <div id="session-details-map"></div>
+    <div class="accordeon">
+      <section id="session-details-altitude"></section>
+      <section id="session-details-speed"></section>
+    </div>
 
-    <div class="session-totals-container">
+    <!-- <div class="session-totals-container">
       <div data-l10n-id="date" class="width-half text-1-4 align-left">Date
         <span id="details-session-date" class="align-right"></span>
       </div>
@@ -131,7 +137,7 @@
         <section id="details-session-altitude-grah"></section>
         <section id="details-session-speed-grah"></section>
       </div>
-    </div>
+    </div> -->
 
 
   </section>
@@ -413,8 +419,13 @@
     </div>
   </script>
 
+
+    <!--
+      Details - Session Basics template
+    -->
+
   <script type="text/template" id="details-session-basics-template">
-  <div class="session-totals-container">
+  <!-- <div class="session-totals-container"> -->
   <div data-l10n-id="date" class="width-half text-1-4 align-left">Date
     <span id="session-date" class="align-right"><%= date %></span>
   </div>
@@ -422,57 +433,31 @@
   <div data-l10n-id="start-time" class="width-half text-1-4 align-left">Start time
     <span id="session-date" class="align-right"><%= time %></span>
   </div>
-  <div data-l10n-id="distance" class="width-half text-1-4 align-left">Distance
-    <span id="session-date" class="align-right"><%= distance %></span>
-  </div>
 
   <div data-l10n-id="duration" class="width-half text-1-4 align-left">Duration
     <span id="session-date" class="align-right"><%= duration %></span>
-  </div>
-
-  <div data-l10n-id="altitude-max" class="width-half text-1-4 align-left">Altitude max.
-    <span id="session-date" class="align-right"><%= alt_max %></span>
-  </div>
-
-  <div data-l10n-id="altitude-min" class="width-half text-1-4 align-left">Altitude min.
-    <span id="session-date" class="align-right"><%= alt_min %></span>
-  </div>
-
-  <div data-l10n-id="average-speed" class="width-half text-1-4 align-left">Average speed
-    <span id="session-date" class="align-right"><%= avg_speed %></span>
   </div>
 
   <div data-l10n-id="calories" class="width-half text-1-4 align-left">Calories
     <span id="session-date" class="align-right"><%= calories %></span>
   </div>
 
-  </div>
+  <!-- </div> -->
+
+  <!--
   <div class="accordeon">
     <section id="details-session-map">
     </section>
 
     <section>
-      <h2>Altitude</h2>
-      <div id="alt_graph"></div>
-      <input type="checkbox" id="alt" />
-      <label data-l10n-id="altitude-detailled-values" for ="alt">Altitude detailled values
-        <span class="fa fa-chevron-right align-right"></span>
-        <span class="fa fa-chevron-down align-right"></span>
-      </label>
-      <table id="alt_table"></table>
+
     </section>
 
     <section>
-      <h2>Speed</h2>
-      <div id="speed_graph"></div>
-      <input type="checkbox" id="speed" />
-      <label data-l1On-id="speed-detailled-values" for="speed">Speed detailled values
-        <span class="fa fa-chevron-right align-right"></span>
-        <span class="fa fa-chevron-down align-right"></span>
-      </label>
-      <table id="speed_table"></table>
+
     </section>
   </div>
+-->
   </script>
 
   <!--
@@ -488,6 +473,22 @@
   </div>
   </script>
 
+
+  <!--
+    Details - Session Speed Graph template
+  -->
+
+  <script type="text/>template" id="details-session-speed-graph-template">
+    <h2>Speed</h2>
+    <div id="speed_graph"></div>
+    <input type="checkbox" id="speed" />
+    <label data-l1On-id="speed-detailled-values" for="speed">Speed detailled values
+      <span class="fa fa-chevron-right align-right"></span>
+      <span class="fa fa-chevron-down align-right"></span>
+    </label>
+    <table id="speed_table"></table>
+  </script>
+
   <!--
     Details - Session Altitude template
   -->
@@ -501,6 +502,27 @@
     <span class="align-right"><%= alt_min %></span>
   </div>
   </script>
+
+  <!--
+    Details - Session Altitude Graph template
+  -->
+  
+  <script type="text/>template" id="details-session-altitude-graph-template">
+    <h2>Altitude</h2>
+    <div id="alt_graph"></div>
+    <input type="checkbox" id="alt" />
+    <label data-l10n-id="altitude-detailled-values" for ="alt">Altitude detailled values
+      <span class="fa fa-chevron-right align-right"></span>
+      <span class="fa fa-chevron-down align-right"></span>
+    </label>
+    <table id="alt_table"></table>
+  </script>
+
+
+
+
+
+
 
   <!--
     Details - Session Map template
@@ -616,9 +638,10 @@
   <!-- <script type="text/javascript" src="js/factories/views/dashboard_message.js"></script> -->
   <script type="text/javascript" src="js/factories/views/dashboard_session_basics.js"></script>
   <script type="text/javascript" src="js/factories/views/dashboard_session_distance.js"></script>
-  <!-- <script type="text/javascript" src="js/factories/views/details-session-distance.js"></script>
+  <script type="text/javascript" src="js/factories/views/details-session-distance.js"></script>
   <script type="text/javascript" src="js/factories/views/details-session-altitude.js"></script>
-  <script type="text/javascript" src="js/factories/views/details-session-map.js"></script> -->
+  <script type="text/javascript" src="js/factories/views/details-session-map.js"></script>
+  <script type="text/javascript" src="js/factories/views/details_session_basics.js"></script>
   <script type="text/javascript" src="js/factories/views/new_session_import_form.js"></script>
   <script type="text/javascript" src="js/factories/views/new_session_altitude.js"></script>
   <script type="text/javascript" src="js/factories/views/new_session_distance.js"></script>
