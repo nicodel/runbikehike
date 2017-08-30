@@ -96,11 +96,14 @@ RBH.Views.Navigation = Backbone.NativeView.extend({
       success : function(mod, res) {
         var View;
         that._viewSection(that.dom.session_view, that.dom.session_btn);
-        var views = RBH.Factory.getDetailsSessionView(mod);
-        new RBH.Models.Session({
-          'model' : mod,
-          'views' : views
+        new RBH.Views.Session({
+          'model' : mod
         }).render();
+        // var views = RBH.Factory.getDetailsSessionView(mod);
+        // new RBH.Models.Session({
+        //   'model' : mod,
+        //   'views' : views
+        // }).render();
       },
       error   : function(model, response) {
         console.log('error', model, response);
