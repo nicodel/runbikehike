@@ -28,6 +28,7 @@ RBH.Router = Backbone.Router.extend({
     // var sessions = new RBH.Collections.Sessions();
     // sessions.fetch();
     RBH.Collections.Sessions.fetch();
+    RBH.Collections.GPSTracks.fetch();
     // var bodyweights = new RBH.Collections.BodyWeights();
     // bodyweights.fetch();
     // var calories =  new RBH.Collections.Calories();
