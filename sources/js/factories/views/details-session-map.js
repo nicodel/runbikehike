@@ -15,14 +15,13 @@ RBH.Factory.Views.details_session_map = Backbone.NativeView.extend({
 
   render: function() {
     console.log('render details_session_map', this.model.get('data'));
-    var user_unit = Preferences.get('unit');
     var data = this.model.get('data');
     if (data.length !== 0) {
       if (!!window.SharedWorker) {
         var that = this;
         var dataWorker = new SharedWorker('js/workers/data_compute.js');
         console.log('dataWorker', dataWorker);
-        dataWorker.port.postMessage([data, user_unit]);
+        dataWorker.port.postMessage([data, RBH.UserUnit]);
         dataWorker.port.onmessage = function(e) {
           console.log('data have been computed', e.data);
           that.renderGraphs(e.data[0], e.data[1]);
@@ -46,15 +45,14 @@ RBH.Factory.Views.details_session_map = Backbone.NativeView.extend({
 
   renderGraphs: function(complete_data, summary_data) {
     console.log('rendering map graphs');
-    var user_unit = Preferences.get('unit');
     var scale;
-    if (user_unit === 'metric') {
+    if (RBH.UserUnit === 'metric') {
       scale = 1000;
     } else {
       scale = 1609;
     }
     // TODO manage small distance unit for Imperial
-    var big_unit = utils.Helpers.distanceMeterToChoice(user_unit, 0, false).unit;
+    var big_unit = utils.Helpers.distanceMeterToChoice(RBH.UserUnit, 0, false).unit;
 
     var geo_table = dc.dataTable('#geo_table');
 
@@ -71,7 +69,7 @@ RBH.Factory.Views.details_session_map = Backbone.NativeView.extend({
       .columns([
         {
           label   :'Distance (' + big_unit +')',
-          format  : function(d) {return parseInt(utils.Helpers.distanceMeterToChoice(user_unit, d.distance, false).value, 0);}
+          format  : function(d) {return parseInt(utils.Helpers.distanceMeterToChoice(RBH.UserUnit, d.distance, false).value, 0);}
         },
         {
           label   : 'Duration',
