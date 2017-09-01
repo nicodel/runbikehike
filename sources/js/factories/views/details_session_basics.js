@@ -9,7 +9,7 @@ RBH.Factory = RBH.Factory || {};
 RBH.Factory.Views = RBH.Factory.Views || {};
 
 RBH.Factory.Views.details_session_basics = Backbone.NativeView.extend({
-  el: '#session-view',
+  el: '#session-details-basics',
 
   session_id: '',
 
@@ -20,7 +20,7 @@ RBH.Factory.Views.details_session_basics = Backbone.NativeView.extend({
   template: microtemplate(document.getElementById('details-session-basics-template').innerHTML),
 
   events: {
-    'click #session-1-delete' : 'showModal'
+    // 'click #session-1-delete' : 'showModal'
   },
 
   initialize: function() {
@@ -28,27 +28,27 @@ RBH.Factory.Views.details_session_basics = Backbone.NativeView.extend({
     this.render();
   },
 
-  showModal: function () {
-    console.log('showModal');
-    new ModalView({model: this.model});
-  },
-
-  deleteSession: function (el) {
-    var session = el.target.getAttribute('session_id');
-    this.model.destroy({
-      success: function (model, response) {
-        console.log('deleteSession - success', model, response);
-        Sessions.trigger('removed');
-      },
-      error: function (model, error) {
-        console.log('deleteSession - error', model, error);
-      }
-    });
-  },
+  // showModal: function () {
+  //   console.log('showModal');
+  //   new ModalView({model: this.model});
+  // },
+  //
+  // deleteSession: function (el) {
+  //   var session = el.target.getAttribute('session_id');
+  //   this.model.destroy({
+  //     success: function (model, response) {
+  //       console.log('deleteSession - success', model, response);
+  //       Sessions.trigger('removed');
+  //     },
+  //     error: function (model, error) {
+  //       console.log('deleteSession - error', model, error);
+  //     }
+  //   });
+  // },
 
   render: function() {
-    var user_unit = Preferences.get('unit');
-    var dist = utils.Helpers.distanceMeterToChoice(
+    var user_unit = RBH.UserUnit;
+    /*var dist = utils.Helpers.distanceMeterToChoice(
         user_unit,
         this.model.get('distance'),
         false);
@@ -62,7 +62,7 @@ RBH.Factory.Views.details_session_basics = Backbone.NativeView.extend({
     var alt_min = utils.Helpers.distanceMeterToChoice(
         user_unit,
         this.model.get('alt_min'),
-        false);
+        false);*/
     var duration = utils.Helpers.formatDuration(this.model.get('duration'));
 
     this.el.innerHTML = this.template({
@@ -70,15 +70,15 @@ RBH.Factory.Views.details_session_basics = Backbone.NativeView.extend({
       'date'        : utils.Helpers.formatDate(this.model.get('date')),
       'time'        : utils.Helpers.formatTime(this.model.get('date')),
       'calories'    : this.model.get('calories'),
-      'distance'    : dist.value + ' ' + dist.unit,
+      // 'distance'    : dist.value + ' ' + dist.unit,
       'duration'    : duration.hour + ':' + duration.min + ':' + duration.sec,
-      'avg_speed'   : speed.value + ' ' + speed.unit,
-      'alt_max'     : alt_max.value + ' ' + alt_max.unit,
-      'alt_min'     : alt_min.value + ' ' + alt_min.unit,
+      // 'avg_speed'   : speed.value + ' ' + speed.unit,
+      // 'alt_max'     : alt_max.value + ' ' + alt_max.unit,
+      // 'alt_min'     : alt_min.value + ' ' + alt_min.unit,
       'activity'    : this.model.get('activity')
     });
 
-    var data = this.model.get('data');
+    /*var data = this.model.get('data');
     if (data.length !== 0) {
       if (!!window.SharedWorker) {
         var that = this;
@@ -92,7 +92,7 @@ RBH.Factory.Views.details_session_basics = Backbone.NativeView.extend({
         };
         console.log('dataWorker.port', dataWorker.port);
       }
-    }
+    }*/
   },
 
   dataCompute: function (data, user_unit) {
@@ -164,7 +164,7 @@ RBH.Factory.Views.details_session_basics = Backbone.NativeView.extend({
 
   renderGraphs: function(complete_data, summary_data) {
     console.log('rendering graphs');
-    var user_unit = Preferences.get('unit');
+    var user_unit = RBH.UserUnit;
     var scale;
     if (user_unit === 'metric') {
       scale = 1000;
