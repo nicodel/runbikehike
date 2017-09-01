@@ -45,6 +45,7 @@ app.get('/data/body_weight/:id', BodyWeight.getOne);
 app.put('/data/body_weight/:id', BodyWeight.update);
 app.delete('/data/body_weight/:id', BodyWeight.remove);
 
+app.get('/data/gps_tracks', GpsTracks.getAll);
 app.post('/data/gps_tracks', GpsTracks.add);
 app.get('/data/gps_tracks/:id', GpsTracks.getOne);
 app.put('/data/gps_tracks/:id', GpsTracks.update);

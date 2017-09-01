@@ -210,21 +210,21 @@ RBH.Views.NewSession = Backbone.NativeView.extend({
  registerGPSTrackImported: function (track) {
    console.log('GPS track to register', track);
   this.gps_track = track;
-   this.model.set('gps_track', {
+  /*this.model.set('gps_track', {
      'available'  : true,
      'track_id'   : this.gps_track.get('cid')
-   });
+  });*/
    console.log('track has been added', this.gps_track);
  },
 
  registerSessionValues: function (model) {
   //  console.log('model to store as a session', model);
-   if (model.get('gps_track').available === true) {
+   /*if (model.get('gps_track').available === true) {
      model.set('gps_track', {
        'available'  : true,
        'track_id'   : this.gps_id
      });
-   }
+   }*/
    this.model = model;
   //  console.log('Session to register');
  },
