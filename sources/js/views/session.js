@@ -28,10 +28,13 @@ RBH.Views.Session = Backbone.NativeView.extend({
   render: function () {
     if (this.model.get('gps_track').available) {
       var that = this;
-      RBH.Collections.GPSTracks.fetch({
-        'id': that.model.get('gps_track').cid,
+      var id = this.model.get('gps_track').id;
+      console.log('need to fetch', id);
+      var model = RBH.Collections.GPSTracks.get(id);
+      console.log('gps_model will be ', RBH.Collections.GPSTracks);
+      model.fetch({
         'success': function (model, response) {
-          console.log('got gps track', model, response);
+          console.log('got gps  track', model, response);
           that.gps_model = response;
         },
         'error': function (model, response) {
