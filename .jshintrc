@@ -1,5 +1,0 @@
-{
-  "strict"  : "global",
-  "devel"   : true,
-  "mocha"   : true
-}
