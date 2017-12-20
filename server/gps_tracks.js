@@ -4,6 +4,22 @@
 var PouchDB     = require('pouchdb');
 var gpstracksDB  = new PouchDB('gps_tracks');
 
+module.exports.getAll = function(req, res) {
+  gpstracksDB.allDocs({
+    include_docs: false,
+  }, function(err, docs) {
+    if (err) {
+      res.status(err.status).send({error: err.message});
+    } else {
+      var ses = docs.rows.map(function (item) {
+        return item.doc;
+      });
+      res.status(200).send(ses);
+    }
+  });
+
+};
+
 module.exports.add = function(req, res) {
   gpstracksDB.post(req.body, function(err, doc) {
     if (err) {

@@ -7,7 +7,6 @@ var sessionsDB  = new PouchDB('sessions');
 module.exports.getAll = function(req, res) {
   sessionsDB.allDocs({
     include_docs: true,
-    // attachments: true
   }, function(err, docs) {
     if (err) {
       res.status(err.status).send({error: err.message});

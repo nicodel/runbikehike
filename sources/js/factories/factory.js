@@ -99,7 +99,7 @@ RBH.Factory = (function() {
     });
   };
 
-  var getDetailsSessionView = function (model) {
+  var getDetailsSessionView = function (model, gps_model) {
     var name = model.get('activity_name');
     var subviews = RBH.Factory.Activities[name].new_view;
     var AltitudeSubview = false;
@@ -116,12 +116,8 @@ RBH.Factory = (function() {
         'model': model
       });
     }
-    if (subviews.includes('import_form')) {
-      MapSubview = new RBH.Factory.Views.details_session_map({
-        'model' : model
-      });
-    }
     return {
+      'basics'    : new RBH.Factory.Views.details_session_basics({'model' : model}),
       'altitude'  : AltitudeSubview,
       'distance'  : DistanceSubview,
       'map'       : MapSubview

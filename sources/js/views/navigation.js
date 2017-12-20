@@ -35,7 +35,7 @@ RBH.Views.Navigation = Backbone.NativeView.extend({
     this.active_section = this.dom.dashboard_view;
     this.active_button = this.dom.dashboard_btn;
 
-    // this.listenTo(RBH.Views.Dashboard, 'dashboard-entry-selected', this.showEntry);
+    this.listenTo(RBH.Collections.Dashboard, 'dashboard-entry-selected', this.showEntry);
     // this.listenTo(RBH.Views.Dashboard, 'sessions-entry-selected', this.showSession);
     // this.listenTo(RBH.Views.Sessions, 'add-new', this.showSession);
     // this.listenTo(RBH.Views.Sessions, 'removed', this.showDashboard);
@@ -94,14 +94,16 @@ RBH.Views.Navigation = Backbone.NativeView.extend({
     var that = this;
     model.fetch({
       success : function(mod, res) {
-        // console.log('that.detailled_view', that.detailled_view);
         var View;
         that._viewSection(that.dom.session_view, that.dom.session_btn);
-        var views = RBH.Factory.getDetailsSessionView(mod);
-        new RBH.Models.Session({
-          'model' : mod,
-          'views' : views
+        new RBH.Views.Session({
+          'model' : mod
         }).render();
+        // var views = RBH.Factory.getDetailsSessionView(mod);
+        // new RBH.Models.Session({
+        //   'model' : mod,
+        //   'views' : views
+        // }).render();
       },
       error   : function(model, response) {
         console.log('error', model, response);

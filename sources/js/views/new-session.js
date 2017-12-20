@@ -72,7 +72,7 @@ RBH.Views.NewSession = Backbone.NativeView.extend({
       // console.log('views to be displayed is', views);
 
       if (views.import_form) {
-        var import_form_subview = views.import_form_subview;
+        // var import_form_subview = views.import_form_subview;
         this.el.appendChild(document.createElement('div').innerHTML = views.import_form.render().el);
         this.subviews.import_form = true;
       }
@@ -101,6 +101,8 @@ RBH.Views.NewSession = Backbone.NativeView.extend({
       this.listenTo(this.subview, 'disable-add', this.disableAdd);
       // add listener to the possible session and gps track import
       this.listenTo(this.subview, 'session-defined', this.registerSessionValues);
+      // add a listener to gps track import
+      this.listenTo(this.model, 'gps-track-imported', this.registerGPSTrackImported);
     }
   },
 
@@ -206,22 +208,23 @@ RBH.Views.NewSession = Backbone.NativeView.extend({
   },
 
  registerGPSTrackImported: function (track) {
-  //  console.log('GPS track to register', track);
-   this.model.set('gps_track', {
+   console.log('GPS track to register', track);
+  this.gps_track = track;
+  /*this.model.set('gps_track', {
      'available'  : true,
-     'track_id'   : track.get('cid')
-   });
-  //  console.log('track has been added', this.model.get('gps_track'));
+     'track_id'   : this.gps_track.get('cid')
+  });*/
+   console.log('track has been added', this.gps_track);
  },
 
  registerSessionValues: function (model) {
   //  console.log('model to store as a session', model);
-   if (model.get('gps_track').available === true) {
+   /*if (model.get('gps_track').available === true) {
      model.set('gps_track', {
        'available'  : true,
        'track_id'   : this.gps_id
      });
-   }
+   }*/
    this.model = model;
   //  console.log('Session to register');
  },
@@ -237,15 +240,14 @@ RBH.Views.NewSession = Backbone.NativeView.extend({
     }
 
     // console.log('addNewSession - this.model', this.model);
-    // console.log('addNewSession - this.gps_track', this.gps_track);
+    console.log('addNewSession - this.gps_track', this.gps_track);
 
     var s = this.collection.add(this.model);
     s.save();
     this.collection.trigger('add-new', s);
 
-
-    //var g = GPSTracks.add(this.gps_track);
-    //g.save();
+    var g = RBH.Collections.GPSTracks.add(this.gps_track);
+    g.save();
 
     // Cleaning Views
     this.subview.remove();
